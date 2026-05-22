@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeForge US | Aesthetic Desk Setups & Room Decor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Premium CSS Layout */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: #1f2833;
+            --accent-color: #00bcd4;
+            --text-main: #ffffff;
+            --text-desc: #94a3b8;
+            --hover-scale: 1.02;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 15px;
+        }
+        .container { width: 100%; max-width: 480px; text-align: center; }
+        .profile-header { margin-bottom: 35px; }
+        .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--accent-color); margin-bottom: 15px; object-fit: cover; box-shadow: 0 0 20px rgba(0, 188, 212, 0.4); }
+        .profile-name { font-family: 'Orbitron', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 1px; margin-bottom: 10px; background: linear-gradient(to right, #ffffff, var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .profile-bio { color: var(--text-desc); font-size: 14px; line-height: 1.6; padding: 0 15px; }
+        .section-title { font-family: 'Orbitron', sans-serif; font-size: 13px; text-transform: uppercase; letter-spacing: 2.5px; color: var(--accent-color); margin: 35px 0 15px 0; text-align: left; font-weight: 600; padding-left: 5px; border-left: 3px solid var(--accent-color); }
+        .links-wrapper { display: grid; gap: 16px; }
+        
+        .affiliate-card {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .affiliate-card:hover {
+            transform: translateY(-4px) scale(var(--hover-scale));
+            border-color: var(--accent-color);
+            box-shadow: 0 8px 25px rgba(0, 188, 212, 0.25);
+        }
+        .product-img { width: 60px; height: 60px; margin-right: 15px; border-radius: 10px; object-fit: cover; }
+        .link-info { text-align: left; flex-grow: 1; }
+        .link-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+        .link-desc { font-size: 12px; color: var(--text-desc); }
+        .arrow-icon { color: var(--text-desc); font-size: 18px; }
+
+        /* BLOG VIEW STYLING */
+        .blog-view {
+            display: none;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px 20px;
+            text-align: left;
+            border: 1px solid rgba(0, 188, 212, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+        }
+        .blog-img { width: 100%; height: 260px; border-radius: 12px; object-fit: cover; margin-bottom: 20px; }
+        .blog-title { font-family: 'Orbitron', sans-serif; font-size: 20px; margin-bottom: 12px; color: #fff; line-height: 1.4; }
+        .blog-text { color: var(--text-desc); font-size: 14px; line-height: 1.6; margin-bottom: 25px; }
+        
+        .amazon-btn {
+            display: block;
+            background: linear-gradient(90deg, #ff9900, #ffb74d);
+            color: #111;
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 153, 0, 0.3);
+        }
+        .amazon-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255, 153, 0, 0.5); }
+        .back-btn { display: inline-block; color: var(--accent-color); text-decoration: none; font-size: 14px; margin-bottom: 20px; cursor: pointer; }
+        
+        .bottom-divider {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+        footer { margin-top: 50px; font-size: 11px; color: var(--text-desc); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div id="blog-view" class="blog-view">
+            <div class="back-btn" onclick="window.location.search='' " >← Back to Main Shop</div>
+            <img id="blog-image" class="blog-img" src="stickers.jpg" alt="Product Image">
+            <h2 id="blog-heading" class="blog-title"></h2>
+            <p id="blog-content" class="blog-text"></p>
+            <a id="blog-amazon-link" href="" target="_blank" class="amazon-btn">Check Price on Amazon US ➔</a>
+        </div>
+
+        <div id="home-view">
+            <div class="profile-header" id="main-profile-header">
+                <img class="profile-img" src="logo.jpg" alt="VibeForge US Logo">
+                <h1 class="profile-name">VibeForge US</h1>
+                <p class="profile-bio">Forging the ultimate visual vibes. Curating premium Aesthetic Desk Setups, Diecast Cars & Room Decor. Upgrade your space! 🛠️🏎️</p>
+            </div>
+
+            <div id="shop-grid">
+                
+                <div class="section-title">🕹️ Aesthetic Desk Upgrades</div>
+                <div class="links-wrapper">
+                    <a href="?page=desk&id=keyboard" class="affiliate-card">
+                        <img class="product-img" src="keyboard.jpg" alt="Keyboard">
+                        <div class="link-info"><div class="link-title">Minimalist Keyboards</div><div class="link-desc">Super clean RGB layouts for setups.</div></div>
+                        <div class="arrow-icon">➔</div>
+                    </a>
+                    <a href="?page=desk&id=accessories" class="affiliate-card">
+                        <img class="product-img" src="accessories.jpg" alt="Desk Accessories">
+                        <div class="link-info"><div class="link-title">Desk Accessories & RGB</div><div class="link-desc">Aesthetic mini plants, dynamic ambient light strips.</div></div>
+                        <div class="arrow-icon">➔</div>
+                    </a>
+                    <a href="?page=desk&id=deskmat" class="affiliate-card">
+                        <img class="product-img" src="deskmat.jpg" alt="Desk Mat">
+                        <div class="link-info"><div class="link-title">Premium Desk Mats</div><div class="link-desc">Smooth minimalist felt & RGB mouse pads.</div></div>
+                        <div class="arrow-icon">➔</div>
+                    </a>
+                    <a href="?page=desk&id=mouse" class="affiliate-card">
+                        <img class="product-img" src="mouse.jpg" alt="Gaming Mouse">
+                        <div class="link-info"><div class="link-title">Gaming & Ergo Mice</div><div class="link-desc">High-precision wireless & aesthetic custom mice.</div></div>
+                        <div class="arrow-icon">➔</div>
+                    </a>
+                </div>
+
+                <div class="section-title">🎨 Trendy Room Decor</div>
+                <div class="links-wrapper">
+                    <a href="?page=decor&id=posters" class="affiliate-card">
+                        <img class="product-img" src="posters.jpg" alt="Anime Posters">
+                        <div class="link-info"><div class="link-title">Aesthetic Wall Posters</div><div class="link-desc">High-quality wall art packs for your room backdrop.</div></div>
+                        <div class="arrow-icon">➔</div>
+                    </a>
+                    <a href="?page=decor&id=stickers" class="affiliate-card">
+                        <img class="product-img" src="stickers.jpg" alt="Vinyl Stickers">
+                        <div class="link-info"><div class="link-title">Trending Vinyl Stickers</div><div class="link-desc">Waterproof stickers for laptops & custom cases.</div></div>
+                        <div class="arrow-icon">➔</div>
+                    </a>
+                </div>
+
+                <div class="section-title">⚔️ Premium Collectibles</div>
+                <div class="links-wrapper">
+                    <a href="?page=collect&id=cars" class="affiliate-card">
+                        <img class="product-img" src="cars.jpg" alt="Diecast Cars">
+                        <div class="link-info"><div class="link-title">Diecast Car Models</div><div class="link-desc">Highly detailed scale models (JDM & Muscle).</div></div>
+                        <div class="arrow-icon">➔</div>
+                    </a>
+                    <a href="?page=collect&id=figures" class="affiliate-card">
+                        <img class="product-img" src="figures.jpg" alt="Anime Figures">
+                        <div class="link-info"><div class="link-title">Premium Anime Figures</div><div class="link-desc">High-quality figures & mecha to level up shelves.</div></div>
+                        <div class="arrow-icon">➔</div>
+                    </a>
+                    <a href="?page=collect&id=manga" class="affiliate-card">
+                        <img class="product-img" src="manga.jpg" alt="Manga Box Sets">
+                        <div class="link-info"><div class="link-title">Top Manga Box Sets</div><div class="link-desc">Start building your ultimate dream manga shelves.</div></div>
+                        <div class="arrow-icon">➔</div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 VibeForge US | As an Amazon Associate I earn from qualifying purchases.</p>
+        </footer>
+    </div>
+
+    <script>
+        const blogData = {
+            desk: {
+                keyboard: {
+                    title: "Premium Minimalist Mechanical Keyboards for Desk Setups",
+                    img: "keyboard.jpg",
+                    text: "A minimalist mechanical keyboard is an absolute game-changer. These layouts offer hot-swappable switches, smooth premium keycaps, custom RGB profiling, and a sleek style that saves massive desk space.",
+                    amazon: "YOUR_KEYBOARD_AMAZON_LINK"
+                },
+                accessories: {
+                    title: "Aesthetic Desk Accessories: Mini Plants & Dynamic RGB Lights",
+                    img: "accessories.jpg",
+                    text: "Breathe life and ambient gaming vibes into your desk setup. This section covers artificial minimalist mini succulent plants that bring a touch of nature, along with ultra-responsive smart RGB light strips to outline your monitors and table edge.",
+                    amazon: "YOUR_ACCESSORIES_AMAZON_LINK"
+                },
+                deskmat: {
+                    title: "Premium Minimalist Felt & RGB Desk Mats",
+                    img: "deskmat.jpg",
+                    text: "Tie your whole layout together with a premium oversized desk mat. Offers perfect tracking for your mouse and cushions your keyboard for a quiet, premium acoustic experience.",
+                    amazon: "YOUR_DESKMAT_AMAZON_LINK"
+                },
+                mouse: {
+                    title: "Pro Gaming Mice & Ergonomic High-End Pointers",
+                    img: "mouse.jpg",
+                    text: "Level up your target accuracy and productivity workflow. These modern lightweight mice offer lag-free wireless tracking, custom aesthetic macro shells, and premium switches engineered for both fast-paced gaming and long coding sessions.",
+                    amazon: "YOUR_MOUSE_AMAZON_LINK"
+                }
+            },
+            decor: {
+                posters: {
+                    title: "Aesthetic Wall Collage Poster Kits for Room Setup",
+                    img: "posters.jpg",
+                    text: "Design your backdrop wall with high-definition graphic prints. These custom curated anime and dark-themed poster bundles look phenomenal behind multi-monitor layouts.",
+                    amazon: "YOUR_POSTERS_AMAZON_LINK"
+                },
+                stickers: {
+                    title: "Premium Waterproof Vinyl Stickers Pack",
+                    img: "stickers.jpg", 
+                    text: "High-grade waterproof vinyl stickers tailored for customizing laptop shells, custom PC cases, mechanical keyboards, or skateboards. Features bright colors and clean cuts that leave no sticky residue behind.",
+                    amazon: "YOUR_STICKERS_AMAZON_LINK"
+                }
+            },
+            collect: {
+                cars: {
+                    title: "Collector Edition Diecast Car Scale Models",
+                    img: "cars.jpg",
+                    text: "Extremely sharp diecast miniature cars featuring opening hoods, steering wheels, and highly accurate interiors. Perfect accessories for car enthusiasts to display inside desk setups.",
+                    amazon: "YOUR_CARS_AMAZON_LINK"
+                },
+                figures: {
+                    title: "High-Tier Anime & Scale Mecha Figures",
+                    img: "figures.jpg",
+                    text: "Bring your favorite legendary characters straight into your gaming space. Crafted with rich PVC textures and spectacular dynamic action poses that stand out instantly.",
+                    amazon: "YOUR_FIGURES_AMAZON_LINK"
+                },
+                manga: {
+                    title: "Complete Manga Box Sets & Collectors Volumes",
+                    img: "manga.jpg",
+                    text: "Build your dream background shelf setup with authentic manga paperback box sets. Includes rare premium graphics, custom cases, and exclusive bonus content booklets.",
+                    amazon: "YOUR_MANGA_AMAZON_LINK"
+                }
+            }
+        };
+
+        function route() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const page = urlParams.get('page');
+            const id = urlParams.get('id');
+            const customImg = urlParams.get('img');
+            
+            const homeView = document.getElementById('home-view');
+            const blogView = document.getElementById('blog-view');
+            const shopGrid = document.getElementById('shop-grid');
+            const mainProfileHeader = document.getElementById('main-profile-header');
+
+            if (page && id && blogData[page] && blogData[page][id]) {
+                blogView.style.display = 'block';
+                homeView.style.display = 'block'; 
+                mainProfileHeader.style.display = 'none'; 
+                shopGrid.classList.add('bottom-divider'); 
+                
+                const currentProduct = blogData[page][id];
+                
+                if (customImg) {
+                    document.getElementById('blog-image').src = decodeURIComponent(customImg);
+                } else {
+                    document.getElementById('blog-image').src = currentProduct.img;
+                }
+                
+                document.getElementById('blog-heading').innerText = currentProduct.title;
+                document.getElementById('blog-content').innerText = currentProduct.text;
+                document.getElementById('blog-amazon-link').href = currentProduct.amazon;
+                
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                blogView.style.display = 'none';
+                homeView.style.display = 'block';
+                mainProfileHeader.style.display = 'block';
+                shopGrid.classList.remove('bottom-divider');
+            }
+        }
+
+        window.addEventListener('popstate', route);
+        route();
+    </script>
+</body>
+</html>
