@@ -61,7 +61,7 @@
         .link-desc { font-size: 12px; color: var(--text-desc); }
         .arrow-icon { color: var(--text-desc); font-size: 18px; }
 
-        /* BLOG VIEW STYLING */
+        /* MULTI-PRODUCT GRID STYLING */
         .blog-view {
             display: none;
             background-color: var(--card-bg);
@@ -72,31 +72,32 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             margin-bottom: 30px;
         }
-        .blog-img { width: 100%; height: 260px; border-radius: 12px; object-fit: cover; margin-bottom: 20px; }
-        .blog-title { font-family: 'Orbitron', sans-serif; font-size: 20px; margin-bottom: 12px; color: #fff; line-height: 1.4; }
-        .blog-text { color: var(--text-desc); font-size: 14px; line-height: 1.6; margin-bottom: 25px; }
+        .back-btn { display: inline-block; color: var(--accent-color); text-decoration: none; font-size: 14px; margin-bottom: 20px; cursor: pointer; font-weight: 600; }
+        .category-title { font-family: 'Orbitron', sans-serif; font-size: 22px; margin-bottom: 20px; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        
+        /* Inside Items Grid */
+        .items-grid { display: grid; gap: 25px; margin-top: 15px; }
+        .item-card { background: rgba(0, 0, 0, 0.2); border-radius: 12px; padding: 15px; border: 1px solid rgba(255,255,255,0.05); }
+        .blog-img { width: 100%; height: 240px; border-radius: 10px; object-fit: cover; margin-bottom: 15px; }
+        .blog-title { font-size: 18px; margin-bottom: 8px; color: #fff; font-weight: 600; }
+        .blog-text { color: var(--text-desc); font-size: 13px; line-height: 1.5; margin-bottom: 15px; }
         
         .amazon-btn {
             display: block;
             background: linear-gradient(90deg, #ff9900, #ffb74d);
             color: #111;
             text-align: center;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 12px;
+            border-radius: 8px;
             font-weight: 700;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 14px;
             transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(255, 153, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(255, 153, 0, 0.2);
         }
-        .amazon-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255, 153, 0, 0.5); }
-        .back-btn { display: inline-block; color: var(--accent-color); text-decoration: none; font-size: 14px; margin-bottom: 20px; cursor: pointer; }
+        .amazon-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(255, 153, 0, 0.4); }
         
-        .bottom-divider {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px dashed rgba(255, 255, 255, 0.1);
-        }
+        .bottom-divider { margin-top: 40px; padding-top: 20px; border-top: 1px dashed rgba(255, 255, 255, 0.1); }
         footer { margin-top: 50px; font-size: 11px; color: var(--text-desc); }
     </style>
 </head>
@@ -106,10 +107,9 @@
         
         <div id="blog-view" class="blog-view">
             <div class="back-btn" onclick="window.location.search='' " >← Back to Main Shop</div>
-            <img id="blog-image" class="blog-img" src="stickers.jpg.avif" alt="Product Image">
-            <h2 id="blog-heading" class="blog-title"></h2>
-            <p id="blog-content" class="blog-text"></p>
-            <a id="blog-amazon-link" href="" target="_blank" class="amazon-btn">Check Price on Amazon US ➔</a>
+            <h2 id="category-heading" class="category-title"></h2>
+            
+            <div id="items-container" class="items-grid"></div>
         </div>
 
         <div id="home-view">
@@ -187,66 +187,38 @@
     </div>
 
     <script>
+        // Array Structure inside categories allows multiple cards!
         const blogData = {
             desk: {
-                keyboard: {
-                    title: "Premium Minimalist Mechanical Keyboards for Desk Setups",
-                    img: "keyboard.jpg.png",
-                    text: "A minimalist mechanical keyboard is an absolute game-changer. These layouts offer hot-swappable switches, smooth premium keycaps, custom RGB profiling, and a sleek style that saves massive desk space.",
-                    amazon: "YOUR_KEYBOARD_AMAZON_LINK"
-                },
-                accessories: {
-                    title: "Aesthetic Desk Accessories: Mini Plants & Dynamic RGB Lights",
-                    img: "accessories.jpg.jpg",
-                    text: "Breathe life and ambient gaming vibes into your desk setup. This section covers artificial minimalist mini succulent plants that bring a touch of nature, along with ultra-responsive smart RGB light strips to outline your monitors and table edge.",
-                    amazon: "YOUR_ACCESSORIES_AMAZON_LINK"
-                },
-                deskmat: {
-                    title: "Premium Minimalist Felt & RGB Desk Mats",
-                    img: "deskmat.jpg.jpg",
-                    text: "Tie your whole layout together with a premium oversized desk mat. Offers perfect tracking for your mouse and cushions your keyboard for a quiet, premium acoustic experience.",
-                    amazon: "YOUR_DESKMAT_AMAZON_LINK"
-                },
-                mouse: {
-                    title: "Pro Gaming Mice & Ergonomic High-End Pointers",
-                    img: "mouse.jpg.webp",
-                    text: "Level up your target accuracy and productivity workflow. These modern lightweight mice offer lag-free wireless tracking, custom aesthetic macro shells, and premium switches engineered for both fast-paced gaming and long coding sessions.",
-                    amazon: "YOUR_MOUSE_AMAZON_LINK"
-                }
+                keyboard: [{ title: "Premium Minimalist Mechanical Keyboards", img: "keyboard.jpg.png", text: "A minimalist mechanical keyboard is an absolute game-changer for clean setups.", amazon: "YOUR_KEYBOARD_AMAZON_LINK" }],
+                accessories: [{ title: "Aesthetic Desk Accessories", img: "accessories.jpg.jpg", text: "Breathe life and ambient gaming vibes into your desk setup.", amazon: "YOUR_ACCESSORIES_AMAZON_LINK" }],
+                deskmat: [{ title: "Premium Minimalist Felt Desk Mats", img: "deskmat.jpg.jpg", text: "Tie your whole layout together with a premium oversized desk mat.", amazon: "YOUR_DESKMAT_AMAZON_LINK" }],
+                mouse: [{ title: "Pro Gaming Mice & Ergonomic Pointers", img: "mouse.jpg.webp", text: "Level up your target accuracy and productivity workflow.", amazon: "YOUR_MOUSE_AMAZON_LINK" }]
             },
             decor: {
-                posters: {
-                    title: "Aesthetic Wall Collage Poster Kits for Room Setup",
-                    img: "poster.jpg.jpg",
-                    text: "Design your backdrop wall with high-definition graphic prints. These custom curated anime and dark-themed poster bundles look phenomenal behind multi-monitor layouts.",
-                    amazon: "YOUR_POSTERS_AMAZON_LINK"
-                },
-                stickers: {
-                    title: "Premium Waterproof Vinyl Stickers Pack",
-                    img: "stickers.jpg.avif", 
-                    text: "High-grade waterproof vinyl stickers tailored for customizing laptop shells, custom PC cases, mechanical keyboards, or skateboards. Features bright colors and clean cuts that leave no sticky residue behind.",
-                    amazon: "YOUR_STICKERS_AMAZON_LINK"
-                }
+                posters: [{ title: "Aesthetic Wall Collage Poster Kits", img: "poster.jpg.jpg", text: "Design your backdrop wall with high-definition graphic prints.", amazon: "YOUR_POSTERS_AMAZON_LINK" }],
+                stickers: [{ title: "Premium Waterproof Vinyl Stickers Pack", img: "stickers.jpg.avif", text: "High-grade waterproof vinyl stickers tailored for customizing gear.", amazon: "YOUR_STICKERS_AMAZON_LINK" }]
             },
             collect: {
-                cars: {
-                    title: "Collector Edition Diecast Car Scale Models",
-                    img: "cars.jpg.jpeg",
-                    text: "Extremely sharp diecast miniature cars featuring opening hoods, steering wheels, and highly accurate interiors. Perfect accessories for car enthusiasts to display inside desk setups.",
-                    amazon: "YOUR_CARS_AMAZON_LINK"
-                },
-                figures: {
-                    title: "High-Tier Anime & Scale Mecha Figures",
-                    img: "figures.jpg.png",
-                    text: "Bring your favorite legendary characters straight into your gaming space. Crafted with rich PVC textures and spectacular dynamic action poses that stand out instantly.",
-                    amazon: "https://amzn.to/49jHfB7"
-                },
-                manga: {
-                    title: "Complete Manga Box Sets & Collectors Volumes",
-                    img: "manga.jpg.jpg",
-                    text: "Build your dream background shelf setup with authentic manga paperback box sets. Includes rare premium graphics, custom cases, and exclusive bonus content booklets.",
-                    amazon: "YOUR_MANGA_AMAZON_LINK"
-                }
+                cars: [{ title: "Collector Edition Diecast Car Scale Models", img: "cars.jpg.jpeg", text: "Extremely sharp diecast miniature cars featuring opening hoods.", amazon: "YOUR_CARS_AMAZON_LINK" }],
+                manga: [{ title: "Complete Manga Box Sets Collection", img: "manga.jpg.jpg", text: "Build your dream background shelf setup with authentic manga box sets.", amazon: "YOUR_MANGA_AMAZON_LINK" }],
+                
+                // 🎪 UNLIMITED ANIME FIGURES SECTION CHALU!
+                figures: [
+                    {
+                        title: "Naruto Shippuden Uzumaki Naruto Action Figure",
+                        img: "naruto.jpg", // Tumhari Naruto image ka naam
+                        text: "Bring the Will of Fire straight to your gaming desk! This premium Naruto figure features hyper-realistic textures and the legendary Rasengan pose.",
+                        amazon: "https://amzn.to/49jHfB7" // Naruto Link
+                    },
+                    {
+                        title: "Dragon Ball Z S.H. Figuarts Son Goku Figure",
+                        img: "figures.jpg.png", // Goku Image
+                        text: "Super Saiyan power for your room shelves! Features multiple points of articulation and premium detailed battle-shredded uniform aesthetics.",
+                        amazon: "YOUR_GOKU_AMAZON_LINK" // Goku Link
+                    }
+                    // Yahan comma (,) laga kar tum Luffy, Zoro sabka data line se jod sakte ho!
+                ]
             }
         };
 
@@ -254,12 +226,12 @@
             const urlParams = new URLSearchParams(window.location.search);
             const page = urlParams.get('page');
             const id = urlParams.get('id');
-            const customImg = urlParams.get('img');
             
             const homeView = document.getElementById('home-view');
             const blogView = document.getElementById('blog-view');
             const shopGrid = document.getElementById('shop-grid');
             const mainProfileHeader = document.getElementById('main-profile-header');
+            const itemsContainer = document.getElementById('items-container');
 
             if (page && id && blogData[page] && blogData[page][id]) {
                 blogView.style.display = 'block';
@@ -267,17 +239,24 @@
                 mainProfileHeader.style.display = 'none'; 
                 shopGrid.classList.add('bottom-divider'); 
                 
-                const currentProduct = blogData[page][id];
+                // Clear old loops
+                itemsContainer.innerHTML = "";
                 
-                if (customImg) {
-                    document.getElementById('blog-image').src = decodeURIComponent(customImg);
-                } else {
-                    document.getElementById('blog-image').src = currentProduct.img;
-                }
+                // Category Title Format
+                document.getElementById('category-heading').innerText = id.toUpperCase() + " COLLECTION";
                 
-                document.getElementById('blog-heading').innerText = currentProduct.title;
-                document.getElementById('blog-content').innerText = currentProduct.text;
-                document.getElementById('blog-amazon-link').href = currentProduct.amazon;
+                // Loop through all figures array and build clean cards
+                blogData[page][id].forEach(product => {
+                    const cardHtml = `
+                        <div class="item-card">
+                            <img class="blog-img" src="${product.img}" alt="${product.title}">
+                            <h3 class="blog-title">${product.title}</h3>
+                            <p class="blog-text">${product.text}</p>
+                            <a href="${product.amazon}" target="_blank" class="amazon-btn">Check Price on Amazon US ➔</a>
+                        </div>
+                    `;
+                    itemsContainer.innerHTML += cardHtml;
+                });
                 
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
