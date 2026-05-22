@@ -75,10 +75,16 @@
         .back-btn { display: inline-block; color: var(--accent-color); text-decoration: none; font-size: 14px; margin-bottom: 20px; cursor: pointer; font-weight: 600; }
         .category-title { font-family: 'Orbitron', sans-serif; font-size: 22px; margin-bottom: 20px; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
         
-        /* Inside Items Grid */
         .items-grid { display: grid; gap: 25px; margin-top: 15px; }
         .item-card { background: rgba(0, 0, 0, 0.2); border-radius: 12px; padding: 15px; border: 1px solid rgba(255,255,255,0.05); }
-        .blog-img { width: 100%; height: 240px; border-radius: 10px; object-fit: cover; margin-bottom: 15px; }
+        
+        /* 📸 AMAZON GALLERY STYLE CSS */
+        .gallery-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+        .blog-img { width: 100%; height: 260px; border-radius: 10px; object-fit: cover; transition: all 0.2s ease; }
+        .thumbnail-wrapper { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; justify-content: center; }
+        .thumb-img { width: 50px; height: 50px; border-radius: 6px; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+        .thumb-img:hover, .thumb-img.active { border-color: var(--accent-color); transform: scale(1.05); }
+        
         .blog-title { font-size: 18px; margin-bottom: 8px; color: #fff; font-weight: 600; }
         .blog-text { color: var(--text-desc); font-size: 13px; line-height: 1.5; margin-bottom: 15px; }
         
@@ -108,7 +114,6 @@
         <div id="blog-view" class="blog-view">
             <div class="back-btn" onclick="window.location.search='' " >← Back to Main Shop</div>
             <h2 id="category-heading" class="category-title"></h2>
-            
             <div id="items-container" class="items-grid"></div>
         </div>
 
@@ -187,37 +192,36 @@
     </div>
 
     <script>
-        // Array Structure inside categories allows multiple cards!
         const blogData = {
             desk: {
-                keyboard: [{ title: "Premium Minimalist Mechanical Keyboards", img: "keyboard.jpg.png", text: "A minimalist mechanical keyboard is an absolute game-changer for clean setups.", amazon: "YOUR_KEYBOARD_AMAZON_LINK" }],
-                accessories: [{ title: "Aesthetic Desk Accessories", img: "accessories.jpg.jpg", text: "Breathe life and ambient gaming vibes into your desk setup.", amazon: "YOUR_ACCESSORIES_AMAZON_LINK" }],
-                deskmat: [{ title: "Premium Minimalist Felt Desk Mats", img: "deskmat.jpg.jpg", text: "Tie your whole layout together with a premium oversized desk mat.", amazon: "YOUR_DESKMAT_AMAZON_LINK" }],
-                mouse: [{ title: "Pro Gaming Mice & Ergonomic Pointers", img: "mouse.jpg.webp", text: "Level up your target accuracy and productivity workflow.", amazon: "YOUR_MOUSE_AMAZON_LINK" }]
+                keyboard: [{ title: "Premium Minimalist Mechanical Keyboards", images: ["keyboard.jpg.png"], text: "A minimalist mechanical keyboard is an absolute game-changer for clean setups.", amazon: "YOUR_KEYBOARD_AMAZON_LINK" }],
+                accessories: [{ title: "Aesthetic Desk Accessories", images: ["accessories.jpg.jpg"], text: "Breathe life and ambient gaming vibes into your desk setup.", amazon: "YOUR_ACCESSORIES_AMAZON_LINK" }],
+                deskmat: [{ title: "Premium Minimalist Felt Desk Mats", images: ["deskmat.jpg.jpg"], text: "Tie your whole layout together with a premium oversized desk mat.", amazon: "YOUR_DESKMAT_AMAZON_LINK" }],
+                mouse: [{ title: "Pro Gaming Mice & Ergonomic Pointers", images: ["mouse.jpg.webp"], text: "Level up your target accuracy and productivity workflow.", amazon: "YOUR_MOUSE_AMAZON_LINK" }]
             },
             decor: {
-                posters: [{ title: "Aesthetic Wall Collage Poster Kits", img: "poster.jpg.jpg", text: "Design your backdrop wall with high-definition graphic prints.", amazon: "YOUR_POSTERS_AMAZON_LINK" }],
-                stickers: [{ title: "Premium Waterproof Vinyl Stickers Pack", img: "stickers.jpg.avif", text: "High-grade waterproof vinyl stickers tailored for customizing gear.", amazon: "YOUR_STICKERS_AMAZON_LINK" }]
+                posters: [{ title: "Aesthetic Wall Collage Poster Kits", images: ["poster.jpg.jpg"], text: "Design your backdrop wall with high-definition graphic prints.", amazon: "YOUR_POSTERS_AMAZON_LINK" }],
+                stickers: [{ title: "Premium Waterproof Vinyl Stickers Pack", images: ["stickers.jpg.avif"], text: "High-grade waterproof vinyl stickers tailored for customizing gear.", amazon: "YOUR_STICKERS_AMAZON_LINK" }]
             },
             collect: {
-                cars: [{ title: "Collector Edition Diecast Car Scale Models", img: "cars.jpg.jpeg", text: "Extremely sharp diecast miniature cars featuring opening hoods.", amazon: "YOUR_CARS_AMAZON_LINK" }],
-                manga: [{ title: "Complete Manga Box Sets Collection", img: "manga.jpg.jpg", text: "Build your dream background shelf setup with authentic manga box sets.", amazon: "YOUR_MANGA_AMAZON_LINK" }],
+                cars: [{ title: "Collector Edition Diecast Car Scale Models", images: ["cars.jpg.jpeg"], text: "Extremely sharp diecast miniature cars featuring opening hoods.", amazon: "YOUR_CARS_AMAZON_LINK" }],
+                manga: [{ title: "Complete Manga Box Sets Collection", images: ["manga.jpg.jpg"], text: "Build your dream background shelf setup with authentic manga box sets.", amazon: "YOUR_MANGA_AMAZON_LINK" }],
                 
-                // 🎪 UNLIMITED ANIME FIGURES SECTION CHALU!
+                // 🎪 MULTI-IMAGE GALLERY STRATEGY FOR ANIME FIGURES
                 figures: [
                     {
                         title: "Naruto Shippuden Uzumaki Naruto Action Figure",
-                        img: "naruto.jpg", // Tumhari Naruto image ka naam
-                        text: "Bring the Will of Fire straight to your gaming desk! This premium Naruto figure features hyper-realistic textures and the legendary Rasengan pose.",
-                        amazon: "https://amzn.to/49jHfB7" // Naruto Link
+                        // 🌟 Array me tum Naruto ki 5 alag alag images daal sakte ho!
+                        images: ["naruto1.jpg", "naruto2.jpg", "naruto3.jpg", "naruto4.jpg", "naruto5.jpg"], 
+                        text: "Bring the Will of Fire straight to your gaming desk! This premium Naruto figure features hyper-realistic textures, customizable power effects, and multiple legendary posing stances.",
+                        amazon: "https://amzn.to/49jHfB7"
                     },
                     {
                         title: "Dragon Ball Z S.H. Figuarts Son Goku Figure",
-                        img: "figures.jpg.png", // Goku Image
+                        images: ["figures.jpg.png"],
                         text: "Super Saiyan power for your room shelves! Features multiple points of articulation and premium detailed battle-shredded uniform aesthetics.",
-                        amazon: "YOUR_GOKU_AMAZON_LINK" // Goku Link
+                        amazon: "YOUR_GOKU_AMAZON_LINK"
                     }
-                    // Yahan comma (,) laga kar tum Luffy, Zoro sabka data line se jod sakte ho!
                 ]
             }
         };
@@ -239,17 +243,26 @@
                 mainProfileHeader.style.display = 'none'; 
                 shopGrid.classList.add('bottom-divider'); 
                 
-                // Clear old loops
                 itemsContainer.innerHTML = "";
-                
-                // Category Title Format
                 document.getElementById('category-heading').innerText = id.toUpperCase() + " COLLECTION";
                 
-                // Loop through all figures array and build clean cards
-                blogData[page][id].forEach(product => {
+                blogData[page][id].forEach((product, pIndex) => {
+                    // Check if multiple images exist
+                    const defaultImg = product.images[0];
+                    let thumbsHtml = "";
+                    
+                    if(product.images.length > 1) {
+                        product.images.forEach((imgSrc, iIndex) => {
+                            thumbsHtml += `<img class="thumb-img ${iIndex === 0 ? 'active' : ''}" src="${imgSrc}" onclick="switchGalleryImage(${pIndex}, '${imgSrc}', this)" alt="thumbnail">`;
+                        });
+                    }
+
                     const cardHtml = `
                         <div class="item-card">
-                            <img class="blog-img" src="${product.img}" alt="${product.title}">
+                            <div class="gallery-container">
+                                <img id="main-img-${pIndex}" class="blog-img" src="${defaultImg}" alt="${product.title}">
+                                <div class="thumbnail-wrapper">${thumbsHtml}</div>
+                            </div>
                             <h3 class="blog-title">${product.title}</h3>
                             <p class="blog-text">${product.text}</p>
                             <a href="${product.amazon}" target="_blank" class="amazon-btn">Check Price on Amazon US ➔</a>
@@ -265,6 +278,16 @@
                 mainProfileHeader.style.display = 'block';
                 shopGrid.classList.remove('bottom-divider');
             }
+        }
+
+        // Global function to switch images on click
+        window.switchGalleryImage = function(cardIndex, targetSrc, thumbElement) {
+            document.getElementById(`main-img-${cardIndex}`).src = targetSrc;
+            
+            // Active border toggle
+            const pCard = thumbElement.parentElement;
+            pCard.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
+            thumbElement.classList.add('active');
         }
 
         window.addEventListener('popstate', route);
