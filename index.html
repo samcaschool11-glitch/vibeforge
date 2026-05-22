@@ -78,11 +78,26 @@
         .items-grid { display: grid; gap: 25px; margin-top: 15px; }
         .item-card { background: rgba(0, 0, 0, 0.2); border-radius: 12px; padding: 15px; border: 1px solid rgba(255,255,255,0.05); }
         
-        /* 📸 AMAZON GALLERY STYLE CSS */
-        .gallery-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
-        .blog-img { width: 100%; height: 260px; border-radius: 10px; object-fit: cover; transition: all 0.2s ease; }
+        /* 📸 UPDATED IMAGE GALLERY CSS WITH FIXES */
+        .gallery-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; position: relative; }
+        
+        /* FIX: Object-fit changed to contain so images won't crop! Added cursor pointer and hover effect */
+        .blog-img { 
+            width: 100%; 
+            height: 280px; 
+            border-radius: 10px; 
+            object-fit: contain; 
+            background: #11141a; 
+            cursor: pointer; 
+            transition: opacity 0.2s ease;
+        }
+        .blog-img:hover { opacity: 0.9; }
+        
+        /* Hint text to guide users */
+        .zoom-hint { font-size: 11px; color: var(--accent-color); text-align: center; margin-top: -5px; margin-bottom: 5px; opacity: 0.7; }
+
         .thumbnail-wrapper { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; justify-content: center; }
-        .thumb-img { width: 50px; height: 50px; border-radius: 6px; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+        .thumb-img { width: 52px; height: 52px; border-radius: 6px; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
         .thumb-img:hover, .thumb-img.active { border-color: var(--accent-color); transform: scale(1.05); }
         
         .blog-title { font-size: 18px; margin-bottom: 8px; color: #fff; font-weight: 600; }
@@ -102,6 +117,35 @@
             box-shadow: 0 4px 12px rgba(255, 153, 0, 0.2);
         }
         .amazon-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(255, 153, 0, 0.4); }
+
+        /* 🔍 NEW FULL SCREEN MODAL LIGHTBOX SYSTEM */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(11, 12, 16, 0.95);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 80%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0, 188, 212, 0.3);
+        }
+        .close-modal {
+            position: absolute;
+            top: 20px; right: 25px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .close-modal:hover { color: var(--accent-color); }
         
         .bottom-divider { margin-top: 40px; padding-top: 20px; border-top: 1px dashed rgba(255, 255, 255, 0.1); }
         footer { margin-top: 50px; font-size: 11px; color: var(--text-desc); }
@@ -191,7 +235,13 @@
         </footer>
     </div>
 
+    <div id="fullScreenModal" class="image-modal" onclick="closeFullPhoto()">
+        <span class="close-modal" onclick="closeFullPhoto()">&times;</span>
+        <img class="modal-content" id="modalTargetImg" src="">
+    </div>
+
     <script>
+        // FULL ORIGINAL DATABASE RETAINED SAFE!
         const blogData = {
             desk: {
                 keyboard: [{ title: "Premium Minimalist Mechanical Keyboards", images: ["keyboard.jpg.png"], text: "A minimalist mechanical keyboard is an absolute game-changer for clean setups.", amazon: "YOUR_KEYBOARD_AMAZON_LINK" }],
@@ -207,11 +257,10 @@
                 cars: [{ title: "Collector Edition Diecast Car Scale Models", images: ["cars.jpg.jpeg"], text: "Extremely sharp diecast miniature cars featuring opening hoods.", amazon: "YOUR_CARS_AMAZON_LINK" }],
                 manga: [{ title: "Complete Manga Box Sets Collection", images: ["manga.jpg.jpg"], text: "Build your dream background shelf setup with authentic manga box sets.", amazon: "YOUR_MANGA_AMAZON_LINK" }],
                 
-                // 🎪 MULTI-IMAGE GALLERY STRATEGY FOR ANIME FIGURES
+                // 🎪 MULTI-IMAGE NARUTO + GOKU ACTIVE
                 figures: [
                     {
                         title: "Naruto Shippuden Uzumaki Naruto Action Figure",
-                        // 🌟 Array me tum Naruto ki 5 alag alag images daal sakte ho!
                         images: ["naruto1.jpg", "naruto2.jpg", "naruto3.jpg", "naruto4.jpg", "naruto5.jpg"], 
                         text: "Bring the Will of Fire straight to your gaming desk! This premium Naruto figure features hyper-realistic textures, customizable power effects, and multiple legendary posing stances.",
                         amazon: "https://amzn.to/49jHfB7"
@@ -247,7 +296,6 @@
                 document.getElementById('category-heading').innerText = id.toUpperCase() + " COLLECTION";
                 
                 blogData[page][id].forEach((product, pIndex) => {
-                    // Check if multiple images exist
                     const defaultImg = product.images[0];
                     let thumbsHtml = "";
                     
@@ -260,7 +308,8 @@
                     const cardHtml = `
                         <div class="item-card">
                             <div class="gallery-container">
-                                <img id="main-img-${pIndex}" class="blog-img" src="${defaultImg}" alt="${product.title}">
+                                <img id="main-img-${pIndex}" class="blog-img" src="${defaultImg}" onclick="openFullPhoto('${defaultImg}')" alt="${product.title}">
+                                <div class="zoom-hint">🔍 Click image to view full screen</div>
                                 <div class="thumbnail-wrapper">${thumbsHtml}</div>
                             </div>
                             <h3 class="blog-title">${product.title}</h3>
@@ -280,14 +329,27 @@
             }
         }
 
-        // Global function to switch images on click
         window.switchGalleryImage = function(cardIndex, targetSrc, thumbElement) {
-            document.getElementById(`main-img-${cardIndex}`).src = targetSrc;
+            const mainImg = document.getElementById(`main-img-${cardIndex}`);
+            mainImg.src = targetSrc;
+            // Update onclick source for modal to match the active thumbnail
+            mainImg.setAttribute('onclick', `openFullPhoto('${targetSrc}')`);
             
-            // Active border toggle
             const pCard = thumbElement.parentElement;
             pCard.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
             thumbElement.classList.add('active');
+        }
+
+        // 🔍 NEW LIGHTBOX TRIGGERS
+        window.openFullPhoto = function(imgSrc) {
+            const modal = document.getElementById('fullScreenModal');
+            const modalImg = document.getElementById('modalTargetImg');
+            modal.style.display = "flex";
+            modalImg.src = imgSrc;
+        }
+
+        window.closeFullPhoto = function() {
+            document.getElementById('fullScreenModal').style.display = "none";
         }
 
         window.addEventListener('popstate', route);
