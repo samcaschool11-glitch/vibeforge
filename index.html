@@ -506,22 +506,23 @@
                         amazon: "YOUR_CARS_AMAZON_LINK" 
                     }
                 ],       
-            manga: [
-    {
-        pId: "berserk_set",
-        title: "Berserk Volume 1-5 Collection 5 Books Set (Series 1) by Kentaro Miura",
-        images: ["b1.jpg", "b2.jpg", "b3.jpg", "b4.jpg", "b5.jpg", "b6.jpg", "b7.jpg"],
-        text: "Immerse yourself in the absolute pinnacle of dark fantasy manga! This premium collector's bundle contains the first 5 volumes of Kentaro Miura's legendary masterpiece, Berserk. Follow the gritty, jaw-dropping journey of Guts, the Black Swordsman, rendered in beautifully intense, ultra-detailed pen-and-ink illustrations that make it a centerpiece artwork for any Otaku manga shelf setup.",
-        amazon: "https://amzn.to/4fG5KMM" 
-    },
-    { 
-        pId: "manga_box", 
-        title: "Complete Manga Box Sets Collection", 
-        images: ["manga.jpg.jpg"], 
-        text: "Build your dream background shelf setup with authentic manga box sets.", 
-        amazon: "YOUR_MANGA_AMAZON_LINK" 
-    }
-],
+                manga: [
+                    {
+                        pId: "berserk_set",
+                        title: "Berserk Volume 1-5 Collection 5 Books Set (Series 1) by Kentaro Miura",
+                        images: ["b1.jpg", "b2.jpg", "b3.jpg", "b4.jpg", "b5.jpg", "b6.jpg", "b7.jpg"],
+                        text: "Immerse yourself in the absolute pinnacle of dark fantasy manga! This premium collector's bundle contains the first 5 volumes of Kentaro Miura's legendary masterpiece, Berserk. Follow the gritty, jaw-dropping journey of Guts, the Black Swordsman, rendered in beautifully intense, ultra-detailed pen-and-ink illustrations that make it a centerpiece artwork for any Otaku manga shelf setup.",
+                        amazon: "https://amzn.to/4fG5KMM" 
+                    },
+                    { 
+                        pId: "manga_box", 
+                        title: "Complete Manga Box Sets Collection", 
+                        images: ["manga.jpg.jpg"], 
+                        text: "Build your dream background shelf setup with authentic manga box sets.", 
+                        amazon: "YOUR_MANGA_AMAZON_LINK" 
+                    }
+                ],
+                figures: [
                     {
                         pId: "naruto_fig",
                         title: "Naruto Shippuden Uzumaki Naruto Action Figure",
@@ -546,7 +547,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const page = urlParams.get('page');
             const id = urlParams.get('id');
-            const targetProduct = urlParams.get('product'); // Target unique parameter filter
+            const targetProduct = urlParams.get('product'); 
             
             const homeView = document.getElementById('home-view');
             const blogView = document.getElementById('blog-view');
@@ -565,13 +566,12 @@
                 
                 activeIndices = {}; 
 
-                // Dynamic Smart Sorting logic injection
                 let productsList = [...blogData[page][id]];
                 if (targetProduct) {
                     const foundIndex = productsList.findIndex(p => p.pId === targetProduct);
                     if (foundIndex > -1) {
                         const targetObj = productsList.splice(foundIndex, 1)[0];
-                        productsList.unshift(targetObj); // Pin to absolute top
+                        productsList.unshift(targetObj); 
                     }
                 }
 
@@ -621,7 +621,6 @@
             }
         }
 
-        // SWIPE DETECTION LOGIC ENGINE
         let swipeStartX = 0;
         let swipeCurrentX = 0;
         let isSwiping = false;
@@ -648,7 +647,6 @@
             const page = urlParams.get('page');
             const id = urlParams.get('id');
             
-            // Re-fetch sorted array slice context to match runtime engine track index
             let productsList = [...blogData[page][id]];
             const targetProduct = urlParams.get('product');
             if (targetProduct) {
