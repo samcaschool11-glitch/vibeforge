@@ -32,7 +32,7 @@
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            padding: 20px;
+            padding: 100px 20px 30px 20px; /* Top padding expanded to accommodate permanent fixed bar */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -45,51 +45,73 @@
             transition: max-width 0.3s ease;
         }
 
-        /* 🔍 GLOBAL PERMANENT SEARCH BAR STYLING */
+        /* 🔍 ULTRA-PREMIUM FIXED TOP SEARCH MODULE WITH ACCENT SEARCH ICON */
         .search-box-wrapper {
-            position: sticky;
-            top: 10px;
-            width: 100%;
+            position: absolute; /* Fixed strictly to absolute layout top boundary */
+            top: 25px;
+            width: calc(100% - 40px);
             max-width: 550px;
-            margin: 0 auto 30px auto;
-            z-index: 10002; /* Keeps it above everything, even modal */
+            margin: 0 auto;
+            z-index: 10005; 
+        }
+
+        .search-input-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            color: var(--accent-color);
+            font-size: 16px;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0.9;
         }
 
         .search-bar {
             width: 100%;
-            padding: 14px 20px;
-            background: rgba(17, 22, 29, 0.9);
-            border: 2px solid rgba(255, 255, 255, 0.05);
+            padding: 14px 20px 14px 46px; /* Added left padding so text never overlaps icon */
+            background: rgba(17, 22, 29, 0.95);
+            border: 2px solid rgba(0, 188, 212, 0.15);
             border-radius: 14px;
             color: #fff;
             font-family: 'Inter', sans-serif;
             font-size: 15px;
             font-weight: 500;
             outline: none;
-            transition: all 0.3s;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+        }
+
+        .search-bar::placeholder {
+            color: var(--text-desc);
+            opacity: 0.7;
         }
 
         .search-bar:focus {
             border-color: var(--accent-color);
-            box-shadow: 0 0 20px rgba(0, 188, 212, 0.3);
+            box-shadow: 0 0 25px rgba(0, 188, 212, 0.4);
             background: #11161d;
         }
 
         .search-suggestions {
             display: none;
             position: absolute;
-            top: 110%;
+            top: 115%;
             left: 0;
             width: 100%;
             background: #11161d;
-            border: 1px solid rgba(0, 188, 212, 0.25);
+            border: 1px solid rgba(0, 188, 212, 0.3);
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.85);
             overflow: hidden;
-            z-index: 10003;
+            z-index: 10006;
         }
 
         .suggestion-item {
@@ -100,7 +122,7 @@
             color: var(--text-main);
             text-decoration: none;
             font-size: 13.5px;
-            border-bottom: 1px solid rgba(255,255,255,0.02);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
             transition: background 0.2s;
         }
 
@@ -279,6 +301,7 @@
             grid-template-columns: 1fr;
         }
 
+        /* 🖼️ ADVANCED GALLERY BLOCK-CONTAINER SPECIFICATION */
         .gallery-container { 
             display: flex; 
             flex-direction: column; 
@@ -319,15 +342,23 @@
             font-weight: 500;
         }
 
+        /* 📱 BULLETPROOF HORIZONTAL SCROLL THUMBNAILS CONTAINER (FIXES 7 PHOTO STRETCH CRASH) */
         .thumbnail-wrapper { 
             display: flex; 
-            gap: 8px; 
+            gap: 10px; 
             overflow-x: auto; 
-            padding: 6px 2px; 
-            justify-content: flex-start;
+            overflow-y: hidden;
+            padding: 6px 4px; 
+            justify-content: flex-start; /* Changes from center to start layout structure so elements stack right */
             width: 100%;
             max-width: 100%;
-            scrollbar-width: thin;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch; /* Smooth mobile swipe inertial physics */
+            scrollbar-width: none; /* Hide default scrollbar node block */
+        }
+        
+        .thumbnail-wrapper::-webkit-scrollbar {
+            display: none; /* Safari and Chrome scrollbars hidden layout system code */
         }
         
         .thumb-img { 
@@ -337,9 +368,9 @@
             object-fit: cover; 
             cursor: pointer; 
             border: 2px solid transparent; 
-            transition: all 0.2s; 
+            transition: all 0.2s ease; 
             background: #090c10;
-            flex-shrink: 0;
+            flex-shrink: 0; /* Hard locks pixel boundaries so images never stretch or compress inside cell */
         }
         .thumb-img:hover, .thumb-img.active { 
             border-color: var(--accent-color); 
@@ -517,7 +548,8 @@
         }
 
         @media (max-width: 500px) {
-            body { padding: 20px 10px; }
+            body { padding: 90px 10px 20px 10px; } /* Dynamic top clearance balancing search widget bar height on tiny viewports */
+            .search-box-wrapper { width: calc(100% - 20px); top: 15px; }
             .blog-view { padding: 20px 14px; border-radius: 14px; }
             .item-card { padding: 16px; border-radius: 12px; }
             .swiper-viewport { height: 260px; }
@@ -535,7 +567,10 @@
 <body>
 
     <div class="search-box-wrapper">
-        <input type="text" id="mainStoreSearch" class="search-bar" placeholder="Search setups, cars, anime, stickers..." oninput="handleSearchEngine(this.value)">
+        <div class="search-input-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="mainStoreSearch" class="search-bar" placeholder="Search setups, cars, anime, stickers..." oninput="handleSearchEngine(this.value)">
+        </div>
         <div id="suggestionBox" class="search-suggestions"></div>
     </div>
 
@@ -918,6 +953,14 @@
                 gallery.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
                 const activeThumb = document.getElementById(`thumb-${cardIndex}-${imgIndex}`);
                 if (activeThumb) activeThumb.classList.add('active');
+                
+                // Auto-center the newly active thumbnail inside the horizontal mobile scroll viewport
+                if(activeThumb) {
+                    activeThumb.parentElement.scrollTo({
+                        left: activeThumb.offsetLeft - (activeThumb.parentElement.offsetWidth / 2) + (activeThumb.offsetWidth / 2),
+                        behavior: 'smooth'
+                    });
+                }
             }
         }
 
