@@ -214,7 +214,6 @@
             user-select: none;
         }
         
-        /* Added touch-action to prevent browser scroll lock during internal swipes */
         .swiper-viewport {
             width: 100%;
             height: 320px;
@@ -316,7 +315,6 @@
             box-shadow: 0 8px 30px rgba(255, 153, 0, 0.6); 
         }
         
-        /* 💡 KEYFRAME ANIMATIONS FOR THE PREMIUM BUTTON LOOK */
         @keyframes pulseGlow {
             0% { box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3); transform: scale(1); }
             50% { box-shadow: 0 6px 28px rgba(255, 153, 0, 0.65); transform: scale(1.015); }
@@ -479,40 +477,46 @@
     </div>
 
     <script>
+        // CENTRAL DATABASE WITH UNIQUE IDs (pId) ENHANCED
         const blogData = {
             desk: {
-                keyboard: [{ title: "Premium Minimalist Mechanical Keyboards", images: ["keyboard.jpg.png"], text: "A minimalist mechanical keyboard is an absolute game-changer for clean setups.", amazon: "YOUR_KEYBOARD_AMAZON_LINK" }],
-                accessories: [{ title: "Aesthetic Desk Accessories", images: ["accessories.jpg.jpg"], text: "Breathe life and ambient gaming vibes into your desk setup.", amazon: "YOUR_ACCESSORIES_AMAZON_LINK" }],
-                deskmat: [{ title: "Premium Minimalist Felt Desk Mats", images: ["deskmat.jpg.jpg"], text: "Tie your whole layout together with a premium oversized desk mat.", amazon: "YOUR_DESKMAT_AMAZON_LINK" }],
-                mouse: [{ title: "Pro Gaming Mice & Ergonomic Pointers", images: ["mouse.jpg.webp"], text: "Level up your target accuracy and productivity workflow.", amazon: "YOUR_MOUSE_AMAZON_LINK" }]
+                keyboard: [{ pId: "kb_minimal", title: "Premium Minimalist Mechanical Keyboards", images: ["keyboard.jpg.png"], text: "A minimalist mechanical keyboard is an absolute game-changer for clean setups.", amazon: "YOUR_KEYBOARD_AMAZON_LINK" }],
+                accessories: [{ pId: "desk_acc", title: "Aesthetic Desk Accessories", images: ["accessories.jpg.jpg"], text: "Breathe life and ambient gaming vibes into your desk setup.", amazon: "YOUR_ACCESSORIES_AMAZON_LINK" }],
+                deskmat: [{ pId: "mat_felt", title: "Premium Minimalist Felt Desk Mats", images: ["deskmat.jpg.jpg"], text: "Tie your whole layout together with a premium oversized desk mat.", amazon: "YOUR_DESKMAT_AMAZON_LINK" }],
+                mouse: [{ pId: "mouse_pro", title: "Pro Gaming Mice & Ergonomic Pointers", images: ["mouse.jpg.webp"], text: "Level up your target accuracy and productivity workflow.", amazon: "YOUR_MOUSE_AMAZON_LINK" }]
             },
             decor: {
-                posters: [{ title: "Aesthetic Wall Collage Poster Kits", images: ["poster.jpg.jpg"], text: "Design your backdrop wall with high-definition graphic prints.", amazon: "YOUR_POSTERS_AMAZON_LINK" }],
-                stickers: [{ title: "Premium Waterproof Vinyl Stickers Pack", images: ["stickers.jpg.avif"], text: "High-grade waterproof vinyl stickers tailored for customizing gear.", amazon: "YOUR_STICKERS_AMAZON_LINK" }]
+                posters: [{ pId: "posters_pack", title: "Aesthetic Wall Collage Poster Kits", images: ["poster.jpg.jpg"], text: "Design your backdrop wall with high-definition graphic prints.", amazon: "YOUR_POSTERS_AMAZON_LINK" }],
+                stickers: [{ pId: "stickers_pack", title: "Premium Waterproof Vinyl Stickers Pack", images: ["stickers.jpg.avif"], text: "High-grade waterproof vinyl stickers tailored for customizing gear.", amazon: "YOUR_STICKERS_AMAZON_LINK" }]
             },
             collect: {
-         cars: [
-    { 
-        title: "Premium 1/64 Diecast Car Wall Display Shelf Case", 
-        images: ["s1.jpg", "s2.jpg", "s3.jpg", "s4.jpg", "s5.jpg"], 
-        text: "The ultimate storage solution for serious collectors! This premium wall-mounted display case features a clean matte black grid layout capable of holding 40 of your favorite 1/64 scale diecast cars. Made with high-quality space-saving materials, it creates the perfect visual backdrop for any bedroom or gaming room setup.", 
-        amazon: "https://amzn.to/4nP9QEj" 
-    },
-    { 
-        title: "Collector Edition Diecast Car Scale Models", 
-        images: ["cars.jpg.jpeg"], 
-        text: "Extremely sharp diecast miniature cars featuring opening hoods.", 
-        amazon: "YOUR_CARS_AMAZON_LINK" 
-    }
-],       manga: [{ title: "Complete Manga Box Sets Collection", images: ["manga.jpg.jpg"], text: "Build your dream background shelf setup with authentic manga box sets.", amazon: "YOUR_MANGA_AMAZON_LINK" }],
-                 figures: [
+                cars: [
+                    { 
+                        pId: "shelf",
+                        title: "Premium 1/64 Diecast Car Wall Display Shelf Case", 
+                        images: ["s1.jpg", "s2.jpg", "s3.jpg", "s4.jpg", "s5.jpg"], 
+                        text: "The ultimate storage solution for serious collectors! This premium wall-mounted display case features a clean matte black grid layout capable of holding 40 of your favorite 1/64 scale diecast cars. Made with high-quality space-saving materials, it creates the perfect visual backdrop for any bedroom or gaming room setup.", 
+                        amazon: "https://amzn.to/4nP9QEj" 
+                    },
+                    { 
+                        pId: "models",
+                        title: "Collector Edition Diecast Car Scale Models", 
+                        images: ["cars.jpg.jpeg"], 
+                        text: "Extremely sharp diecast miniature cars featuring opening hoods.", 
+                        amazon: "YOUR_CARS_AMAZON_LINK" 
+                    }
+                ],       
+                manga: [{ pId: "manga_box", title: "Complete Manga Box Sets Collection", images: ["manga.jpg.jpg"], text: "Build your dream background shelf setup with authentic manga box sets.", amazon: "YOUR_MANGA_AMAZON_LINK" }],
+                figures: [
                     {
+                        pId: "naruto_fig",
                         title: "Naruto Shippuden Uzumaki Naruto Action Figure",
                         images: ["naruto1.jpg", "naruto2.jpg", "naruto3.jpg", "naruto4.jpg", "naruto5.jpg"], 
                         text: "Bring the Will of Fire straight to your gaming desk! This premium Naruto figure features hyper-realistic textures, customizable power effects, and multiple legendary posing stances.",
                         amazon: "https://amzn.to/49jHfB7"
                     },
                     {
+                        pId: "goku_fig",
                         title: "Dragon Ball Z S.H. Figuarts Son Goku Figure",
                         images: ["figures.jpg.png"],
                         text: "Super Saiyan power for your room shelves! Features multiple points of articulation and premium detailed battle-shredded uniform aesthetics.",
@@ -522,13 +526,13 @@
             }
         };
 
-        // Active image slider tracks array
         let activeIndices = {};
 
         function route() {
             const urlParams = new URLSearchParams(window.location.search);
             const page = urlParams.get('page');
             const id = urlParams.get('id');
+            const targetProduct = urlParams.get('product'); // Target unique parameter filter
             
             const homeView = document.getElementById('home-view');
             const blogView = document.getElementById('blog-view');
@@ -545,10 +549,20 @@
                 itemsContainer.innerHTML = "";
                 document.getElementById('category-heading').innerText = id.toUpperCase() + " COLLECTION";
                 
-                activeIndices = {}; // reset slide map
+                activeIndices = {}; 
 
-                blogData[page][id].forEach((product, pIndex) => {
-                    activeIndices[pIndex] = 0; // default image 0 active
+                // Dynamic Smart Sorting logic injection
+                let productsList = [...blogData[page][id]];
+                if (targetProduct) {
+                    const foundIndex = productsList.findIndex(p => p.pId === targetProduct);
+                    if (foundIndex > -1) {
+                        const targetObj = productsList.splice(foundIndex, 1)[0];
+                        productsList.unshift(targetObj); // Pin to absolute top
+                    }
+                }
+
+                productsList.forEach((product, pIndex) => {
+                    activeIndices[pIndex] = 0; 
                     const defaultImg = product.images[0];
                     let thumbsHtml = "";
                     
@@ -559,7 +573,7 @@
                     }
 
                     const cardHtml = `
-                        <div class="item-card">
+                        <div class="item-card" id="p-card-${product.pId || pIndex}">
                             <div class="gallery-container" id="gallery-${pIndex}" data-cardindex="${pIndex}">
                                 <div class="swiper-viewport" 
                                      onmousedown="startSwipe(event, ${pIndex})" 
@@ -614,35 +628,44 @@
             isSwiping = false;
             
             const diffX = swipeStartX - swipeCurrentX;
-            const threshold = 50; // min px to trigger swipe next/prev
+            const threshold = 50; 
             
             const urlParams = new URLSearchParams(window.location.search);
             const page = urlParams.get('page');
             const id = urlParams.get('id');
-            const imagesArray = blogData[page][id][cardIndex].images;
+            
+            // Re-fetch sorted array slice context to match runtime engine track index
+            let productsList = [...blogData[page][id]];
+            const targetProduct = urlParams.get('product');
+            if (targetProduct) {
+                const foundIndex = productsList.findIndex(p => p.pId === targetProduct);
+                if (foundIndex > -1) {
+                    const targetObj = productsList.splice(foundIndex, 1)[0];
+                    productsList.unshift(targetObj);
+                }
+            }
+            
+            const imagesArray = productsList[cardIndex].images;
             
             if (Math.abs(diffX) > threshold) {
                 let currentIdx = activeIndices[cardIndex];
                 if (diffX > 0) {
-                    // Swiped Left -> Load Next Image
                     if (currentIdx < imagesArray.length - 1) {
                         currentIdx++;
                     } else {
-                        currentIdx = 0; // loop back to first
+                        currentIdx = 0; 
                     }
                 } else {
-                    // Swiped Right -> Load Previous Image
                     if (currentIdx > 0) {
                         currentIdx--;
                     } else {
-                        currentIdx = imagesArray.length - 1; // loop to last
+                        currentIdx = imagesArray.length - 1; 
                     }
                 }
                 jumpToImage(cardIndex, currentIdx, imagesArray[currentIdx]);
             }
         }
 
-        // Helper to avoid popping lightbox modal during a touch-swipe release
         window.checkClickOrSwipe = function(e, imgSrc) {
             const diff = Math.abs(swipeStartX - swipeCurrentX);
             if (diff < 10) { 
@@ -657,7 +680,6 @@
                 mainImg.src = targetSrc;
             }
             
-            // Sync Thumbnails UI state
             const gallery = document.getElementById(`gallery-${cardIndex}`);
             if (gallery) {
                 gallery.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
