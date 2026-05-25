@@ -32,7 +32,7 @@
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            padding: 100px 20px 30px 20px; /* Top padding expanded to accommodate permanent fixed bar */
+            padding: 95px 16px 30px 16px; /* Top spacing padded for static fixed engine */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -42,16 +42,16 @@
         .container { 
             width: 100%; 
             max-width: 1100px;
-            transition: max-width 0.3s ease;
         }
 
-        /* 🔍 ULTRA-PREMIUM FIXED TOP SEARCH MODULE WITH ACCENT SEARCH ICON */
+        /* 🔍 GLOBAL ABSOLUTE POSITIONED HEADER SEARCH BAR CONTROL */
         .search-box-wrapper {
-            position: absolute; /* Fixed strictly to absolute layout top boundary */
+            position: absolute; 
             top: 25px;
-            width: calc(100% - 40px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 32px);
             max-width: 550px;
-            margin: 0 auto;
             z-index: 10005; 
         }
 
@@ -74,7 +74,7 @@
 
         .search-bar {
             width: 100%;
-            padding: 14px 20px 14px 46px; /* Added left padding so text never overlaps icon */
+            padding: 14px 20px 14px 46px; 
             background: rgba(17, 22, 29, 0.95);
             border: 2px solid rgba(0, 188, 212, 0.15);
             border-radius: 14px;
@@ -83,7 +83,7 @@
             font-size: 15px;
             font-weight: 500;
             outline: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
@@ -141,7 +141,6 @@
         }
 
         .profile-header { 
-            margin-top: 10px;
             margin-bottom: 40px; 
             text-align: center;
             max-width: 550px;
@@ -301,7 +300,6 @@
             grid-template-columns: 1fr;
         }
 
-        /* 🖼️ ADVANCED GALLERY BLOCK-CONTAINER SPECIFICATION */
         .gallery-container { 
             display: flex; 
             flex-direction: column; 
@@ -342,35 +340,27 @@
             font-weight: 500;
         }
 
-        /* 📱 BULLETPROOF HORIZONTAL SCROLL THUMBNAILS CONTAINER (FIXES 7 PHOTO STRETCH CRASH) */
+        /* 📱 THUMBNAILS CONTAINER DYNAMIC MATRIX (Fixes 7 images overflow layout bug) */
         .thumbnail-wrapper { 
             display: flex; 
-            gap: 10px; 
-            overflow-x: auto; 
-            overflow-y: hidden;
-            padding: 6px 4px; 
-            justify-content: flex-start; /* Changes from center to start layout structure so elements stack right */
+            gap: 8px; 
+            flex-wrap: wrap; /* Dynamic text lines layout breaking rule activated */
+            justify-content: center;
             width: 100%;
             max-width: 100%;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch; /* Smooth mobile swipe inertial physics */
-            scrollbar-width: none; /* Hide default scrollbar node block */
-        }
-        
-        .thumbnail-wrapper::-webkit-scrollbar {
-            display: none; /* Safari and Chrome scrollbars hidden layout system code */
+            padding: 6px 0;
         }
         
         .thumb-img { 
-            width: 55px; 
-            height: 55px; 
+            width: 50px; /* Reduced box frame padding strictly for clean look */
+            height: 50px; 
             border-radius: 8px; 
             object-fit: cover; 
             cursor: pointer; 
             border: 2px solid transparent; 
             transition: all 0.2s ease; 
             background: #090c10;
-            flex-shrink: 0; /* Hard locks pixel boundaries so images never stretch or compress inside cell */
+            flex-shrink: 0;
         }
         .thumb-img:hover, .thumb-img.active { 
             border-color: var(--accent-color); 
@@ -548,12 +538,13 @@
         }
 
         @media (max-width: 500px) {
-            body { padding: 90px 10px 20px 10px; } /* Dynamic top clearance balancing search widget bar height on tiny viewports */
+            body { padding: 90px 10px 20px 10px; } 
             .search-box-wrapper { width: calc(100% - 20px); top: 15px; }
-            .blog-view { padding: 20px 14px; border-radius: 14px; }
+            .blog-view { padding: 20px 12px; border-radius: 14px; }
             .item-card { padding: 16px; border-radius: 12px; }
             .swiper-viewport { height: 260px; }
             .links-wrapper { grid-template-columns: 1fr; }
+            .thumb-img { width: 46px; height: 46px; } /* Slightly tightened layout dimensions for 5" devices grid metrics */
         }
 
         @media (min-width: 768px) {
@@ -561,6 +552,8 @@
                 grid-template-columns: 1.1fr 1fr;
                 align-items: center;
             }
+            .thumbnail-wrapper { justify-content: center; flex-wrap: nowrap; overflow-x: auto; }
+            .thumb-img { width: 55px; height: 55px; }
         }
     </style>
 </head>
@@ -948,19 +941,11 @@
                 mediaViewport.innerHTML = `<img id="main-img-${cardIndex}" class="blog-img" src="${targetSrc}" onclick="checkClickOrSwipe(event, ${cardIndex}, '${targetSrc}')" alt="VibeForge Asset" draggable="false">`;
             }
             
-            const gallery = document.getElementById(`gallery-${cardIndex}`);
+            const gallery = document.getElementById('gallery-' + cardIndex);
             if (gallery) {
                 gallery.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
                 const activeThumb = document.getElementById(`thumb-${cardIndex}-${imgIndex}`);
                 if (activeThumb) activeThumb.classList.add('active');
-                
-                // Auto-center the newly active thumbnail inside the horizontal mobile scroll viewport
-                if(activeThumb) {
-                    activeThumb.parentElement.scrollTo({
-                        left: activeThumb.offsetLeft - (activeThumb.parentElement.offsetWidth / 2) + (activeThumb.offsetWidth / 2),
-                        behavior: 'smooth'
-                    });
-                }
             }
         }
 
