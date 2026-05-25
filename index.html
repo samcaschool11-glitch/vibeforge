@@ -32,11 +32,11 @@
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            padding: 30px 20px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow-x: hidden; /* Fix layout width cutting bug property */
+            overflow-x: hidden; 
         }
 
         .container { 
@@ -45,19 +45,20 @@
             transition: max-width 0.3s ease;
         }
 
-        /* 🔍 ADVANCED SEARCH BAR STYLING */
+        /* 🔍 GLOBAL PERMANENT SEARCH BAR STYLING */
         .search-box-wrapper {
-            position: relative;
+            position: sticky;
+            top: 10px;
             width: 100%;
             max-width: 550px;
-            margin: 0 auto 35px auto;
-            z-index: 100;
+            margin: 0 auto 30px auto;
+            z-index: 10002; /* Keeps it above everything, even modal */
         }
 
         .search-bar {
             width: 100%;
-            padding: 15px 20px;
-            background: rgba(17, 22, 29, 0.8);
+            padding: 14px 20px;
+            background: rgba(17, 22, 29, 0.9);
             border: 2px solid rgba(255, 255, 255, 0.05);
             border-radius: 14px;
             color: #fff;
@@ -66,27 +67,29 @@
             font-weight: 500;
             outline: none;
             transition: all 0.3s;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
         }
 
         .search-bar:focus {
             border-color: var(--accent-color);
-            box-shadow: 0 0 20px rgba(0, 188, 212, 0.25);
+            box-shadow: 0 0 20px rgba(0, 188, 212, 0.3);
             background: #11161d;
         }
 
         .search-suggestions {
             display: none;
             position: absolute;
-            top: 105%;
+            top: 110%;
             left: 0;
             width: 100%;
             background: #11161d;
-            border: 1px solid rgba(0, 188, 212, 0.2);
+            border: 1px solid rgba(0, 188, 212, 0.25);
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             overflow: hidden;
-            z-index: 101;
+            z-index: 10003;
         }
 
         .suggestion-item {
@@ -104,18 +107,19 @@
         .suggestion-item:last-child { border-bottom: none; }
         
         .suggestion-item:hover {
-            background: rgba(0, 188, 212, 0.1);
+            background: rgba(0, 188, 212, 0.15);
             color: var(--accent-color);
         }
 
         .suggestion-thumb {
-            width: 35px;
-            height: 35px;
+            width: 38px;
+            height: 38px;
             border-radius: 6px;
             object-fit: cover;
         }
 
         .profile-header { 
+            margin-top: 10px;
             margin-bottom: 40px; 
             text-align: center;
             max-width: 550px;
@@ -275,7 +279,6 @@
             grid-template-columns: 1fr;
         }
 
-        /* 🖼️ GALLERY WRAPPER FIX (Prevents width cutting bug completely) */
         .gallery-container { 
             display: flex; 
             flex-direction: column; 
@@ -316,7 +319,6 @@
             font-weight: 500;
         }
 
-        /* FIX: Prevent dynamic media elements from pushing page boundary rules */
         .thumbnail-wrapper { 
             display: flex; 
             gap: 8px; 
@@ -337,7 +339,7 @@
             border: 2px solid transparent; 
             transition: all 0.2s; 
             background: #090c10;
-            flex-shrink: 0; /* Ensures dynamic count never squishes layout framework */
+            flex-shrink: 0;
         }
         .thumb-img:hover, .thumb-img.active { 
             border-color: var(--accent-color); 
@@ -402,7 +404,6 @@
             100% { background-position: 200% 50%; }
         }
 
-        /* 🔍 ADVANCED MODAL CONTROLS WRAPPER WITH AUDIO CONTROLS */
         .image-modal {
             display: none;
             position: fixed;
@@ -462,7 +463,7 @@
             letter-spacing: 0.5px;
             cursor: pointer;
             z-index: 10001;
-            display: none; /* Auto toggled via system runtime code below */
+            display: none; 
             align-items: center;
             gap: 8px;
             box-shadow: 0 4px 15px rgba(0, 188, 212, 0.2);
@@ -533,12 +534,12 @@
 </head>
 <body>
 
+    <div class="search-box-wrapper">
+        <input type="text" id="mainStoreSearch" class="search-bar" placeholder="Search setups, cars, anime, stickers..." oninput="handleSearchEngine(this.value)">
+        <div id="suggestionBox" class="search-suggestions"></div>
+    </div>
+
     <div class="container">
-        
-        <div class="search-box-wrapper">
-            <input type="text" id="mainStoreSearch" class="search-bar" placeholder="Search setups, cars, anime, stickers..." oninput="handleSearchEngine(this.value)">
-            <div id="suggestionBox" class="search-suggestions"></div>
-        </div>
         
         <div id="blog-view" class="blog-view">
             <div class="back-btn" onclick="clearSearchAndReturn()">← Back to Main Shop</div>
@@ -638,7 +639,6 @@
     </div>
 
     <script>
-        // CENTRAL REGULATED DATABASE - VIDEO SUPPORT INTEGRATED
         const blogData = {
             desk: {
                 keyboard: [{ pId: "kb_minimal", title: "Premium Minimalist Mechanical Keyboards", images: ["keyboard.jpg.png"], text: "A minimalist mechanical keyboard is an absolute game-changer for clean setups.", amazon: "YOUR_KEYBOARD_AMAZON_LINK" }],
@@ -671,7 +671,7 @@
                     {
                         pId: "berserk_set",
                         title: "Berserk Volume 1-5 Collection 5 Books Set (Series 1) by Kentaro Miura",
-                        images: ["b1.jpg", "b2.jpg", "b3.jpg", "b4.jpg", "b5.jpg", "b6.jpg", "b7.jpg"], // Add video path string like "sample.mp4" here anytime!
+                        images: ["b1.jpg", "b2.jpg", "b3.jpg", "b4.jpg", "b5.jpg", "b6.jpg", "b7.jpg"],
                         text: "Immerse yourself in the absolute pinnacle of dark fantasy manga! This premium collector's bundle contains the first 5 volumes of Kentaro Miura's legendary masterpiece, Berserk. Follow the gritty, jaw-dropping journey of Guts, the Black Swordsman, rendered in beautifully intense, ultra-detailed pen-and-ink illustrations that make it a centerpiece artwork for any Otaku manga shelf setup.",
                         amazon: "https://amzn.to/4fG5KMM" 
                     },
@@ -704,9 +704,7 @@
 
         let activeIndices = {};
         let currentModalCardIndex = null; 
-        let isModalVideoMuted = true;
 
-        // 🧠 REALTIME SEARCH ENGINE CORE LOGIC
         window.handleSearchEngine = function(query) {
             const suggestBox = document.getElementById('suggestionBox');
             if(!query.trim()) {
@@ -717,7 +715,6 @@
             let html = "";
             const cleanQuery = query.toLowerCase();
 
-            // Search matches parsing cross array loops
             Object.keys(blogData).forEach(pageKey => {
                 Object.keys(blogData[pageKey]).forEach(idKey => {
                     blogData[pageKey][idKey].forEach(product => {
@@ -766,13 +763,12 @@
             const mainProfileHeader = document.getElementById('main-profile-header');
             const itemsContainer = document.getElementById('items-container');
 
-            // Autoclose recommendations overlay during navigation
             document.getElementById('suggestionBox').style.display = 'none';
 
             if (page && id && blogData[page] && blogData[page][id]) {
                 blogView.style.display = 'block';
                 homeView.style.display = 'block'; 
-                mainProfileHeader.style.none; 
+                mainProfileHeader.style.display = 'none'; 
                 shopGrid.classList.add('bottom-divider'); 
                 
                 itemsContainer.innerHTML = "";
@@ -796,12 +792,11 @@
                     
                     if(product.images.length > 1) {
                         product.images.forEach((srcPath, iIndex) => {
-                            let thumbSrc = isVideoFile(srcPath) ? "logo.jpg.jpeg" : srcPath; // Fallback video thumbnail frame placeholder
+                            let thumbSrc = isVideoFile(srcPath) ? "logo.jpg.jpeg" : srcPath;
                             thumbsHtml += `<img class="thumb-img ${iIndex === 0 ? 'active' : ''}" id="thumb-${pIndex}-${iIndex}" src="${thumbSrc}" onclick="jumpToImage(${pIndex}, ${iIndex}, '${srcPath}')" alt="thumbnail">`;
                         });
                     }
 
-                    // Dynamic media block render switcher (Image vs AutoPlay Muted Video)
                     let viewportMediaHtml = "";
                     if(isVideoFile(defaultMedia)) {
                         viewportMediaHtml = `<video id="main-img-${pIndex}" class="blog-video-player" src="${defaultMedia}" autoplay loop muted playsinline onclick="checkClickOrSwipe(event, ${pIndex}, '${defaultMedia}')"></video>`;
@@ -844,7 +839,6 @@
             }
         }
 
-        // SWIPE DETECTION LOGIC ENGINE
         let swipeStartX = 0;
         let swipeCurrentX = 0;
         let isSwiping = false;
@@ -913,7 +907,6 @@
             activeIndices[cardIndex] = imgIndex;
             const mediaViewport = document.getElementById(`gallery-${cardIndex}`).querySelector('.swiper-viewport');
             
-            // Re-render switch viewports logic node inside category list block
             if(isVideoFile(targetSrc)) {
                 mediaViewport.innerHTML = `<video id="main-img-${cardIndex}" class="blog-video-player" src="${targetSrc}" autoplay loop muted playsinline onclick="checkClickOrSwipe(event, ${cardIndex}, '${targetSrc}')"></video>`;
             } else {
@@ -928,15 +921,10 @@
             }
         }
 
-        // 🔍 MODAL RENDER SYSTEM ENGINE WITH LIVE AUDIO TRACK HANDLERS
         window.openFullPhoto = function(cardIndex, mediaSrc) {
             currentModalCardIndex = cardIndex;
-            isModalVideoMuted = true; // reset to safe default muted
             
             const modal = document.getElementById('fullScreenModal');
-            const targetContainer = document.getElementById('modalMediaContainer');
-            const audioBtn = document.getElementById('modalAudioToggle');
-            
             modal.style.display = "flex";
             renderModalContent(mediaSrc);
             
@@ -976,16 +964,13 @@
             if(videoElement.muted) {
                 videoElement.muted = false;
                 audioBtn.innerText = "🔇 Mute Audio";
-                audioBtn.style.borderColors = "#ff9900";
             } else {
                 videoElement.muted = true;
                 audioBtn.innerText = "🔊 Unmute Music";
-                audioBtn.style.borderColors = "var(--accent-color)";
             }
         }
 
         window.closeFullPhoto = function() {
-            // Kill any playing video resources inside modal viewport before hiding container nodes
             document.getElementById('modalMediaContainer').innerHTML = "";
             document.getElementById('fullScreenModal').style.display = "none";
             currentModalCardIndex = null;
@@ -1050,7 +1035,6 @@
             }
         });
 
-        // INTERNAL TOUCH SWIPE ENGINE INSIDE OVERLAY VIEWPORT
         let modalSwipeStartX = 0;
         let modalSwipeCurrentX = 0;
         let isModalSwiping = false;
