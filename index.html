@@ -326,6 +326,7 @@
             100% { background-position: 200% 50%; }
         }
 
+        /* 🔍 UPGRADED IMAGE MODAL LIGHTBOX SYSTEM WITH ARROWS */
         .image-modal {
             display: none;
             position: fixed;
@@ -335,11 +336,23 @@
             background-color: rgba(7, 9, 12, 0.97);
             justify-content: center;
             align-items: center;
+            user-select: none;
         }
         
-        .modal-content {
+        .modal-viewport {
             max-width: 92%;
             max-height: 85%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            touch-action: pan-y;
+        }
+
+        .modal-content {
+            width: 100%;
+            height: auto;
+            max-height: 85vh;
             object-fit: contain;
             border-radius: 12px;
             box-shadow: 0 0 40px rgba(0, 188, 212, 0.4);
@@ -353,8 +366,37 @@
             font-weight: bold;
             cursor: pointer;
             transition: color 0.2s;
+            z-index: 10001;
         }
         .close-modal:hover { color: var(--accent-color); }
+
+        /* Modern Sleek Nav Buttons inside Modal */
+        .modal-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(17, 22, 29, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
+        .modal-nav-btn:hover {
+            background: var(--accent-color);
+            color: #000;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px var(--accent-color);
+        }
+        .modal-prev { left: -60px; }
+        .modal-next { right: -60px; }
         
         .bottom-divider { 
             margin-top: 50px; 
@@ -371,6 +413,12 @@
         }
 
         /* RESPONSIVE MEDIA QUERIES */
+        @media (max-width: 768px) {
+            .modal-prev { left: 10px; background: rgba(17, 22, 29, 0.85); }
+            .modal-next { right: 10px; background: rgba(17, 22, 29, 0.85); }
+            .modal-nav-btn { width: 42px; height: 42px; font-size: 20px; }
+        }
+
         @media (max-width: 500px) {
             body { padding: 20px 10px; }
             .blog-view { padding: 20px 14px; border-radius: 14px; }
@@ -471,13 +519,23 @@
         </footer>
     </div>
 
-    <div id="fullScreenModal" class="image-modal" onclick="closeFullPhoto()">
+    <div id="fullScreenModal" class="image-modal">
         <span class="close-modal" onclick="closeFullPhoto()">&times;</span>
-        <img class="modal-content" id="modalTargetImg" src="">
+        <div class="modal-viewport" 
+             onmousedown="startModalSwipe(event)" 
+             onmousemove="moveModalSwipe(event)" 
+             onmouseup="endModalSwipe()" 
+             onmouseleave="endModalSwipe()"
+             ontouchstart="startModalSwipe(event)"
+             ontouchmove="moveModalSwipe(event)"
+             ontouchend="endModalSwipe()">
+            <button class="modal-nav-btn modal-prev" onclick="modalPrev(event)">&#10094;</button>
+            <img class="modal-content" id="modalTargetImg" src="" draggable="false">
+            <button class="modal-nav-btn modal-next" onclick="modalNext(event)">&#10095;</button>
+        </div>
     </div>
 
     <script>
-        // CENTRAL DATABASE WITH UNIQUE IDs (pId) ENHANCED
         const blogData = {
             desk: {
                 keyboard: [{ pId: "kb_minimal", title: "Premium Minimalist Mechanical Keyboards", images: ["keyboard.jpg.png"], text: "A minimalist mechanical keyboard is an absolute game-changer for clean setups.", amazon: "YOUR_KEYBOARD_AMAZON_LINK" }],
@@ -542,6 +600,7 @@
         };
 
         let activeIndices = {};
+        let currentModalCardIndex = null; // Track current open active context layout globally
 
         function route() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -597,7 +656,7 @@
                                      ontouchstart="startSwipe(event, ${pIndex})"
                                      ontouchmove="moveSwipe(event, ${pIndex})"
                                      ontouchend="endSwipe(${pIndex})">
-                                    <img id="main-img-${pIndex}" class="blog-img" src="${defaultImg}" onclick="checkClickOrSwipe(event, '${defaultImg}')" alt="${product.title}" draggable="false">
+                                    <img id="main-img-${pIndex}" class="blog-img" src="${defaultImg}" onclick="checkClickOrSwipe(event, ${pIndex}, '${defaultImg}')" alt="${product.title}" draggable="false">
                                 </div>
                                 <div class="zoom-hint">👈 Swipe photo or click to view full screen 🔍</div>
                                 <div class="thumbnail-wrapper">${thumbsHtml}</div>
@@ -621,6 +680,7 @@
             }
         }
 
+        // SWIPE DETECTION LOGIC ENGINE
         let swipeStartX = 0;
         let swipeCurrentX = 0;
         let isSwiping = false;
@@ -678,10 +738,10 @@
             }
         }
 
-        window.checkClickOrSwipe = function(e, imgSrc) {
+        window.checkClickOrSwipe = function(e, cardIndex, imgSrc) {
             const diff = Math.abs(swipeStartX - swipeCurrentX);
             if (diff < 10) { 
-                openFullPhoto(imgSrc);
+                openFullPhoto(cardIndex, imgSrc);
             }
         }
 
@@ -700,16 +760,132 @@
             }
         }
 
-        window.openFullPhoto = function(imgSrc) {
+        // 🔍 EXTENDED NAVIGATION SYSTEM INSIDE MODAL LIGHTBOX
+        window.openFullPhoto = function(cardIndex, imgSrc) {
+            currentModalCardIndex = cardIndex;
             const modal = document.getElementById('fullScreenModal');
             const modalImg = document.getElementById('modalTargetImg');
             modal.style.display = "flex";
             modalImg.src = imgSrc;
+            
+            // Check image set size context to hide arrows if solo static asset
+            const images = getActiveImagesContext(cardIndex);
+            const prevBtn = document.querySelector('.modal-prev');
+            const nextBtn = document.querySelector('.modal-next');
+            if(images.length <= 1) {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            } else {
+                prevBtn.style.display = 'flex';
+                nextBtn.style.display = 'flex';
+            }
         }
 
         window.closeFullPhoto = function() {
             document.getElementById('fullScreenModal').style.display = "none";
+            currentModalCardIndex = null;
         }
+
+        // Helper to grab absolute matching context array at runtime 
+        function getActiveImagesContext(cardIndex) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const page = urlParams.get('page');
+            const id = urlParams.get('id');
+            let productsList = [...blogData[page][id]];
+            const targetProduct = urlParams.get('product');
+            if (targetProduct) {
+                const foundIndex = productsList.findIndex(p => p.pId === targetProduct);
+                if (foundIndex > -1) {
+                    const targetObj = productsList.splice(foundIndex, 1)[0];
+                    productsList.unshift(targetObj);
+                }
+            }
+            return productsList[cardIndex].images;
+        }
+
+        window.modalNext = function(e) {
+            if(e) e.stopPropagation(); // prevent modal wrapper close event trigger
+            if(currentModalCardIndex === null) return;
+            
+            const images = getActiveImagesContext(currentModalCardIndex);
+            let currentIdx = activeIndices[currentModalCardIndex];
+            
+            if(currentIdx < images.length - 1) {
+                currentIdx++;
+            } else {
+                currentIdx = 0;
+            }
+            
+            jumpToImage(currentModalCardIndex, currentIdx, images[currentIdx]);
+            document.getElementById('modalTargetImg').src = images[currentIdx];
+        }
+
+        window.modalPrev = function(e) {
+            if(e) e.stopPropagation();
+            if(currentModalCardIndex === null) return;
+            
+            const images = getActiveImagesContext(currentModalCardIndex);
+            let currentIdx = activeIndices[currentModalCardIndex];
+            
+            if(currentIdx > 0) {
+                currentIdx--;
+            } else {
+                currentIdx = images.length - 1;
+            }
+            
+            jumpToImage(currentModalCardIndex, currentIdx, images[currentIdx]);
+            document.getElementById('modalTargetImg').src = images[currentIdx];
+        }
+
+        // KEYBOARD EVENT SYSTEM FOR PC ARROWS
+        window.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('fullScreenModal');
+            if(modal.style.display === "flex") {
+                if(e.key === "ArrowRight") modalNext();
+                if(e.key === "ArrowLeft") modalPrev();
+                if(e.key === "Escape") closeFullPhoto();
+            }
+        });
+
+        // INTERNAL TOUCH SWIPE ENGINE INSIDE THE OVERLAY ZOOM VIEWPORT
+        let modalSwipeStartX = 0;
+        let modalSwipeCurrentX = 0;
+        let isModalSwiping = false;
+
+        window.startModalThemeSwipe = function(e) {
+            // dynamic routing layer wrapper block close protection trigger switch
+            if(e.target.classList.contains('modal-nav-btn')) return;
+            isModalSwiping = true;
+            modalSwipeStartX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            modalSwipeCurrentX = modalSwipeStartX;
+        }
+        window.startModalSwipe = startModalThemeSwipe;
+
+        window.moveModalSwipe = function(e) {
+            if(!isModalSwiping) return;
+            modalSwipeCurrentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        }
+
+        window.endModalSwipe = function() {
+            if(!isModalSwiping) return;
+            isModalSwiping = false;
+            const diffX = modalSwipeStartX - modalSwipeCurrentX;
+            const threshold = 40;
+            if (Math.abs(diffX) > threshold) {
+                if (diffX > 0) {
+                    modalNext();
+                } else {
+                    modalPrev();
+                }
+            }
+        }
+
+        // Close on clean background wrapper clicks handler
+        document.getElementById('fullScreenModal').addEventListener('click', function(e) {
+            if(e.target.id === 'fullScreenModal' || e.target.classList.contains('modal-viewport')) {
+                closeFullPhoto();
+            }
+        });
 
         window.addEventListener('popstate', route);
         route();
