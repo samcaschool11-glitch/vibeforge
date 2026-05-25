@@ -36,12 +36,83 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-x: hidden; /* Fix layout width cutting bug property */
         }
 
         .container { 
             width: 100%; 
             max-width: 1100px;
             transition: max-width 0.3s ease;
+        }
+
+        /* 🔍 ADVANCED SEARCH BAR STYLING */
+        .search-box-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: 0 auto 35px auto;
+            z-index: 100;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(17, 22, 29, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.3s;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        .search-bar:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 20px rgba(0, 188, 212, 0.25);
+            background: #11161d;
+        }
+
+        .search-suggestions {
+            display: none;
+            position: absolute;
+            top: 105%;
+            left: 0;
+            width: 100%;
+            background: #11161d;
+            border: 1px solid rgba(0, 188, 212, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            overflow: hidden;
+            z-index: 101;
+        }
+
+        .suggestion-item {
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 13.5px;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+            transition: background 0.2s;
+        }
+
+        .suggestion-item:last-child { border-bottom: none; }
+        
+        .suggestion-item:hover {
+            background: rgba(0, 188, 212, 0.1);
+            color: var(--accent-color);
+        }
+
+        .suggestion-thumb {
+            width: 35px;
+            height: 35px;
+            border-radius: 6px;
+            object-fit: cover;
         }
 
         .profile-header { 
@@ -204,13 +275,14 @@
             grid-template-columns: 1fr;
         }
 
-        /* 🖼️ SWIPABLE GALLERY CONTAINER */
+        /* 🖼️ GALLERY WRAPPER FIX (Prevents width cutting bug completely) */
         .gallery-container { 
             display: flex; 
             flex-direction: column; 
             gap: 12px; 
             position: relative; 
             width: 100%;
+            max-width: 100%;
             user-select: none;
         }
         
@@ -225,7 +297,7 @@
             touch-action: pan-y; 
         }
 
-        .blog-img { 
+        .blog-img, .blog-video-player { 
             width: 100%; 
             height: 100%; 
             object-fit: contain; 
@@ -244,12 +316,16 @@
             font-weight: 500;
         }
 
+        /* FIX: Prevent dynamic media elements from pushing page boundary rules */
         .thumbnail-wrapper { 
             display: flex; 
-            gap: 10px; 
+            gap: 8px; 
             overflow-x: auto; 
-            padding: 4px 2px; 
-            justify-content: center; 
+            padding: 6px 2px; 
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 100%;
+            scrollbar-width: thin;
         }
         
         .thumb-img { 
@@ -261,6 +337,7 @@
             border: 2px solid transparent; 
             transition: all 0.2s; 
             background: #090c10;
+            flex-shrink: 0; /* Ensures dynamic count never squishes layout framework */
         }
         .thumb-img:hover, .thumb-img.active { 
             border-color: var(--accent-color); 
@@ -288,7 +365,6 @@
             margin-bottom: 25px; 
         }
         
-        /* 🔥 NEW ULTRA-ATTRACTIVE PULSING AMAZON BUTTON */
         .amazon-btn {
             display: block;
             background: linear-gradient(90deg, #ff9900, #ffb74d, #ff9900);
@@ -326,7 +402,7 @@
             100% { background-position: 200% 50%; }
         }
 
-        /* 🔍 UPGRADED IMAGE MODAL LIGHTBOX SYSTEM WITH ARROWS */
+        /* 🔍 ADVANCED MODAL CONTROLS WRAPPER WITH AUDIO CONTROLS */
         .image-modal {
             display: none;
             position: fixed;
@@ -340,6 +416,7 @@
         }
         
         .modal-viewport {
+            width: 100%;
             max-width: 92%;
             max-height: 85%;
             display: flex;
@@ -370,7 +447,27 @@
         }
         .close-modal:hover { color: var(--accent-color); }
 
-        /* Modern Sleek Nav Buttons inside Modal */
+        .modal-audio-btn {
+            position: absolute;
+            bottom: -55px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(17, 22, 29, 0.85);
+            border: 1px solid var(--accent-color);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            z-index: 10001;
+            display: none; /* Auto toggled via system runtime code below */
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 188, 212, 0.2);
+        }
+
         .modal-nav-btn {
             position: absolute;
             top: 50%;
@@ -412,7 +509,6 @@
             line-height: 1.5;
         }
 
-        /* RESPONSIVE MEDIA QUERIES */
         @media (max-width: 768px) {
             .modal-prev { left: 10px; background: rgba(17, 22, 29, 0.85); }
             .modal-next { right: 10px; background: rgba(17, 22, 29, 0.85); }
@@ -439,8 +535,13 @@
 
     <div class="container">
         
+        <div class="search-box-wrapper">
+            <input type="text" id="mainStoreSearch" class="search-bar" placeholder="Search setups, cars, anime, stickers..." oninput="handleSearchEngine(this.value)">
+            <div id="suggestionBox" class="search-suggestions"></div>
+        </div>
+        
         <div id="blog-view" class="blog-view">
-            <div class="back-btn" onclick="window.location.search='' " >← Back to Main Shop</div>
+            <div class="back-btn" onclick="clearSearchAndReturn()">← Back to Main Shop</div>
             <h2 id="category-heading" class="category-title"></h2>
             <div id="items-container" class="items-grid"></div>
         </div>
@@ -530,12 +631,14 @@
              ontouchmove="moveModalSwipe(event)"
              ontouchend="endModalSwipe()">
             <button class="modal-nav-btn modal-prev" onclick="modalPrev(event)">&#10094;</button>
-            <img class="modal-content" id="modalTargetImg" src="" draggable="false">
+            <div id="modalMediaContainer" style="width:100%; display:flex; justify-content:center;"></div>
             <button class="modal-nav-btn modal-next" onclick="modalNext(event)">&#10095;</button>
+            <button id="modalAudioToggle" class="modal-audio-btn" onclick="toggleModalAudio(event)">🔊 Unmute Music</button>
         </div>
     </div>
 
     <script>
+        // CENTRAL REGULATED DATABASE - VIDEO SUPPORT INTEGRATED
         const blogData = {
             desk: {
                 keyboard: [{ pId: "kb_minimal", title: "Premium Minimalist Mechanical Keyboards", images: ["keyboard.jpg.png"], text: "A minimalist mechanical keyboard is an absolute game-changer for clean setups.", amazon: "YOUR_KEYBOARD_AMAZON_LINK" }],
@@ -568,7 +671,7 @@
                     {
                         pId: "berserk_set",
                         title: "Berserk Volume 1-5 Collection 5 Books Set (Series 1) by Kentaro Miura",
-                        images: ["b1.jpg", "b2.jpg", "b3.jpg", "b4.jpg", "b5.jpg", "b6.jpg", "b7.jpg"],
+                        images: ["b1.jpg", "b2.jpg", "b3.jpg", "b4.jpg", "b5.jpg", "b6.jpg", "b7.jpg"], // Add video path string like "sample.mp4" here anytime!
                         text: "Immerse yourself in the absolute pinnacle of dark fantasy manga! This premium collector's bundle contains the first 5 volumes of Kentaro Miura's legendary masterpiece, Berserk. Follow the gritty, jaw-dropping journey of Guts, the Black Swordsman, rendered in beautifully intense, ultra-detailed pen-and-ink illustrations that make it a centerpiece artwork for any Otaku manga shelf setup.",
                         amazon: "https://amzn.to/4fG5KMM" 
                     },
@@ -600,7 +703,56 @@
         };
 
         let activeIndices = {};
-        let currentModalCardIndex = null; // Track current open active context layout globally
+        let currentModalCardIndex = null; 
+        let isModalVideoMuted = true;
+
+        // 🧠 REALTIME SEARCH ENGINE CORE LOGIC
+        window.handleSearchEngine = function(query) {
+            const suggestBox = document.getElementById('suggestionBox');
+            if(!query.trim()) {
+                suggestBox.style.display = 'none';
+                return;
+            }
+            
+            let html = "";
+            const cleanQuery = query.toLowerCase();
+
+            // Search matches parsing cross array loops
+            Object.keys(blogData).forEach(pageKey => {
+                Object.keys(blogData[pageKey]).forEach(idKey => {
+                    blogData[pageKey][idKey].forEach(product => {
+                        if(product.title.toLowerCase().includes(cleanQuery) || idKey.toLowerCase().includes(cleanQuery) || pageKey.toLowerCase().includes(cleanQuery)) {
+                            html += `
+                                <a class="suggestion-item" href="?page=${pageKey}&id=${idKey}&product=${product.pId}">
+                                    <img class="suggestion-thumb" src="${product.images[0].endsWith('.mp4') ? 'logo.jpg.jpeg' : product.images[0]}">
+                                    <div>
+                                        <div style="font-weight:600; font-size:13px; color:#fff;">${product.title.substring(0, 45)}...</div>
+                                        <div style="font-size:11px; color:var(--accent-color); text-transform:uppercase;">In ${idKey}</div>
+                                    </div>
+                                </a>
+                            `;
+                        }
+                    });
+                });
+            });
+
+            if(html) {
+                suggestBox.innerHTML = html;
+                suggestBox.style.display = 'block';
+            } else {
+                suggestBox.style.display = 'none';
+            }
+        }
+
+        window.clearSearchAndReturn = function() {
+            document.getElementById('mainStoreSearch').value = "";
+            document.getElementById('suggestionBox').style.display = 'none';
+            window.location.search = '';
+        }
+
+        function isVideoFile(path) {
+            return path.toLowerCase().endsWith('.mp4');
+        }
 
         function route() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -614,10 +766,13 @@
             const mainProfileHeader = document.getElementById('main-profile-header');
             const itemsContainer = document.getElementById('items-container');
 
+            // Autoclose recommendations overlay during navigation
+            document.getElementById('suggestionBox').style.display = 'none';
+
             if (page && id && blogData[page] && blogData[page][id]) {
                 blogView.style.display = 'block';
                 homeView.style.display = 'block'; 
-                mainProfileHeader.style.display = 'none'; 
+                mainProfileHeader.style.none; 
                 shopGrid.classList.add('bottom-divider'); 
                 
                 itemsContainer.innerHTML = "";
@@ -636,13 +791,22 @@
 
                 productsList.forEach((product, pIndex) => {
                     activeIndices[pIndex] = 0; 
-                    const defaultImg = product.images[0];
+                    const defaultMedia = product.images[0];
                     let thumbsHtml = "";
                     
                     if(product.images.length > 1) {
-                        product.images.forEach((imgSrc, iIndex) => {
-                            thumbsHtml += `<img class="thumb-img ${iIndex === 0 ? 'active' : ''}" id="thumb-${pIndex}-${iIndex}" src="${imgSrc}" onclick="jumpToImage(${pIndex}, ${iIndex}, '${imgSrc}')" alt="thumbnail">`;
+                        product.images.forEach((srcPath, iIndex) => {
+                            let thumbSrc = isVideoFile(srcPath) ? "logo.jpg.jpeg" : srcPath; // Fallback video thumbnail frame placeholder
+                            thumbsHtml += `<img class="thumb-img ${iIndex === 0 ? 'active' : ''}" id="thumb-${pIndex}-${iIndex}" src="${thumbSrc}" onclick="jumpToImage(${pIndex}, ${iIndex}, '${srcPath}')" alt="thumbnail">`;
                         });
+                    }
+
+                    // Dynamic media block render switcher (Image vs AutoPlay Muted Video)
+                    let viewportMediaHtml = "";
+                    if(isVideoFile(defaultMedia)) {
+                        viewportMediaHtml = `<video id="main-img-${pIndex}" class="blog-video-player" src="${defaultMedia}" autoplay loop muted playsinline onclick="checkClickOrSwipe(event, ${pIndex}, '${defaultMedia}')"></video>`;
+                    } else {
+                        viewportMediaHtml = `<img id="main-img-${pIndex}" class="blog-img" src="${defaultMedia}" onclick="checkClickOrSwipe(event, ${pIndex}, '${defaultMedia}')" alt="${product.title}" draggable="false">`;
                     }
 
                     const cardHtml = `
@@ -656,9 +820,9 @@
                                      ontouchstart="startSwipe(event, ${pIndex})"
                                      ontouchmove="moveSwipe(event, ${pIndex})"
                                      ontouchend="endSwipe(${pIndex})">
-                                    <img id="main-img-${pIndex}" class="blog-img" src="${defaultImg}" onclick="checkClickOrSwipe(event, ${pIndex}, '${defaultImg}')" alt="${product.title}" draggable="false">
+                                    ${viewportMediaHtml}
                                 </div>
-                                <div class="zoom-hint">👈 Swipe photo or click to view full screen 🔍</div>
+                                <div class="zoom-hint">👈 Swipe file view or click to view full screen 🔍</div>
                                 <div class="thumbnail-wrapper">${thumbsHtml}</div>
                             </div>
                             <div class="item-details">
@@ -738,18 +902,22 @@
             }
         }
 
-        window.checkClickOrSwipe = function(e, cardIndex, imgSrc) {
+        window.checkClickOrSwipe = function(e, cardIndex, mediaSrc) {
             const diff = Math.abs(swipeStartX - swipeCurrentX);
             if (diff < 10) { 
-                openFullPhoto(cardIndex, imgSrc);
+                openFullPhoto(cardIndex, mediaSrc);
             }
         }
 
         window.jumpToImage = function(cardIndex, imgIndex, targetSrc) {
             activeIndices[cardIndex] = imgIndex;
-            const mainImg = document.getElementById(`main-img-${cardIndex}`);
-            if(mainImg) {
-                mainImg.src = targetSrc;
+            const mediaViewport = document.getElementById(`gallery-${cardIndex}`).querySelector('.swiper-viewport');
+            
+            // Re-render switch viewports logic node inside category list block
+            if(isVideoFile(targetSrc)) {
+                mediaViewport.innerHTML = `<video id="main-img-${cardIndex}" class="blog-video-player" src="${targetSrc}" autoplay loop muted playsinline onclick="checkClickOrSwipe(event, ${cardIndex}, '${targetSrc}')"></video>`;
+            } else {
+                mediaViewport.innerHTML = `<img id="main-img-${cardIndex}" class="blog-img" src="${targetSrc}" onclick="checkClickOrSwipe(event, ${cardIndex}, '${targetSrc}')" alt="VibeForge Asset" draggable="false">`;
             }
             
             const gallery = document.getElementById(`gallery-${cardIndex}`);
@@ -760,18 +928,22 @@
             }
         }
 
-        // 🔍 EXTENDED NAVIGATION SYSTEM INSIDE MODAL LIGHTBOX
-        window.openFullPhoto = function(cardIndex, imgSrc) {
+        // 🔍 MODAL RENDER SYSTEM ENGINE WITH LIVE AUDIO TRACK HANDLERS
+        window.openFullPhoto = function(cardIndex, mediaSrc) {
             currentModalCardIndex = cardIndex;
-            const modal = document.getElementById('fullScreenModal');
-            const modalImg = document.getElementById('modalTargetImg');
-            modal.style.display = "flex";
-            modalImg.src = imgSrc;
+            isModalVideoMuted = true; // reset to safe default muted
             
-            // Check image set size context to hide arrows if solo static asset
+            const modal = document.getElementById('fullScreenModal');
+            const targetContainer = document.getElementById('modalMediaContainer');
+            const audioBtn = document.getElementById('modalAudioToggle');
+            
+            modal.style.display = "flex";
+            renderModalContent(mediaSrc);
+            
             const images = getActiveImagesContext(cardIndex);
             const prevBtn = document.querySelector('.modal-prev');
             const nextBtn = document.querySelector('.modal-next');
+            
             if(images.length <= 1) {
                 prevBtn.style.display = 'none';
                 nextBtn.style.display = 'none';
@@ -781,12 +953,44 @@
             }
         }
 
+        function renderModalContent(srcPath) {
+            const targetContainer = document.getElementById('modalMediaContainer');
+            const audioBtn = document.getElementById('modalAudioToggle');
+            
+            if(isVideoFile(srcPath)) {
+                targetContainer.innerHTML = `<video id="modalTargetVideo" class="modal-content" src="${srcPath}" autoplay loop muted playsinline></video>`;
+                audioBtn.style.display = "flex";
+                audioBtn.innerText = "🔊 Unmute Music";
+            } else {
+                targetContainer.innerHTML = `<img class="modal-content" id="modalTargetImg" src="${srcPath}" draggable="false">`;
+                audioBtn.style.display = "none";
+            }
+        }
+
+        window.toggleModalAudio = function(e) {
+            if(e) e.stopPropagation();
+            const videoElement = document.getElementById('modalTargetVideo');
+            const audioBtn = document.getElementById('modalAudioToggle');
+            if(!videoElement) return;
+            
+            if(videoElement.muted) {
+                videoElement.muted = false;
+                audioBtn.innerText = "🔇 Mute Audio";
+                audioBtn.style.borderColors = "#ff9900";
+            } else {
+                videoElement.muted = true;
+                audioBtn.innerText = "🔊 Unmute Music";
+                audioBtn.style.borderColors = "var(--accent-color)";
+            }
+        }
+
         window.closeFullPhoto = function() {
+            // Kill any playing video resources inside modal viewport before hiding container nodes
+            document.getElementById('modalMediaContainer').innerHTML = "";
             document.getElementById('fullScreenModal').style.display = "none";
             currentModalCardIndex = null;
         }
 
-        // Helper to grab absolute matching context array at runtime 
         function getActiveImagesContext(cardIndex) {
             const urlParams = new URLSearchParams(window.location.search);
             const page = urlParams.get('page');
@@ -804,7 +1008,7 @@
         }
 
         window.modalNext = function(e) {
-            if(e) e.stopPropagation(); // prevent modal wrapper close event trigger
+            if(e) e.stopPropagation();
             if(currentModalCardIndex === null) return;
             
             const images = getActiveImagesContext(currentModalCardIndex);
@@ -817,7 +1021,7 @@
             }
             
             jumpToImage(currentModalCardIndex, currentIdx, images[currentIdx]);
-            document.getElementById('modalTargetImg').src = images[currentIdx];
+            renderModalContent(images[currentIdx]);
         }
 
         window.modalPrev = function(e) {
@@ -834,10 +1038,9 @@
             }
             
             jumpToImage(currentModalCardIndex, currentIdx, images[currentIdx]);
-            document.getElementById('modalTargetImg').src = images[currentIdx];
+            renderModalContent(images[currentIdx]);
         }
 
-        // KEYBOARD EVENT SYSTEM FOR PC ARROWS
         window.addEventListener('keydown', function(e) {
             const modal = document.getElementById('fullScreenModal');
             if(modal.style.display === "flex") {
@@ -847,19 +1050,17 @@
             }
         });
 
-        // INTERNAL TOUCH SWIPE ENGINE INSIDE THE OVERLAY ZOOM VIEWPORT
+        // INTERNAL TOUCH SWIPE ENGINE INSIDE OVERLAY VIEWPORT
         let modalSwipeStartX = 0;
         let modalSwipeCurrentX = 0;
         let isModalSwiping = false;
 
-        window.startModalThemeSwipe = function(e) {
-            // dynamic routing layer wrapper block close protection trigger switch
-            if(e.target.classList.contains('modal-nav-btn')) return;
+        window.startModalSwipe = function(e) {
+            if(e.target.classList.contains('modal-nav-btn') || e.target.classList.contains('modal-audio-btn')) return;
             isModalSwiping = true;
             modalSwipeStartX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
             modalSwipeCurrentX = modalSwipeStartX;
         }
-        window.startModalSwipe = startModalThemeSwipe;
 
         window.moveModalSwipe = function(e) {
             if(!isModalSwiping) return;
@@ -880,7 +1081,6 @@
             }
         }
 
-        // Close on clean background wrapper clicks handler
         document.getElementById('fullScreenModal').addEventListener('click', function(e) {
             if(e.target.id === 'fullScreenModal' || e.target.classList.contains('modal-viewport')) {
                 closeFullPhoto();
