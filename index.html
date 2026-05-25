@@ -38,14 +38,12 @@
             align-items: center;
         }
 
-        /* 💻 MASTER CONTAINER: Dynamic balancing for mobile & desktop layouts */
         .container { 
             width: 100%; 
-            max-width: 1100px; /* Expands perfectly on large screens */
+            max-width: 1100px;
             transition: max-width 0.3s ease;
         }
 
-        /* Profile Header Adjustments */
         .profile-header { 
             margin-bottom: 40px; 
             text-align: center;
@@ -81,7 +79,6 @@
             line-height: 1.6; 
         }
 
-        /* Modern Grid Headers */
         .section-title { 
             font-family: 'Orbitron', sans-serif; 
             font-size: 13px; 
@@ -95,7 +92,6 @@
             border-left: 3px solid var(--accent-color); 
         }
 
-        /* 💻 WINDOWS ADVANCED VIEW: Dynamic column layouts for products list */
         .links-wrapper { 
             display: grid; 
             gap: 20px; 
@@ -158,7 +154,6 @@
             color: var(--accent-color);
         }
 
-        /* 🎪 PRODUCT SINGLE/GRID COLLECTION VIEW PORT */
         .blog-view {
             display: none;
             background-color: var(--card-bg);
@@ -199,7 +194,6 @@
             margin-top: 15px; 
         }
         
-        /* 💻 TWO-COLUMN LAYOUT IN DESKTOP MODE FOR INSIDE COLLECTION ITEMS */
         .item-card { 
             background: rgba(0, 0, 0, 0.25); 
             border-radius: 16px; 
@@ -207,28 +201,40 @@
             border: 1px solid rgba(255,255,255,0.04); 
             display: grid;
             gap: 25px;
-            grid-template-columns: 1fr; /* Default mobile view stacked */
+            grid-template-columns: 1fr;
         }
 
+        /* 🖼️ SWIPABLE GALLERY CONTAINER */
         .gallery-container { 
             display: flex; 
             flex-direction: column; 
             gap: 12px; 
             position: relative; 
             width: 100%;
+            user-select: none;
         }
         
+        /* Added touch-action to prevent browser scroll lock during internal swipes */
+        .swiper-viewport {
+            width: 100%;
+            height: 320px;
+            border-radius: 12px;
+            background: #090c10;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.02);
+            touch-action: pan-y; 
+        }
+
         .blog-img { 
             width: 100%; 
-            height: 320px; 
-            border-radius: 12px; 
+            height: 100%; 
             object-fit: contain; 
-            background: #090c10; 
-            cursor: pointer; 
+            cursor: grab; 
+            display: block;
             transition: transform 0.2s ease;
-            border: 1px solid rgba(255,255,255,0.02);
         }
-        .blog-img:hover { transform: scale(1.01); }
+        .blog-img:active { cursor: grabbing; }
         
         .zoom-hint { 
             font-size: 11.5px; 
@@ -280,30 +286,48 @@
             color: var(--text-desc); 
             font-size: 14px; 
             line-height: 1.6; 
-            margin-bottom: 22px; 
+            margin-bottom: 25px; 
         }
         
+        /* 🔥 NEW ULTRA-ATTRACTIVE PULSING AMAZON BUTTON */
         .amazon-btn {
             display: block;
-            background: linear-gradient(90deg, #ff9900, #ffb74d);
+            background: linear-gradient(90deg, #ff9900, #ffb74d, #ff9900);
+            background-size: 200% auto;
             color: #111;
             text-align: center;
-            padding: 14px;
-            border-radius: 10px;
-            font-weight: 700;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 800;
             text-decoration: none;
-            font-size: 14.5px;
-            transition: all 0.25s;
-            box-shadow: 0 4px 15px rgba(255, 153, 0, 0.25);
+            font-size: 15px;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
-        }
-        .amazon-btn:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 6px 20px rgba(255, 153, 0, 0.45); 
+            letter-spacing: 0.8px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 153, 0, 0.5);
+            box-shadow: 0 4px 20px rgba(255, 153, 0, 0.3);
+            animation: pulseGlow 2s infinite ease-in-out, shimmerBg 3s infinite linear;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* 🔍 FULL SCREEN MODAL LIGHTBOX SYSTEM */
+        .amazon-btn:hover { 
+            transform: scale(1.03); 
+            box-shadow: 0 8px 30px rgba(255, 153, 0, 0.6); 
+        }
+        
+        /* 💡 KEYFRAME ANIMATIONS FOR THE PREMIUM BUTTON LOOK */
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3); transform: scale(1); }
+            50% { box-shadow: 0 6px 28px rgba(255, 153, 0, 0.65); transform: scale(1.015); }
+            100% { box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3); transform: scale(1); }
+        }
+
+        @keyframes shimmerBg {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
         .image-modal {
             display: none;
             position: fixed;
@@ -348,17 +372,16 @@
             line-height: 1.5;
         }
 
-        /* 📱 RESPONSIVE MEDIA QUERIES FOR INTERACTIVE LOOK */
+        /* RESPONSIVE MEDIA QUERIES */
         @media (max-width: 500px) {
             body { padding: 20px 10px; }
             .blog-view { padding: 20px 14px; border-radius: 14px; }
-            .item-card { padding: 14px; border-radius: 12px; }
-            .blog-img { height: 250px; }
+            .item-card { padding: 16px; border-radius: 12px; }
+            .swiper-viewport { height: 260px; }
             .links-wrapper { grid-template-columns: 1fr; }
         }
 
         @media (min-width: 768px) {
-            /* Splitting product layouts side-by-side inside detail tabs */
             .item-card {
                 grid-template-columns: 1.1fr 1fr;
                 align-items: center;
@@ -456,7 +479,6 @@
     </div>
 
     <script>
-        // FULL ORIGINAL DATABASE RETAINED SAFE!
         const blogData = {
             desk: {
                 keyboard: [{ title: "Premium Minimalist Mechanical Keyboards", images: ["keyboard.jpg.png"], text: "A minimalist mechanical keyboard is an absolute game-changer for clean setups.", amazon: "YOUR_KEYBOARD_AMAZON_LINK" }],
@@ -471,8 +493,6 @@
             collect: {
                 cars: [{ title: "Collector Edition Diecast Car Scale Models", images: ["cars.jpg.jpeg"], text: "Extremely sharp diecast miniature cars featuring opening hoods.", amazon: "YOUR_CARS_AMAZON_LINK" }],
                 manga: [{ title: "Complete Manga Box Sets Collection", images: ["manga.jpg.jpg"], text: "Build your dream background shelf setup with authentic manga box sets.", amazon: "YOUR_MANGA_AMAZON_LINK" }],
-                
-                // 🎪 MULTI-IMAGE NARUTO + GOKU ACTIVE
                 figures: [
                     {
                         title: "Naruto Shippuden Uzumaki Naruto Action Figure",
@@ -489,6 +509,9 @@
                 ]
             }
         };
+
+        // Active image slider tracks array
+        let activeIndices = {};
 
         function route() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -510,21 +533,33 @@
                 itemsContainer.innerHTML = "";
                 document.getElementById('category-heading').innerText = id.toUpperCase() + " COLLECTION";
                 
+                activeIndices = {}; // reset slide map
+
                 blogData[page][id].forEach((product, pIndex) => {
+                    activeIndices[pIndex] = 0; // default image 0 active
                     const defaultImg = product.images[0];
                     let thumbsHtml = "";
                     
                     if(product.images.length > 1) {
                         product.images.forEach((imgSrc, iIndex) => {
-                            thumbsHtml += `<img class="thumb-img ${iIndex === 0 ? 'active' : ''}" src="${imgSrc}" onclick="switchGalleryImage(${pIndex}, '${imgSrc}', this)" alt="thumbnail">`;
+                            thumbsHtml += `<img class="thumb-img ${iIndex === 0 ? 'active' : ''}" id="thumb-${pIndex}-${iIndex}" src="${imgSrc}" onclick="jumpToImage(${pIndex}, ${iIndex}, '${imgSrc}')" alt="thumbnail">`;
                         });
                     }
 
                     const cardHtml = `
                         <div class="item-card">
-                            <div class="gallery-container">
-                                <img id="main-img-${pIndex}" class="blog-img" src="${defaultImg}" onclick="openFullPhoto('${defaultImg}')" alt="${product.title}">
-                                <div class="zoom-hint">🔍 Click image to view full screen</div>
+                            <div class="gallery-container" id="gallery-${pIndex}" data-cardindex="${pIndex}">
+                                <div class="swiper-viewport" 
+                                     onmousedown="startSwipe(event, ${pIndex})" 
+                                     onmousemove="moveSwipe(event, ${pIndex})" 
+                                     onmouseup="endSwipe(${pIndex})" 
+                                     onmouseleave="endSwipe(${pIndex})"
+                                     ontouchstart="startSwipe(event, ${pIndex})"
+                                     ontouchmove="moveSwipe(event, ${pIndex})"
+                                     ontouchend="endSwipe(${pIndex})">
+                                    <img id="main-img-${pIndex}" class="blog-img" src="${defaultImg}" onclick="checkClickOrSwipe(event, '${defaultImg}')" alt="${product.title}" draggable="false">
+                                </div>
+                                <div class="zoom-hint">👈 Swipe photo or click to view full screen 🔍</div>
                                 <div class="thumbnail-wrapper">${thumbsHtml}</div>
                             </div>
                             <div class="item-details">
@@ -546,14 +581,77 @@
             }
         }
 
-        window.switchGalleryImage = function(cardIndex, targetSrc, thumbElement) {
-            const mainImg = document.getElementById(`main-img-${cardIndex}`);
-            mainImg.src = targetSrc;
-            mainImg.setAttribute('onclick', `openFullPhoto('${targetSrc}')`);
+        // SWIPE DETECTION LOGIC ENGINE
+        let swipeStartX = 0;
+        let swipeCurrentX = 0;
+        let isSwiping = false;
+
+        window.startSwipe = function(e, cardIndex) {
+            isSwiping = true;
+            swipeStartX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            swipeCurrentX = swipeStartX;
+        }
+
+        window.moveSwipe = function(e, cardIndex) {
+            if (!isSwiping) return;
+            swipeCurrentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        }
+
+        window.endSwipe = function(cardIndex) {
+            if (!isSwiping) return;
+            isSwiping = false;
             
-            const pCard = thumbElement.parentElement;
-            pCard.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
-            thumbElement.classList.add('active');
+            const diffX = swipeStartX - swipeCurrentX;
+            const threshold = 50; // min px to trigger swipe next/prev
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const page = urlParams.get('page');
+            const id = urlParams.get('id');
+            const imagesArray = blogData[page][id][cardIndex].images;
+            
+            if (Math.abs(diffX) > threshold) {
+                let currentIdx = activeIndices[cardIndex];
+                if (diffX > 0) {
+                    // Swiped Left -> Load Next Image
+                    if (currentIdx < imagesArray.length - 1) {
+                        currentIdx++;
+                    } else {
+                        currentIdx = 0; // loop back to first
+                    }
+                } else {
+                    // Swiped Right -> Load Previous Image
+                    if (currentIdx > 0) {
+                        currentIdx--;
+                    } else {
+                        currentIdx = imagesArray.length - 1; // loop to last
+                    }
+                }
+                jumpToImage(cardIndex, currentIdx, imagesArray[currentIdx]);
+            }
+        }
+
+        // Helper to avoid popping lightbox modal during a touch-swipe release
+        window.checkClickOrSwipe = function(e, imgSrc) {
+            const diff = Math.abs(swipeStartX - swipeCurrentX);
+            if (diff < 10) { 
+                openFullPhoto(imgSrc);
+            }
+        }
+
+        window.jumpToImage = function(cardIndex, imgIndex, targetSrc) {
+            activeIndices[cardIndex] = imgIndex;
+            const mainImg = document.getElementById(`main-img-${cardIndex}`);
+            if(mainImg) {
+                mainImg.src = targetSrc;
+            }
+            
+            // Sync Thumbnails UI state
+            const gallery = document.getElementById(`gallery-${cardIndex}`);
+            if (gallery) {
+                gallery.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
+                const activeThumb = document.getElementById(`thumb-${cardIndex}-${imgIndex}`);
+                if (activeThumb) activeThumb.classList.add('active');
+            }
         }
 
         window.openFullPhoto = function(imgSrc) {
