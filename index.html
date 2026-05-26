@@ -27,7 +27,6 @@
             --hover-glow: rgba(0, 188, 212, 0.35);
             --urgency-red: #ff4757;
             --urgency-orange: #ffa502;
-            --star-color: #ffd32a; /* Sun Yellow premium glowing star tokens */
         }
 
         body {
@@ -377,28 +376,13 @@
 
         .blog-title { 
             font-size: 20px; 
-            margin-bottom: 4px; 
+            margin-bottom: 12px; /* Restored balance margin spacing values */
             color: #fff; 
             font-weight: 700; 
             line-height: 1.3;
         }
 
-        /* ⭐ PREMIUM DYNAMIC STARS LOOP CONTAINER */
-        .star-rating {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            margin-bottom: 12px;
-            font-size: 12.5px;
-            font-weight: 600;
-            color: var(--text-desc);
-        }
-        .stars-gold {
-            color: var(--star-color);
-            letter-spacing: 2px;
-            text-shadow: 0 0 8px rgba(255, 211, 42, 0.3);
-        }
-
+        /* 🔥 HIGH-CONTRAST DYNAMIC URGENCY BADGES */
         .urgency-badge {
             font-size: 11px;
             font-weight: 700;
@@ -505,7 +489,7 @@
             box-shadow: 0 8px 30px rgba(255, 153, 0, 0.6); 
         }
 
-        /* ✅ VERIFIED CONVERSION FOOTER TOKENS (TRUST MATRIX BUILDER) */
+        /* ✅ VERIFIED CONVERSION FOOTER TOKENS */
         .trust-tokens-row {
             display: flex;
             flex-wrap: wrap;
@@ -525,7 +509,7 @@
             gap: 4px;
         }
         .trust-tag span {
-            color: #10b981; /* Premium secure checkmarks look color */
+            color: #10b981; 
             font-weight: 700;
         }
         
@@ -896,23 +880,10 @@
             return path.toLowerCase().endsWith('.mp4');
         }
 
-        // 🧠 CRYPTOGRAPHIC PRODUCT HASH GENERATOR MATRIX FOR SEED DISTRIBUTIONS
         function getSeedMetricsHash(seedId) {
             let num = 0;
             for (let i = 0; i < seedId.length; i++) { num += seedId.charCodeAt(i); }
             return num;
-        }
-
-        // 🧠 5-STAR REVIEWS COUNT GENERATOR (Calculates unique reviews count between 110 and 195)
-        function generateDynamicStarRatingHtml(seedId) {
-            let hash = getSeedMetricsHash(seedId);
-            let totalVotes = 110 + (hash % 86);
-            return `
-                <div class="star-rating">
-                    <span class="stars-gold">⭐⭐⭐⭐⭐</span>
-                    <span>4.9/5 (${totalVotes} US Reviews)</span>
-                </div>
-            `;
         }
 
         function generateMixedUrgencyBlock(seedKey, pIndex) {
@@ -990,8 +961,6 @@
                         viewportMediaHtml = `<img id="main-img-${pIndex}" class="blog-img" src="${defaultMedia}" onclick="checkClickOrSwipe(event, ${pIndex}, '${defaultMedia}')" alt="${product.title}" draggable="false">`;
                     }
 
-                    // 🛠️ DYNAMIC INJECTION NODE CONNECTORS 
-                    const starsRatingHtml = generateDynamicStarRatingHtml(product.pId);
                     const alertBadgeHtml = generateMixedUrgencyBlock(product.pId, pIndex);
                     const realTimeSalesHtml = generateRandomSalesTracker(product.pId);
 
@@ -1013,7 +982,6 @@
                             </div>
                             <div class="item-details">
                                 <h3 class="blog-title">${product.title}</h3>
-                                ${starsRatingHtml}
                                 <div>${alertBadgeHtml}</div>
                                 <p class="blog-text">${product.text}</p>
                                 ${realTimeSalesHtml}
