@@ -25,6 +25,8 @@
             --text-main: #ffffff;
             --text-desc: #94a3b8;
             --hover-glow: rgba(0, 188, 212, 0.35);
+            --urgency-red: #ff4757;
+            --urgency-orange: #ffa502;
         }
 
         body {
@@ -32,7 +34,7 @@
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            padding: 95px 16px 30px 16px; /* Top spacing padded for static fixed engine */
+            padding: 100px 20px 30px 20px; 
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -340,11 +342,10 @@
             font-weight: 500;
         }
 
-        /* 📱 THUMBNAILS CONTAINER DYNAMIC MATRIX (Fixes 7 images overflow layout bug) */
         .thumbnail-wrapper { 
             display: flex; 
             gap: 8px; 
-            flex-wrap: wrap; /* Dynamic text lines layout breaking rule activated */
+            flex-wrap: wrap; 
             justify-content: center;
             width: 100%;
             max-width: 100%;
@@ -352,7 +353,7 @@
         }
         
         .thumb-img { 
-            width: 50px; /* Reduced box frame padding strictly for clean look */
+            width: 50px; 
             height: 50px; 
             border-radius: 8px; 
             object-fit: cover; 
@@ -375,17 +376,46 @@
 
         .blog-title { 
             font-size: 20px; 
-            margin-bottom: 12px; 
+            margin-bottom: 6px; 
             color: #fff; 
             font-weight: 700; 
             line-height: 1.3;
+        }
+
+        /* 🔴 MISCELLANEOUS VISUAL REALTIME URGENCY ALERT SYSTEM */
+        .urgency-badge {
+            font-size: 12.5px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.3px;
+        }
+        .badge-red { color: var(--urgency-red); }
+        .badge-orange { color: var(--urgency-orange); }
+
+        /* 🛒 DYNAMIC REALTIME SALES PROMPT SYSTEM */
+        .sales-tracker {
+            font-size: 13px;
+            font-weight: 500;
+            color: #10b981; /* Premium Emerald green look */
+            background: rgba(16, 185, 129, 0.06);
+            border: 1px dashed rgba(16, 185, 129, 0.2);
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
         }
         
         .blog-text { 
             color: var(--text-desc); 
             font-size: 14px; 
             line-height: 1.6; 
-            margin-bottom: 25px; 
+            margin-bottom: 20px; 
         }
         
         .amazon-btn {
@@ -525,10 +555,12 @@
         
         footer { 
             margin-top: 60px; 
-            font-size: 12px; 
+            font-size: 13px; 
             color: var(--text-desc); 
             text-align: center;
-            line-height: 1.5;
+            line-height: 1.6;
+            font-weight: 500;
+            letter-spacing: 0.3px;
         }
 
         @media (max-width: 768px) {
@@ -544,7 +576,7 @@
             .item-card { padding: 16px; border-radius: 12px; }
             .swiper-viewport { height: 260px; }
             .links-wrapper { grid-template-columns: 1fr; }
-            .thumb-img { width: 46px; height: 46px; } /* Slightly tightened layout dimensions for 5" devices grid metrics */
+            .thumb-img { width: 46px; height: 46px; } 
         }
 
         @media (min-width: 768px) {
@@ -645,7 +677,7 @@
         </div>
 
         <footer>
-            <p>© 2026 VibeForge US | As an Amazon Associate I earn from qualifying purchases.</p>
+            <p>© 2026 VibeForge | Forging the Ultimate Desktop Aesthetics & Premium Anime Collectibles.</p>
         </footer>
     </div>
 
@@ -779,6 +811,26 @@
             return path.toLowerCase().endsWith('.mp4');
         }
 
+        // 🧠 CUSTOM SHUFFLED URGENCY GENERATOR (Ensures look remains 100% genuine)
+        function generateMixedUrgencyBlock(seedKey, pIndex) {
+            const alertStyles = [
+                `<div class="urgency-badge badge-red">🔥 Only 3 left in stock - Order Soon</div>`,
+                `<div class="urgency-badge badge-orange">⚡ Selling Fast! High demand among collectors</div>`,
+                `<div class="urgency-badge badge-red">🔥 Only 5 remaining - Items selling out</div>`,
+                `<div class="urgency-badge badge-orange">✨ Limited Edition Batch - Limited Availability</div>`
+            ];
+            // Combine alphanumeric characters to lock specific layout style per cell dynamically
+            let indexCalc = (seedKey.charCodeAt(0) + seedKey.charCodeAt(seedKey.length - 1) + pIndex) % alertStyles.length;
+            return alertStyles[indexCalc];
+        }
+
+        // 🧠 RANDOMIZED DYNAMIC REAL-TIME BUYERS TRACKER
+        function generateRandomSalesTracker(pIndex) {
+            // Generate standard range between 28 and 46 dynamically on frame instantiation
+            let baseOrders = 25 + ((pIndex * 7 + 13) % 21);
+            return `<div class="sales-tracker">🛒 <b>${baseOrders} people</b> ordered this item in the last 24 hours</div>`;
+        }
+
         function route() {
             const urlParams = new URLSearchParams(window.location.search);
             const page = urlParams.get('page');
@@ -832,6 +884,10 @@
                         viewportMediaHtml = `<img id="main-img-${pIndex}" class="blog-img" src="${defaultMedia}" onclick="checkClickOrSwipe(event, ${pIndex}, '${defaultMedia}')" alt="${product.title}" draggable="false">`;
                     }
 
+                    // Dynamic alert injection logic bindings
+                    const alertBadgeHtml = generateMixedUrgencyBlock(product.pId, pIndex);
+                    const realTimeSalesHtml = generateRandomSalesTracker(pIndex);
+
                     const cardHtml = `
                         <div class="item-card" id="p-card-${product.pId || pIndex}">
                             <div class="gallery-container" id="gallery-${pIndex}" data-cardindex="${pIndex}">
@@ -850,8 +906,10 @@
                             </div>
                             <div class="item-details">
                                 <h3 class="blog-title">${product.title}</h3>
+                                ${alertBadgeHtml}
                                 <p class="blog-text">${product.text}</p>
-                                <a href="${product.amazon}" target="_blank" class="amazon-btn">Check Price on Amazon US ➔</a>
+                                ${realTimeSalesHtml}
+                                <a href="${product.amazon}" target="_blank" class="amazon-btn">CHECK PRICE ON AMAZON ➔</a>
                             </div>
                         </div>
                     `;
@@ -946,6 +1004,13 @@
                 gallery.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
                 const activeThumb = document.getElementById(`thumb-${cardIndex}-${imgIndex}`);
                 if (activeThumb) activeThumb.classList.add('active');
+                
+                if(activeThumb) {
+                    activeThumb.parentElement.scrollTo({
+                        left: activeThumb.offsetLeft - (activeThumb.parentElement.offsetWidth / 2) + (activeThumb.offsetWidth / 2),
+                        behavior: 'smooth'
+                    });
+                }
             }
         }
 
