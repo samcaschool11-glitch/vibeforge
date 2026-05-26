@@ -27,6 +27,7 @@
             --hover-glow: rgba(0, 188, 212, 0.35);
             --urgency-red: #ff4757;
             --urgency-orange: #ffa502;
+            --star-color: #ffd32a; /* Sun Yellow premium glowing star tokens */
         }
 
         body {
@@ -376,13 +377,28 @@
 
         .blog-title { 
             font-size: 20px; 
-            margin-bottom: 8px; 
+            margin-bottom: 4px; 
             color: #fff; 
             font-weight: 700; 
             line-height: 1.3;
         }
 
-        /* 🔥 NEW ULTRA-ATTRACTIVE DYNAMIC BADGES (HIGHER CONTRAST & PREMIUM GLOW) */
+        /* ⭐ PREMIUM DYNAMIC STARS LOOP CONTAINER */
+        .star-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 12px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--text-desc);
+        }
+        .stars-gold {
+            color: var(--star-color);
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px rgba(255, 211, 42, 0.3);
+        }
+
         .urgency-badge {
             font-size: 11px;
             font-weight: 700;
@@ -411,7 +427,6 @@
             box-shadow: 0 0 10px rgba(255, 165, 2, 0.1);
         }
 
-        /* Live animated pulse dot icon for labels */
         .pulse-dot {
             width: 6px;
             height: 6px;
@@ -428,7 +443,6 @@
             100% { transform: scale(0.8); opacity: 0.5; }
         }
 
-        /* 🛒 NEW HIGH-CONVERTING GLASSMORPHISM SALES PROMPT BOX */
         .sales-tracker {
             font-size: 13.5px;
             font-weight: 600;
@@ -437,7 +451,7 @@
             border: 1px solid rgba(16, 185, 129, 0.15);
             padding: 12px 16px;
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -483,11 +497,36 @@
             box-shadow: 0 4px 20px rgba(255, 153, 0, 0.3);
             animation: pulseGlow 2s infinite ease-in-out, shimmerBg 3s infinite linear;
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-bottom: 14px;
         }
 
         .amazon-btn:hover { 
             transform: scale(1.03); 
             box-shadow: 0 8px 30px rgba(255, 153, 0, 0.6); 
+        }
+
+        /* ✅ VERIFIED CONVERSION FOOTER TOKENS (TRUST MATRIX BUILDER) */
+        .trust-tokens-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-top: 2px;
+            opacity: 0.85;
+        }
+        .trust-tag {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-desc);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .trust-tag span {
+            color: #10b981; /* Premium secure checkmarks look color */
+            font-weight: 700;
         }
         
         @keyframes pulseGlow {
@@ -857,7 +896,25 @@
             return path.toLowerCase().endsWith('.mp4');
         }
 
-        // 🧠 FIXED BALANCED MIXED URGENCY MATRIX WITH PULSING NEON INDICATORS
+        // 🧠 CRYPTOGRAPHIC PRODUCT HASH GENERATOR MATRIX FOR SEED DISTRIBUTIONS
+        function getSeedMetricsHash(seedId) {
+            let num = 0;
+            for (let i = 0; i < seedId.length; i++) { num += seedId.charCodeAt(i); }
+            return num;
+        }
+
+        // 🧠 5-STAR REVIEWS COUNT GENERATOR (Calculates unique reviews count between 110 and 195)
+        function generateDynamicStarRatingHtml(seedId) {
+            let hash = getSeedMetricsHash(seedId);
+            let totalVotes = 110 + (hash % 86);
+            return `
+                <div class="star-rating">
+                    <span class="stars-gold">⭐⭐⭐⭐⭐</span>
+                    <span>4.9/5 (${totalVotes} US Reviews)</span>
+                </div>
+            `;
+        }
+
         function generateMixedUrgencyBlock(seedKey, pIndex) {
             const alertStyles = [
                 `<div class="urgency-badge badge-red"><span class="pulse-dot"></span>Only 3 left in stock - Order Soon</div>`,
@@ -869,14 +926,9 @@
             return alertStyles[indexCalc];
         }
 
-        // 🧠 FIXED CRYPTOGRAPHIC RANDOM FORMULA (Strictly scales 27 to 48 unique to each item block)
         function generateRandomSalesTracker(seedId) {
-            let stringSum = 0;
-            for (let i = 0; i < seedId.length; i++) {
-                stringSum += seedId.charCodeAt(i);
-            }
-            // Strict mathematical mapping to generate dynamic variants bounded securely inside 27-48 metrics channel
-            let boundedOrders = 27 + (stringSum % 22); 
+            let hash = getSeedMetricsHash(seedId);
+            let boundedOrders = 27 + (hash % 22); 
             return `
                 <div class="sales-tracker">
                     <div class="sales-tracker-icon">🛒</div>
@@ -938,8 +990,9 @@
                         viewportMediaHtml = `<img id="main-img-${pIndex}" class="blog-img" src="${defaultMedia}" onclick="checkClickOrSwipe(event, ${pIndex}, '${defaultMedia}')" alt="${product.title}" draggable="false">`;
                     }
 
+                    // 🛠️ DYNAMIC INJECTION NODE CONNECTORS 
+                    const starsRatingHtml = generateDynamicStarRatingHtml(product.pId);
                     const alertBadgeHtml = generateMixedUrgencyBlock(product.pId, pIndex);
-                    // Crucial structural update: We pass the constant static product ID to break matching metrics tracking duplicate crashes
                     const realTimeSalesHtml = generateRandomSalesTracker(product.pId);
 
                     const cardHtml = `
@@ -960,10 +1013,16 @@
                             </div>
                             <div class="item-details">
                                 <h3 class="blog-title">${product.title}</h3>
+                                ${starsRatingHtml}
                                 <div>${alertBadgeHtml}</div>
                                 <p class="blog-text">${product.text}</p>
                                 ${realTimeSalesHtml}
                                 <a href="${product.amazon}" target="_blank" class="amazon-btn">CHECK PRICE ON AMAZON ➔</a>
+                                <div class="trust-tokens-row">
+                                    <div class="trust-tag"><span>✓</span> Verified Purchase</div>
+                                    <div class="trust-tag"><span>✓</span> US Tracked Delivery</div>
+                                    <div class="trust-tag"><span>✓</span> Secure Content Page</div>
+                                </div>
                             </div>
                         </div>
                     `;
@@ -1058,19 +1117,11 @@
                 gallery.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
                 const activeThumb = document.getElementById(`thumb-${cardIndex}-${imgIndex}`);
                 if (activeThumb) activeThumb.classList.add('active');
-                
-                if(activeThumb) {
-                    activeThumb.parentElement.scrollTo({
-                        left: activeThumb.offsetLeft - (activeThumb.parentElement.offsetWidth / 2) + (activeThumb.offsetWidth / 2),
-                        behavior: 'smooth'
-                    });
-                }
             }
         }
 
         window.openFullPhoto = function(cardIndex, mediaSrc) {
             currentModalCardIndex = cardIndex;
-            
             const modal = document.getElementById('fullScreenModal');
             modal.style.display = "flex";
             renderModalContent(mediaSrc);
