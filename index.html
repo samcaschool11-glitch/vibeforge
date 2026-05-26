@@ -27,6 +27,7 @@
             --hover-glow: rgba(0, 188, 212, 0.35);
             --urgency-red: #ff4757;
             --urgency-orange: #ffa502;
+            --shipping-green: #10b981;
         }
 
         body {
@@ -376,17 +377,17 @@
 
         .blog-title { 
             font-size: 20px; 
-            margin-bottom: 12px; /* Restored balance margin spacing values */
+            margin-bottom: 6px; 
             color: #fff; 
             font-weight: 700; 
             line-height: 1.3;
         }
 
-        /* 🔥 HIGH-CONTRAST DYNAMIC URGENCY BADGES */
+        /* 🔴 HIGH-CONTRAST DYNAMIC URGENCY BADGES (Option 1) */
         .urgency-badge {
             font-size: 11px;
             font-weight: 700;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -427,6 +428,7 @@
             100% { transform: scale(0.8); opacity: 0.5; }
         }
 
+        /* 🛒 HIGH-CONVERTING GLASSMORPHISM SALES PROMPT BOX (Option 2) */
         .sales-tracker {
             font-size: 13.5px;
             font-weight: 600;
@@ -435,7 +437,7 @@
             border: 1px solid rgba(16, 185, 129, 0.15);
             padding: 12px 16px;
             border-radius: 10px;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             display: inline-flex;
             align-items: center;
             gap: 10px;
@@ -454,12 +456,28 @@
             height: 28px;
             border-radius: 6px;
         }
+
+        /* ✈️ AUTOMATED FAST SHIPPING COUNTDOWN TRACKER (Option 3) */
+        .shipping-countdown {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--shipping-green);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 18px;
+            letter-spacing: 0.2px;
+            background: rgba(16, 185, 129, 0.04);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px dashed rgba(16, 185, 129, 0.15);
+        }
         
         .blog-text { 
             color: var(--text-desc); 
             font-size: 14px; 
             line-height: 1.6; 
-            margin-bottom: 20px; 
+            margin-bottom: 18px; 
         }
         
         .amazon-btn {
@@ -908,6 +926,26 @@
             `;
         }
 
+        // ✈️ AUTOMATED CALCULATION ENGINE LOGIC BLOCK FOR SHIPPING SCHEDULE (Option 3)
+        function generateLiveShippingDateHtml() {
+            const daysList = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const monthsList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            
+            // Generate standard milestone boundary targets 2 days out from current epoch system values safely
+            let deliveryDate = new Date();
+            deliveryDate.setDate(deliveryDate.getDate() + 2);
+            
+            let finalDayName = daysList[deliveryDate.getDay()];
+            let finalMonthName = monthsList[deliveryDate.getMonth()];
+            let finalDayNum = deliveryDate.getDate();
+            
+            return `
+                <div class="shipping-countdown">
+                    ✈️ <span>Free Fast Delivery to US! Guaranteed by <b>${finalDayName}, ${finalMonthName} ${finalDayNum}</b></span>
+                </div>
+            `;
+        }
+
         function route() {
             const urlParams = new URLSearchParams(window.location.search);
             const page = urlParams.get('page');
@@ -963,6 +1001,7 @@
 
                     const alertBadgeHtml = generateMixedUrgencyBlock(product.pId, pIndex);
                     const realTimeSalesHtml = generateRandomSalesTracker(product.pId);
+                    const dynamicShippingHtml = generateLiveShippingDateHtml(); // Option 3 compilation call
 
                     const cardHtml = `
                         <div class="item-card" id="p-card-${product.pId || pIndex}">
@@ -985,6 +1024,7 @@
                                 <div>${alertBadgeHtml}</div>
                                 <p class="blog-text">${product.text}</p>
                                 ${realTimeSalesHtml}
+                                ${dynamicShippingHtml}
                                 <a href="${product.amazon}" target="_blank" class="amazon-btn">CHECK PRICE ON AMAZON ➔</a>
                                 <div class="trust-tokens-row">
                                     <div class="trust-tag"><span>✓</span> Verified Purchase</div>
