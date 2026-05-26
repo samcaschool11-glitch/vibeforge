@@ -383,7 +383,7 @@
             line-height: 1.3;
         }
 
-        /* 🔴 HIGH-CONTRAST DYNAMIC URGENCY BADGES (Option 1) */
+        /* 🔴 HIGH-CONTRAST DYNAMIC URGENCY BADGES */
         .urgency-badge {
             font-size: 11px;
             font-weight: 700;
@@ -428,7 +428,6 @@
             100% { transform: scale(0.8); opacity: 0.5; }
         }
 
-        /* 🛒 HIGH-CONVERTING GLASSMORPHISM SALES PROMPT BOX (Option 2) */
         .sales-tracker {
             font-size: 13.5px;
             font-weight: 600;
@@ -457,7 +456,7 @@
             border-radius: 6px;
         }
 
-        /* ✈️ AUTOMATED FAST SHIPPING COUNTDOWN TRACKER (Option 3) */
+        /* ✈️ AUTOMATED FAST SHIPPING COUNTDOWN TRACKER */
         .shipping-countdown {
             font-size: 13px;
             font-weight: 600;
@@ -471,6 +470,73 @@
             padding: 8px 12px;
             border-radius: 8px;
             border: 1px dashed rgba(16, 185, 129, 0.15);
+        }
+
+        /* 🛠️ PREMIUM INTERACTIVE ACCORDION SPECIFICATIONS WRAPPER (Option 3) */
+        .faq-accordion-section {
+            width: 100%;
+            margin-bottom: 22px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 12px;
+        }
+        .faq-header-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .accordion-tab {
+            width: 100%;
+            background: rgba(17, 22, 29, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+        .accordion-tab:hover {
+            border-color: rgba(0, 188, 212, 0.2);
+        }
+        .accordion-trigger {
+            width: 100%;
+            padding: 12px 14px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            outline: none;
+        }
+        .accordion-icon-marker {
+            font-size: 14px;
+            color: var(--text-desc);
+            transition: transform 0.2s, color 0.2s;
+        }
+        .accordion-tab.active-tab .accordion-icon-marker {
+            transform: rotate(45deg); /* Flips + into a beautiful close cross shape token marker */
+            color: var(--accent-color);
+        }
+        .accordion-panel-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s cubic-bezier(0, 1, 0, 1); /* Super makkhan native dropdown expand physics formula */
+            padding: 0 14px;
+            color: var(--text-desc);
+            font-size: 12.5px;
+            line-height: 1.5;
+        }
+        .accordion-tab.active-tab .accordion-panel-content {
+            max-height: 200px;
+            padding-bottom: 12px;
+            transition: max-height 0.25s cubic-bezier(1, 0, 1, 0);
         }
         
         .blog-text { 
@@ -926,24 +992,78 @@
             `;
         }
 
-        // ✈️ AUTOMATED CALCULATION ENGINE LOGIC BLOCK FOR SHIPPING SCHEDULE (Option 3)
         function generateLiveShippingDateHtml() {
             const daysList = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             const monthsList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-            
-            // Generate standard milestone boundary targets 2 days out from current epoch system values safely
             let deliveryDate = new Date();
             deliveryDate.setDate(deliveryDate.getDate() + 2);
-            
-            let finalDayName = daysList[deliveryDate.getDay()];
-            let finalMonthName = monthsList[deliveryDate.getMonth()];
-            let finalDayNum = deliveryDate.getDate();
-            
             return `
                 <div class="shipping-countdown">
-                    ✈️ <span>Free Fast Delivery to US! Guaranteed by <b>${finalDayName}, ${finalMonthName} ${finalDayNum}</b></span>
+                    ✈️ <span>Free Fast Delivery to US! Guaranteed by <b>${daysList[deliveryDate.getDay()]}, ${monthsList[deliveryDate.getMonth()]} ${deliveryDate.getDate()}</b></span>
                 </div>
             `;
+        }
+
+        // 🧠 AUTOMATED INTELLIGENT FAQ ACCORDION CONTENT POPULATER ENGINE
+        function generateSmartFaqAccordionHtml(seedId, currentIdContext) {
+            let itemPackText = "Includes the premium display asset, official setup hardware bundle, and safe configuration guides.";
+            let licensedText = "Yes, we source 100% authentic, officially licensed items imported straight from authorized global channels.";
+            
+            // Context parsing rule configurations matching input strings variables
+            if(currentIdContext.toLowerCase().includes('manga')) {
+                itemPackText = "Contains the official publisher volume bundle set, safely locked in high-grade protective shielding wrap to prevent shelf damage.";
+                licensedText = "Yes, 100% authentic official English serialization prints sourced from authorized publishing networks inside the United States.";
+            } else if(currentIdContext.toLowerCase().includes('car') || currentIdContext.toLowerCase().includes('figure')) {
+                itemPackText = "Includes the collector edition highly-detailed model chassis, individual scaling accent frames, and custom mount displays.";
+            }
+
+            return `
+                <div class="faq-accordion-section">
+                    <div class="faq-header-label">⚙️ Product Specifications & FAQs</div>
+                    
+                    <div class="accordion-tab">
+                        <button class="accordion-trigger" onclick="toggleAccordionTab(this)">
+                            <span>📦 What's included in the pack?</span>
+                            <span class="accordion-icon-marker">+</span>
+                        </button>
+                        <div class="accordion-panel-content">
+                            <p>${itemPackText}</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-tab">
+                        <button class="accordion-trigger" onclick="toggleAccordionTab(this)">
+                            <span>🌐 Is this the Official US Edition?</span>
+                            <span class="accordion-icon-marker">+</span>
+                        </button>
+                        <div class="accordion-panel-content">
+                            <p>${licensedText}</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-tab">
+                        <button class="accordion-trigger" onclick="toggleAccordionTab(this)">
+                            <span>🛡️ Safe Transit Guarantee?</span>
+                            <span class="accordion-icon-marker">+</span>
+                        </button>
+                        <div class="accordion-panel-content">
+                            <p>Every order is heavily wrapped in multi-layer shockproof bubble skins and packed into hard-box outer layers to absolute premium mint condition delivery.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        window.toggleAccordionTab = function(buttonElement) {
+            const currentTab = buttonElement.parentElement;
+            const cardParent = currentTab.closest('.item-details');
+            
+            // Clean accordion toggle functionality inside same product scope
+            cardParent.querySelectorAll('.accordion-tab').forEach(tab => {
+                if(tab !== currentTab) tab.classList.remove('active-tab');
+            });
+            
+            currentTab.classList.toggle('active-tab');
         }
 
         function route() {
@@ -1001,7 +1121,8 @@
 
                     const alertBadgeHtml = generateMixedUrgencyBlock(product.pId, pIndex);
                     const realTimeSalesHtml = generateRandomSalesTracker(product.pId);
-                    const dynamicShippingHtml = generateLiveShippingDateHtml(); // Option 3 compilation call
+                    const dynamicShippingHtml = generateLiveShippingDateHtml();
+                    const accordionFaqHtml = generateSmartFaqAccordionHtml(product.pId, id); // Option 3 compiled generator node injection
 
                     const cardHtml = `
                         <div class="item-card" id="p-card-${product.pId || pIndex}">
@@ -1025,6 +1146,7 @@
                                 <p class="blog-text">${product.text}</p>
                                 ${realTimeSalesHtml}
                                 ${dynamicShippingHtml}
+                                ${accordionFaqHtml}
                                 <a href="${product.amazon}" target="_blank" class="amazon-btn">CHECK PRICE ON AMAZON ➔</a>
                                 <div class="trust-tokens-row">
                                     <div class="trust-tag"><span>✓</span> Verified Purchase</div>
