@@ -472,7 +472,7 @@
             border: 1px dashed rgba(16, 185, 129, 0.15);
         }
 
-        /* 🛠️ PREMIUM INTERACTIVE ACCORDION SPECIFICATIONS WRAPPER (Option 3) */
+        /* 🛠️ PREMIUM INTERACTIVE ACCORDION SPECIFICATIONS WRAPPER */
         .faq-accordion-section {
             width: 100%;
             margin-bottom: 22px;
@@ -521,13 +521,13 @@
             transition: transform 0.2s, color 0.2s;
         }
         .accordion-tab.active-tab .accordion-icon-marker {
-            transform: rotate(45deg); /* Flips + into a beautiful close cross shape token marker */
+            transform: rotate(45deg); 
             color: var(--accent-color);
         }
         .accordion-panel-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.25s cubic-bezier(0, 1, 0, 1); /* Super makkhan native dropdown expand physics formula */
+            transition: max-height 0.25s cubic-bezier(0, 1, 0, 1); 
             padding: 0 14px;
             color: var(--text-desc);
             font-size: 12.5px;
@@ -855,13 +855,13 @@
         const blogData = {
             desk: {
                 keyboard: [
-                   {
-                      pId: "womier_sk80",
-                      title: "Womier SK80 75% Mechanical Gaming Keyboard with Color Multimedia Display, Gasket Mount, Creamy Sound, Black Kanagawa Theme",
-                      images: ["kk1.jpg", "kk2.jpg", "kk3.jpg", "kk4.jpg", "kk5.jpg", "kk6.jpg"],
-                      text: "Experience typing luxury with the Womier SK80! This premium 75% layout gasket-mounted mechanical keyboard infuses stunning Japanese artistic aesthetics with top-tier technology. Boasting hot-swappable sockets matching 3-pin or 5-pin switches, pre-lubed POM linear grey switches for an acoustic creamy sound, and a customizable color OLED smart screen to monitor system configurations or display personalized animated GIFs. It is the ultimate premium upgrade for minimalist desk setups and high-octane battle stations alike.",
-                      amazon: "https://amzn.to/4dQTo1Z"
-           },
+                    {
+                        pId: "womier_sk80",
+                        title: "Womier SK80 75% Mechanical Gaming Keyboard with Color Multimedia Display, Gasket Mount, Creamy Sound, Black Kanagawa Theme",
+                        images: ["kk1.jpg", "kk2.jpg", "kk3.jpg", "kk4.jpg", "kk5.jpg", "kk6.jpg"],
+                        text: "Experience typing luxury with the Womier SK80! This premium 75% layout gasket-mounted mechanical keyboard infuses stunning Japanese artistic aesthetics with top-tier technology. Boasting hot-swappable sockets matching 3-pin or 5-pin switches, pre-lubed POM linear grey switches for an acoustic creamy sound, and a customizable color OLED smart screen to monitor system configurations or display personalized animated GIFs. It is the ultimate premium upgrade for minimalist desk setups and high-octane battle stations alike.",
+                        amazon: "https://amzn.to/4dQTo1Z"
+                    },
                     { 
                         pId: "kb_minimal", 
                         title: "Premium Minimalist Mechanical Keyboards", 
@@ -912,13 +912,13 @@
                     }
                 ],
                 figures: [
-                     {
+                    {
                         pId: "csm_figuarts",
                         title: "TAMASHII NATIONS - Chainsaw Man - The Movie: Reze Arc - Chainsaw Man S.H.Figuarts Action Figure",
                         images: ["d1.jpg", "d2.jpg", "d3.jpg", "d4.jpg", "d5.jpg", "d6.jpg", "d7.jpg", "d8.jpg"],
                         text: "Unleash the visceral chaos of Denji directly onto your display shelf! Sourced from Tamashii Nations' premium S.H.Figuarts lineup for 'The Movie: Reze Arc', this elite figure boasts unparalleled articulation matrices, movie-accurate blood-splattered chainsaw blades, and a variety of interchangeable face plates and hands. An absolute high-end centerpiece for serious anime collectors and dark fantasy enthusiasts.",
-                      amazon: "https://amzn.to/4dGsk6R"
-                     },      
+                        amazon: "https://amzn.to/4dGsk6R"
+                    },      
                     {
                         pId: "naruto_fig",
                         title: "Naruto Shippuden Uzumaki Naruto Action Figure",
@@ -955,7 +955,7 @@
                     blogData[pageKey][idKey].forEach(product => {
                         if(product.title.toLowerCase().includes(cleanQuery) || idKey.toLowerCase().includes(cleanQuery) || pageKey.toLowerCase().includes(cleanQuery)) {
                             html += `
-                                <a class="suggestion-item" href="?page=${pageKey}&id=${idKey}&product=${product.pId}">
+                                <a class="suggestion-item" href="#${product.pId}">
                                     <img class="suggestion-thumb" src="${product.images[0].endsWith('.mp4') ? 'logo.jpg.jpeg' : product.images[0]}">
                                     <div>
                                         <div style="font-weight:600; font-size:13px; color:#fff;">${product.title.substring(0, 45)}...</div>
@@ -979,7 +979,8 @@
         window.clearSearchAndReturn = function() {
             document.getElementById('mainStoreSearch').value = "";
             document.getElementById('suggestionBox').style.display = 'none';
-            window.location.search = '';
+            window.location.hash = '';
+            route();
         }
 
         function isVideoFile(path) {
@@ -1021,17 +1022,15 @@
             deliveryDate.setDate(deliveryDate.getDate() + 2);
             return `
                 <div class="shipping-countdown">
-                    ✈️ <span>Free Fast Delivery to US! Guaranteed by <b>${daysList[deliveryDate.getDay()]}, ${monthsList[deliveryDate.getMonth()]} ${deliveryDate.getDate()}</b></span>
+                    ✈️ <span>Free Fast Delivery to US! Guaranteed by <b>${daysList[deliveryDate.getDay()]}27, ${monthsList[deliveryDate.getMonth()]} ${deliveryDate.getDate()}</b></span>
                 </div>
             `;
         }
 
-        // 🧠 AUTOMATED INTELLIGENT FAQ ACCORDION CONTENT POPULATER ENGINE
         function generateSmartFaqAccordionHtml(seedId, currentIdContext) {
             let itemPackText = "Includes the premium display asset, official setup hardware bundle, and safe configuration guides.";
             let licensedText = "Yes, we source 100% authentic, officially licensed items imported straight from authorized global channels.";
             
-            // Context parsing rule configurations matching input strings variables
             if(currentIdContext.toLowerCase().includes('manga')) {
                 itemPackText = "Contains the official publisher volume bundle set, safely locked in high-grade protective shielding wrap to prevent shelf damage.";
                 licensedText = "Yes, 100% authentic official English serialization prints sourced from authorized publishing networks inside the United States.";
@@ -1079,20 +1078,34 @@
         window.toggleAccordionTab = function(buttonElement) {
             const currentTab = buttonElement.parentElement;
             const cardParent = currentTab.closest('.item-details');
-            
-            // Clean accordion toggle functionality inside same product scope
             cardParent.querySelectorAll('.accordion-tab').forEach(tab => {
                 if(tab !== currentTab) tab.classList.remove('active-tab');
             });
-            
             currentTab.classList.toggle('active-tab');
         }
 
+        // 🧠 UPGRADED ADVANCED ROUTING ENGINE (Decodes chote hash parameters instantly)
         function route() {
+            const hash = window.location.hash.replace('#', '');
             const urlParams = new URLSearchParams(window.location.search);
-            const page = urlParams.get('page');
-            const id = urlParams.get('id');
-            const targetProduct = urlParams.get('product'); 
+            
+            let page = urlParams.get('page');
+            let id = urlParams.get('id');
+            let targetProduct = urlParams.get('product') || hash; // Prioritize hash data instantly
+
+            // Reverse parameter matching scanner block matrix
+            if (hash && (!page || !id)) {
+                Object.keys(blogData).forEach(pKey => {
+                    Object.keys(blogData[pKey]).forEach(idKey => {
+                        blogData[pKey][idKey].forEach(prod => {
+                            if (prod.pId === hash) {
+                                page = pKey;
+                                id = idKey;
+                            }
+                        });
+                    });
+                });
+            }
             
             const homeView = document.getElementById('home-view');
             const blogView = document.getElementById('blog-view');
@@ -1144,10 +1157,10 @@
                     const alertBadgeHtml = generateMixedUrgencyBlock(product.pId, pIndex);
                     const realTimeSalesHtml = generateRandomSalesTracker(product.pId);
                     const dynamicShippingHtml = generateLiveShippingDateHtml();
-                    const accordionFaqHtml = generateSmartFaqAccordionHtml(product.pId, id); // Option 3 compiled generator node injection
+                    const accordionFaqHtml = generateSmartFaqAccordionHtml(product.pId, id);
 
                     const cardHtml = `
-                        <div class="item-card" id="p-card-${product.pId || pIndex}">
+                        <div class="item-card" id="p-card-${product.pId}">
                             <div class="gallery-container" id="gallery-${pIndex}" data-cardindex="${pIndex}">
                                 <div class="swiper-viewport" 
                                      onmousedown="startSwipe(event, ${pIndex})" 
@@ -1181,7 +1194,15 @@
                     itemsContainer.innerHTML += cardHtml;
                 });
                 
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                // Realtime structural anchor scroll focus trigger node logic execution
+                if(hash) {
+                    setTimeout(() => {
+                        const targetedElement = document.getElementById(`p-card-${hash}`);
+                        if(targetedElement) targetedElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 350);
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
             } else {
                 blogView.style.display = 'none';
                 homeView.style.display = 'block';
@@ -1211,13 +1232,21 @@
             
             const diffX = swipeStartX - swipeCurrentX;
             const threshold = 50; 
-            
             const urlParams = new URLSearchParams(window.location.search);
-            const page = urlParams.get('page');
-            const id = urlParams.get('id');
+            const hash = window.location.hash.replace('#', '');
+            let page = urlParams.get('page');
+            let id = urlParams.get('id');
+
+            if (hash && (!page || !id)) {
+                Object.keys(blogData).forEach(pK => {
+                    Object.keys(blogData[pK]).forEach(idK => {
+                        blogData[pK][idK].forEach(p => { if(p.pId === hash) { page = pK; id = idK; } });
+                    });
+                });
+            }
             
             let productsList = [...blogData[page][id]];
-            const targetProduct = urlParams.get('product');
+            const targetProduct = urlParams.get('product') || hash;
             if (targetProduct) {
                 const foundIndex = productsList.findIndex(p => p.pId === targetProduct);
                 if (foundIndex > -1) {
@@ -1231,17 +1260,9 @@
             if (Math.abs(diffX) > threshold) {
                 let currentIdx = activeIndices[cardIndex];
                 if (diffX > 0) {
-                    if (currentIdx < imagesArray.length - 1) {
-                        currentIdx++;
-                    } else {
-                        currentIdx = 0; 
-                    }
+                    if (currentIdx < imagesArray.length - 1) { currentIdx++; } else { currentIdx = 0; }
                 } else {
-                    if (currentIdx > 0) {
-                        currentIdx--;
-                    } else {
-                        currentIdx = imagesArray.length - 1; 
-                    }
+                    if (currentIdx > 0) { currentIdx--; } else { currentIdx = imagesArray.length - 1; }
                 }
                 jumpToImage(cardIndex, currentIdx, imagesArray[currentIdx]);
             }
@@ -1249,9 +1270,7 @@
 
         window.checkClickOrSwipe = function(e, cardIndex, mediaSrc) {
             const diff = Math.abs(swipeStartX - swipeCurrentX);
-            if (diff < 10) { 
-                openFullPhoto(cardIndex, mediaSrc);
-            }
+            if (diff < 10) { openFullPhoto(cardIndex, mediaSrc); }
         }
 
         window.jumpToImage = function(cardIndex, imgIndex, targetSrc) {
@@ -1328,10 +1347,19 @@
 
         function getActiveImagesContext(cardIndex) {
             const urlParams = new URLSearchParams(window.location.search);
-            const page = urlParams.get('page');
-            const id = urlParams.get('id');
+            const hash = window.location.hash.replace('#', '');
+            let page = urlParams.get('page');
+            let id = urlParams.get('id');
+
+            if (hash && (!page || !id)) {
+                Object.keys(blogData).forEach(pK => {
+                    Object.keys(blogData[pK]).forEach(idK => {
+                        blogData[pK][idK].forEach(p => { if(p.pId === hash) { page = pK; id = idK; } });
+                    });
+                });
+            }
             let productsList = [...blogData[page][id]];
-            const targetProduct = urlParams.get('product');
+            const targetProduct = urlParams.get('product') || hash;
             if (targetProduct) {
                 const foundIndex = productsList.findIndex(p => p.pId === targetProduct);
                 if (foundIndex > -1) {
@@ -1349,11 +1377,7 @@
             const images = getActiveImagesContext(currentModalCardIndex);
             let currentIdx = activeIndices[currentModalCardIndex];
             
-            if(currentIdx < images.length - 1) {
-                currentIdx++;
-            } else {
-                currentIdx = 0;
-            }
+            if(currentIdx < images.length - 1) { currentIdx++; } else { currentIdx = 0; }
             
             jumpToImage(currentModalCardIndex, currentIdx, images[currentIdx]);
             renderModalContent(images[currentIdx]);
@@ -1366,11 +1390,7 @@
             const images = getActiveImagesContext(currentModalCardIndex);
             let currentIdx = activeIndices[currentModalCardIndex];
             
-            if(currentIdx > 0) {
-                currentIdx--;
-            } else {
-                currentIdx = images.length - 1;
-            }
+            if(currentIdx > 0) { currentIdx--; } else { currentIdx = images.length - 1; }
             
             jumpToImage(currentModalCardIndex, currentIdx, images[currentIdx]);
             renderModalContent(images[currentIdx]);
@@ -1407,20 +1427,15 @@
             const diffX = modalSwipeStartX - modalSwipeCurrentX;
             const threshold = 40;
             if (Math.abs(diffX) > threshold) {
-                if (diffX > 0) {
-                    modalNext();
-                } else {
-                    modalPrev();
-                }
+                if (diffX > 0) { modalNext(); } else { modalPrev(); }
             }
         }
 
         document.getElementById('fullScreenModal').addEventListener('click', function(e) {
-            if(e.target.id === 'fullScreenModal' || e.target.classList.contains('modal-viewport')) {
-                closeFullPhoto();
-            }
+            if(e.target.id === 'fullScreenModal' || e.target.classList.contains('modal-viewport')) { closeFullPhoto(); }
         });
 
+        window.addEventListener('hashchange', route);
         window.addEventListener('popstate', route);
         route();
     </script>
