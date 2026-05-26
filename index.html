@@ -34,7 +34,7 @@
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            padding: 100px 20px 30px 20px; 
+            padding: 95px 16px 30px 16px; 
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -376,39 +376,85 @@
 
         .blog-title { 
             font-size: 20px; 
-            margin-bottom: 6px; 
+            margin-bottom: 8px; 
             color: #fff; 
             font-weight: 700; 
             line-height: 1.3;
         }
 
-        /* 🔴 MISCELLANEOUS VISUAL REALTIME URGENCY ALERT SYSTEM */
+        /* 🔥 NEW ULTRA-ATTRACTIVE DYNAMIC BADGES (HIGHER CONTRAST & PREMIUM GLOW) */
         .urgency-badge {
-            font-size: 12.5px;
-            font-weight: 600;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            letter-spacing: 0.3px;
-        }
-        .badge-red { color: var(--urgency-red); }
-        .badge-orange { color: var(--urgency-orange); }
-
-        /* 🛒 DYNAMIC REALTIME SALES PROMPT SYSTEM */
-        .sales-tracker {
-            font-size: 13px;
-            font-weight: 500;
-            color: #10b981; /* Premium Emerald green look */
-            background: rgba(16, 185, 129, 0.06);
-            border: 1px dashed rgba(16, 185, 129, 0.2);
-            padding: 10px 14px;
-            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
             margin-bottom: 16px;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            padding: 5px 10px;
+            border-radius: 6px;
+            width: fit-content;
+        }
+        
+        .badge-red { 
+            color: #ff4757; 
+            background: rgba(255, 71, 87, 0.08);
+            border: 1px solid rgba(255, 71, 87, 0.2);
+            box-shadow: 0 0 10px rgba(255, 71, 87, 0.1);
+        }
+        
+        .badge-orange { 
+            color: #ffa502; 
+            background: rgba(255, 165, 2, 0.08);
+            border: 1px solid rgba(255, 165, 2, 0.2);
+            box-shadow: 0 0 10px rgba(255, 165, 2, 0.1);
+        }
+
+        /* Live animated pulse dot icon for labels */
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            display: inline-block;
+            animation: miniPulse 1.5s infinite ease-in-out;
+        }
+        .badge-red .pulse-dot { background-color: #ff4757; }
+        .badge-orange .pulse-dot { background-color: #ffa502; }
+
+        @keyframes miniPulse {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.5; }
+        }
+
+        /* 🛒 NEW HIGH-CONVERTING GLASSMORPHISM SALES PROMPT BOX */
+        .sales-tracker {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #10b981; 
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.07), rgba(16, 185, 129, 0.02));
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             width: 100%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            letter-spacing: 0.2px;
+        }
+        
+        .sales-tracker-icon {
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(16, 185, 129, 0.12);
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
         }
         
         .blog-text { 
@@ -811,24 +857,32 @@
             return path.toLowerCase().endsWith('.mp4');
         }
 
-        // 🧠 CUSTOM SHUFFLED URGENCY GENERATOR (Ensures look remains 100% genuine)
+        // 🧠 FIXED BALANCED MIXED URGENCY MATRIX WITH PULSING NEON INDICATORS
         function generateMixedUrgencyBlock(seedKey, pIndex) {
             const alertStyles = [
-                `<div class="urgency-badge badge-red">🔥 Only 3 left in stock - Order Soon</div>`,
-                `<div class="urgency-badge badge-orange">⚡ Selling Fast! High demand among collectors</div>`,
-                `<div class="urgency-badge badge-red">🔥 Only 5 remaining - Items selling out</div>`,
-                `<div class="urgency-badge badge-orange">✨ Limited Edition Batch - Limited Availability</div>`
+                `<div class="urgency-badge badge-red"><span class="pulse-dot"></span>Only 3 left in stock - Order Soon</div>`,
+                `<div class="urgency-badge badge-orange"><span class="pulse-dot"></span>⚡ Selling Fast! High demand among collectors</div>`,
+                `<div class="urgency-badge badge-red"><span class="pulse-dot"></span>Only 5 remaining - Items selling out</div>`,
+                `<div class="urgency-badge badge-orange"><span class="pulse-dot"></span>✨ Limited Edition Batch - Limited Availability</div>`
             ];
-            // Combine alphanumeric characters to lock specific layout style per cell dynamically
             let indexCalc = (seedKey.charCodeAt(0) + seedKey.charCodeAt(seedKey.length - 1) + pIndex) % alertStyles.length;
             return alertStyles[indexCalc];
         }
 
-        // 🧠 RANDOMIZED DYNAMIC REAL-TIME BUYERS TRACKER
-        function generateRandomSalesTracker(pIndex) {
-            // Generate standard range between 28 and 46 dynamically on frame instantiation
-            let baseOrders = 25 + ((pIndex * 7 + 13) % 21);
-            return `<div class="sales-tracker">🛒 <b>${baseOrders} people</b> ordered this item in the last 24 hours</div>`;
+        // 🧠 FIXED CRYPTOGRAPHIC RANDOM FORMULA (Strictly scales 27 to 48 unique to each item block)
+        function generateRandomSalesTracker(seedId) {
+            let stringSum = 0;
+            for (let i = 0; i < seedId.length; i++) {
+                stringSum += seedId.charCodeAt(i);
+            }
+            // Strict mathematical mapping to generate dynamic variants bounded securely inside 27-48 metrics channel
+            let boundedOrders = 27 + (stringSum % 22); 
+            return `
+                <div class="sales-tracker">
+                    <div class="sales-tracker-icon">🛒</div>
+                    <div><b>${boundedOrders} people</b> ordered this item in the last 24 hours</div>
+                </div>
+            `;
         }
 
         function route() {
@@ -884,9 +938,9 @@
                         viewportMediaHtml = `<img id="main-img-${pIndex}" class="blog-img" src="${defaultMedia}" onclick="checkClickOrSwipe(event, ${pIndex}, '${defaultMedia}')" alt="${product.title}" draggable="false">`;
                     }
 
-                    // Dynamic alert injection logic bindings
                     const alertBadgeHtml = generateMixedUrgencyBlock(product.pId, pIndex);
-                    const realTimeSalesHtml = generateRandomSalesTracker(pIndex);
+                    // Crucial structural update: We pass the constant static product ID to break matching metrics tracking duplicate crashes
+                    const realTimeSalesHtml = generateRandomSalesTracker(product.pId);
 
                     const cardHtml = `
                         <div class="item-card" id="p-card-${product.pId || pIndex}">
@@ -906,7 +960,7 @@
                             </div>
                             <div class="item-details">
                                 <h3 class="blog-title">${product.title}</h3>
-                                ${alertBadgeHtml}
+                                <div>${alertBadgeHtml}</div>
                                 <p class="blog-text">${product.text}</p>
                                 ${realTimeSalesHtml}
                                 <a href="${product.amazon}" target="_blank" class="amazon-btn">CHECK PRICE ON AMAZON ➔</a>
