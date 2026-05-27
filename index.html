@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VibeForge US | Aesthetic Desk Setups & Room Decor</title>
+    <title>⚡ VibeForge US | Aesthetic Desk Setups & Room Decor 🎮✨</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
@@ -28,6 +28,7 @@
             --urgency-red: #ff4757;
             --urgency-orange: #ffa502;
             --shipping-green: #10b981;
+            --stat-purple: #a855f7;
         }
 
         body {
@@ -92,11 +93,6 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
         }
 
-        .search-bar::placeholder {
-            color: var(--text-desc);
-            opacity: 0.7;
-        }
-
         .search-bar:focus {
             border-color: var(--accent-color);
             box-shadow: 0 0 25px rgba(0, 188, 212, 0.4);
@@ -128,8 +124,6 @@
             border-bottom: 1px solid rgba(255,255,255,0.03);
             transition: background 0.2s;
         }
-
-        .suggestion-item:last-child { border-bottom: none; }
         
         .suggestion-item:hover {
             background: rgba(0, 188, 212, 0.15);
@@ -224,52 +218,14 @@
             object-fit: cover; 
         }
         
-        .link-info { 
-            text-align: left; 
-            flex-grow: 1; 
-        }
-        
-        .link-title { 
-            font-size: 17px; 
-            font-weight: 700; 
-            margin-bottom: 6px; 
-            letter-spacing: 0.3px;
-        }
-        
-        .link-desc { 
-            font-size: 13px; 
-            color: var(--text-desc); 
-            line-height: 1.4;
-        }
-        
-        .arrow-icon { 
-            color: var(--text-desc); 
-            font-size: 18px; 
-            padding-left: 10px;
-            transition: transform 0.2s;
-        }
-        .affiliate-card:hover .arrow-icon {
-            transform: translateX(3px);
-            color: var(--accent-color);
-        }
+        .link-info { text-align: left; flex-grow: 1; }
+        .link-title { font-size: 17px; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.3px;}
+        .link-desc { font-size: 13px; color: var(--text-desc); line-height: 1.4;}
+        .arrow-icon { color: var(--text-desc); font-size: 18px; padding-left: 10px; transition: transform 0.2s;}
+        .affiliate-card:hover .arrow-icon { transform: translateX(3px); color: var(--accent-color); }
 
-        .blog-view {
-            display: none;
-            width: 100%;
-            margin-bottom: 50px;
-        }
-        
-        .back-btn { 
-            display: inline-block; 
-            color: var(--accent-color); 
-            text-decoration: none; 
-            font-size: 14.5px; 
-            margin-bottom: 30px; 
-            cursor: pointer; 
-            font-weight: 600; 
-            transition: opacity 0.2s;
-        }
-        .back-btn:hover { opacity: 0.8; }
+        .blog-view { display: none; width: 100%; margin-bottom: 50px; }
+        .back-btn { display: inline-block; color: var(--accent-color); text-decoration: none; font-size: 14.5px; margin-bottom: 30px; cursor: pointer; font-weight: 600; }
         
         .category-title { 
             font-family: 'Orbitron', sans-serif; 
@@ -281,157 +237,29 @@
             letter-spacing: 0.5px;
         }
         
-        .items-grid { 
-            display: grid; 
-            gap: 50px; 
-            margin-top: 20px; 
-        }
-        
-        .item-card { 
-            background: transparent; 
-            padding: 0; 
-            display: grid;
-            gap: 40px; 
-            grid-template-columns: 1fr;
-        }
+        .items-grid { display: grid; gap: 50px; margin-top: 20px; }
+        .item-card { background: transparent; padding: 0; display: grid; gap: 40px; grid-template-columns: 1fr;}
 
-        .gallery-container { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 16px; 
-            position: relative; 
-            width: 100%;
-            max-width: 100%;
-            user-select: none;
-        }
-        
-        .swiper-viewport {
-            width: 100%;
-            height: 480px; 
-            border-radius: 20px;
-            background: #0e121a;
-            overflow: hidden;
-            position: relative;
-            border: 1px solid rgba(255,255,255,0.03);
-            touch-action: pan-y; 
-        }
+        .gallery-container { display: flex; flex-direction: column; gap: 16px; position: relative; width: 100%; user-select: none;}
+        .swiper-viewport { width: 100%; height: 480px; border-radius: 20px; background: #0e121a; overflow: hidden; position: relative; border: 1px solid rgba(255,255,255,0.03); touch-action: pan-y; }
+        .blog-img, .blog-video-player { width: 100%; height: 100%; object-fit: contain; cursor: grab; display: block;}
+        .zoom-hint { font-size: 12px; color: var(--accent-color); text-align: center; margin-top: -4px; opacity: 0.75; font-weight: 500;}
 
-        .blog-img, .blog-video-player { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: contain; 
-            cursor: grab; 
-            display: block;
-            transition: transform 0.2s ease;
-        }
-        .blog-img:active { cursor: grabbing; }
-        
-        .zoom-hint { 
-            font-size: 12px; 
-            color: var(--accent-color); 
-            text-align: center; 
-            margin-top: -4px; 
-            opacity: 0.75; 
-            font-weight: 500;
-        }
+        .thumbnail-wrapper { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; width: 100%; padding: 8px 0;}
+        .thumb-img { width: 62px; height: 62px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: all 0.2s ease; background: #0e121a; }
+        .thumb-img:hover, .thumb-img.active { border-color: var(--accent-color); transform: scale(1.06); }
 
-        .thumbnail-wrapper { 
-            display: flex; 
-            gap: 10px; 
-            flex-wrap: wrap; 
-            justify-content: center;
-            width: 100%;
-            max-width: 100%;
-            padding: 8px 0;
-        }
-        
-        .thumb-img { 
-            width: 62px; 
-            height: 62px; 
-            border-radius: 10px; 
-            object-fit: cover; 
-            cursor: pointer; 
-            border: 2px solid transparent; 
-            transition: all 0.2s ease; 
-            background: #0e121a;
-            flex-shrink: 0;
-        }
-        .thumb-img:hover, .thumb-img.active { 
-            border-color: var(--accent-color); 
-            transform: scale(1.06); 
-        }
-
-        /* 🌟 EXTRA MEDIA INDICATOR BADGE */
         .more-photos-badge {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 62px;
-            height: 62px;
-            border-radius: 10px;
-            background: rgba(17, 22, 29, 0.85);
-            border: 2px dashed rgba(0, 188, 212, 0.4);
-            color: var(--accent-color);
-            font-size: 12px;
-            font-family: 'Orbitron';
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .more-photos-badge:hover {
-            background: var(--accent-color);
-            color: #000;
-            box-shadow: 0 0 15px var(--accent-color);
+            display: flex; align-items: center; justify-content: center; width: 62px; height: 62px; border-radius: 10px; background: rgba(17, 22, 29, 0.85); border: 2px dashed rgba(0, 188, 212, 0.4); color: var(--accent-color); font-size: 12px; font-family: 'Orbitron'; font-weight: bold; cursor: pointer;
         }
         
-        .item-details {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
+        .item-details { display: flex; flex-direction: column; justify-content: flex-start; }
+        .blog-title { font-size: 24px; margin-bottom: 12px; color: #fff; font-weight: 700; line-height: 1.3;}
 
-        .blog-title { 
-            font-size: 24px; 
-            margin-bottom: 12px; 
-            color: #fff; 
-            font-weight: 700; 
-            line-height: 1.3;
-            letter-spacing: -0.2px;
-        }
-
-        .urgency-badge {
-            font-size: 11px;
-            font-weight: 700;
-            margin-bottom: 18px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
-            padding: 6px 12px;
-            border-radius: 6px;
-            width: fit-content;
-        }
-        
-        .badge-red { 
-            color: #ff4757; 
-            background: rgba(255, 71, 87, 0.08);
-            border: 1px solid rgba(255, 71, 87, 0.15);
-        }
-        
-        .badge-orange { 
-            color: #ffa502; 
-            background: rgba(255, 165, 2, 0.08);
-            border: 1px solid rgba(255, 165, 2, 0.15);
-        }
-
-        .pulse-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            display: inline-block;
-            animation: miniPulse 1.5s infinite ease-in-out;
-        }
+        .urgency-badge { font-size: 11px; font-weight: 700; margin-bottom: 18px; display: inline-flex; align-items: center; gap: 6px; letter-spacing: 0.8px; text-transform: uppercase; padding: 6px 12px; border-radius: 6px;}
+        .badge-red { color: #ff4757; background: rgba(255, 71, 87, 0.08); border: 1px solid rgba(255, 71, 87, 0.15);}
+        .badge-orange { color: #ffa502; background: rgba(255, 165, 2, 0.08); border: 1px solid rgba(255, 165, 2, 0.15);}
+        .pulse-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; animation: miniPulse 1.5s infinite ease-in-out; }
         .badge-red .pulse-dot { background-color: #ff4757; }
         .badge-orange .pulse-dot { background-color: #ffa502; }
 
@@ -441,419 +269,106 @@
             100% { transform: scale(0.8); opacity: 0.5; }
         }
 
-        .sales-tracker {
-            font-size: 14px;
-            font-weight: 600;
-            color: #10b981; 
-            background: rgba(16, 185, 129, 0.04);
-            border: 1px solid rgba(16, 185, 129, 0.12);
-            padding: 14px 18px;
-            border-radius: 12px;
-            margin-bottom: 16px;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-        }
-        
-        .sales-tracker-icon {
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(16, 185, 129, 0.1);
-            width: 30px;
-            height: 30px;
-            border-radius: 6px;
-        }
+        .sales-tracker { font-size: 14px; font-weight: 600; color: #10b981; background: rgba(16, 185, 129, 0.04); border: 1px solid rgba(16, 185, 129, 0.12); padding: 14px 18px; border-radius: 12px; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 12px; width: 100%;}
+        .sales-tracker-icon { background: rgba(16, 185, 129, 0.1); width: 30px; height: 30px; border-radius: 6px; display: flex; align-items: center; justify-content: center;}
+        .shipping-countdown { font-size: 13.5px; font-weight: 600; color: var(--shipping-green); display: flex; align-items: center; gap: 8px; margin-bottom: 22px; background: rgba(16, 185, 129, 0.03); padding: 10px 14px; border-radius: 8px; border: 1px dashed rgba(16, 185, 129, 0.15);}
 
-        .shipping-countdown {
-            font-size: 13.5px;
-            font-weight: 600;
-            color: var(--shipping-green);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 22px;
-            background: rgba(16, 185, 129, 0.03);
-            padding: 10px 14px;
-            border-radius: 8px;
-            border: 1px dashed rgba(16, 185, 129, 0.15);
-        }
-
-        .faq-accordion-section {
-            width: 100%;
-            margin-bottom: 26px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 16px;
-        }
-        .faq-header-label {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent-color);
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-        .accordion-tab {
-            width: 100%;
-            background: rgba(17, 22, 29, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            border-radius: 8px;
-            margin-bottom: 10px;
-            overflow: hidden;
-            transition: border-color 0.2s;
-        }
-        .accordion-tab:hover {
-            border-color: rgba(0, 188, 212, 0.2);
-        }
-        .accordion-trigger {
-            width: 100%;
-            padding: 14px 16px;
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 13.5px;
-            font-weight: 600;
-            text-align: left;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            outline: none;
-        }
-        .accordion-icon-marker {
-            font-size: 14px;
-            color: var(--text-desc);
-            transition: transform 0.2s, color 0.2s;
-        }
-        .accordion-tab.active-tab .accordion-icon-marker {
-            transform: rotate(45deg); 
-            color: var(--accent-color);
-        }
-        .accordion-panel-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.25s cubic-bezier(0, 1, 0, 1); 
-            padding: 0 16px;
-            color: var(--text-desc);
-            font-size: 13px;
-            line-height: 1.5;
-        }
-        .accordion-tab.active-tab .accordion-panel-content {
-            max-height: 200px;
-            padding-bottom: 14px;
-            transition: max-height 0.25s cubic-bezier(1, 0, 1, 0);
-        }
+        /* FAQ Framework Accordion */
+        .faq-accordion-section { width: 100%; margin-bottom: 26px; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 16px;}
+        .faq-header-label { font-family: 'Orbitron', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-color); margin-bottom: 12px;}
+        .accordion-tab { width: 100%; background: rgba(17, 22, 29, 0.3); border: 1px solid rgba(255, 255, 255, 0.02); border-radius: 8px; margin-bottom: 10px; overflow: hidden;}
+        .accordion-trigger { width: 100%; padding: 14px 16px; background: none; border: none; color: #fff; font-size: 13.5px; font-weight: 600; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; outline: none;}
+        .accordion-icon-marker { color: var(--text-desc); }
+        .accordion-tab.active-tab .accordion-icon-marker { transform: rotate(45deg); color: var(--accent-color); }
+        .accordion-panel-content { max-height: 0; overflow: hidden; transition: max-height 0.25s cubic-bezier(0, 1, 0, 1); padding: 0 16px; color: var(--text-desc); font-size: 13px; line-height: 1.5;}
+        .accordion-tab.active-tab .accordion-panel-content { max-height: 200px; padding-bottom: 14px; transition: max-height 0.25s cubic-bezier(1, 0, 1, 0);}
         
-        .blog-text { 
-            color: var(--text-desc); 
-            font-size: 15px; 
-            line-height: 1.6; 
-            margin-bottom: 22px; 
-        }
+        .blog-text { color: var(--text-desc); font-size: 15px; line-height: 1.6; margin-bottom: 22px; }
         
         .amazon-btn {
-            display: block;
-            background: linear-gradient(90deg, #ff9900, #ffb74d, #ff9900);
-            background-size: 200% auto;
-            color: #111;
-            text-align: center;
-            padding: 18px;
-            border-radius: 14px;
-            font-weight: 800;
-            text-decoration: none;
-            font-size: 16px;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 153, 0, 0.4);
-            box-shadow: 0 4px 20px rgba(255, 153, 0, 0.25);
-            animation: pulseGlow 2s infinite ease-in-out, shimmerBg 3s infinite linear;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin-bottom: 16px;
+            display: block; background: linear-gradient(90deg, #ff9900, #ffb74d, #ff9900); background-size: 200% auto; color: #111; text-align: center; padding: 18px; border-radius: 14px; font-weight: 800; text-decoration: none; font-size: 16px; text-transform: uppercase; letter-spacing: 0.8px; animation: pulseGlow 2s infinite ease-in-out, shimmerBg 3s infinite linear; margin-bottom: 16px;
         }
 
-        .amazon-btn:hover { 
-            transform: scale(1.02); 
-            box-shadow: 0 8px 30px rgba(255, 153, 0, 0.5); 
-        }
+        .trust-tokens-row { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; align-items: center; width: 100%; opacity: 0.8;}
+        .trust-tag { font-size: 11.5px; font-weight: 600; color: var(--text-desc); display: flex; align-items: center; gap: 5px;}
+        .trust-tag span { color: #10b981; }
 
-        .trust-tokens-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            margin-top: 4px;
-            opacity: 0.8;
-        }
-        .trust-tag {
-            font-size: 11.5px;
-            font-weight: 600;
-            color: var(--text-desc);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .trust-tag span {
-            color: #10b981; 
-            font-weight: 700;
-        }
-
-        /* 🔒 ADMIN SECURE BACKEND OVERLAYS */
+        /* 📊 ADMIN METRICS & ADVANCED ENGINE NAVIGATION PANELS */
         .admin-dashboard-view {
-            display: none;
-            width: 100%;
-            max-width: 700px;
-            background: var(--card-bg);
-            border: 2px solid var(--accent-color);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 40px;
-            margin-left: auto;
-            margin-right: auto;
-            box-shadow: 0 20px 50px rgba(0, 188, 212, 0.25);
+            display: none; width: 100%; max-width: 1100px; background: var(--card-bg); border: 2px solid var(--accent-color); border-radius: 20px; padding: 30px; margin-bottom: 40px; margin-left: auto; margin-right: auto; box-shadow: 0 20px 50px rgba(0, 188, 212, 0.25);
         }
-        .admin-vault-lock-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 10px;
+        .admin-vault-lock-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 10px; }
+        
+        .admin-nav-tabs {
+            display: flex; gap: 12px; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px;
         }
-        .admin-form-group {
-            margin-bottom: 18px;
-            text-align: left;
+        .admin-tab-btn {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: var(--text-desc); padding: 12px 20px; font-family: 'Orbitron'; font-size: 12px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.2s;
         }
-        .admin-label {
-            display: block;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 11px;
-            color: var(--accent-color);
-            text-transform: uppercase;
-            margin-bottom: 6px;
-            letter-spacing: 0.8px;
-        }
-        .admin-input, .admin-select, .admin-textarea {
-            width: 100%;
-            padding: 12px 16px;
-            background: #090c10;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            color: #fff;
-            outline: none;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-        }
-        .admin-input:focus, .admin-textarea:focus {
-            border-color: var(--accent-color);
-        }
-        .admin-submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: var(--accent-color);
-            color: #000;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 800;
-            font-size: 14px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.2s;
-        }
-        .admin-submit-btn:hover {
-            box-shadow: 0 0 20px var(--accent-color);
-            transform: translateY(-2px);
+        .admin-tab-btn.active-admin-tab {
+            background: var(--accent-color); color: #000; border-color: var(--accent-color); box-shadow: 0 0 15px rgba(0, 188, 212, 0.3);
         }
 
-        .upload-zone-wrapper {
-            background: #090c10;
-            border: 2px dashed rgba(0, 188, 212, 0.25);
-            border-radius: 12px;
-            padding: 24px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        /* Analytics Interface Framework */
+        .analytics-summary-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 35px;
         }
-        .upload-zone-wrapper:hover {
-            border-color: var(--accent-color);
-            background: rgba(0, 188, 212, 0.03);
+        .metric-scorecard {
+            background: #090c10; border: 1px solid rgba(255,255,255,0.05); padding: 22px; border-radius: 14px; text-align: left;
         }
-        .preview-images-row {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 14px;
-            justify-content: center;
+        .metric-title { font-family: 'Orbitron'; font-size: 11px; text-transform: uppercase; color: var(--text-desc); letter-spacing: 0.5px; margin-bottom: 8px;}
+        .metric-value { font-family: 'Orbitron'; font-size: 28px; font-weight: 800; color: #fff;}
+        .metric-value.color-accent { color: var(--accent-color); }
+        .metric-value.color-purple { color: var(--stat-purple); }
+        .metric-value.color-green { color: var(--shipping-green); }
+
+        .analytics-table-wrapper {
+            background: #090c10; border: 1px solid rgba(255,255,255,0.04); border-radius: 12px; padding: 20px; margin-bottom: 30px; overflow-x: auto;
         }
-        .preview-container {
-            position: relative;
-            width: 75px;
-            height: 75px;
-            border-radius: 8px;
-            border: 1px solid rgba(0, 188, 212, 0.3);
-            background: #11161d;
-            cursor: grab;
-            user-select: none;
+        .analytics-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13.5px; }
+        .analytics-table th { padding: 12px; font-family: 'Orbitron'; color: var(--accent-color); border-bottom: 2px solid rgba(255,255,255,0.06); font-size: 11px; text-transform: uppercase; }
+        .analytics-table td { padding: 14px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); color: #fff; vertical-align: middle;}
+        .analytics-table tr:hover { background: rgba(255,255,255,0.01); }
+
+        .user-identity-badge {
+            display: inline-block; padding: 4px 8px; background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.3); color: var(--stat-purple); border-radius: 5px; font-family: 'Orbitron'; font-size: 11px; font-weight: bold;
         }
-        .preview-container:active { cursor: grabbing; }
-        .preview-box {
-            width: 100%;
-            height: 100%;
-            border-radius: 6px;
-            object-fit: cover;
+
+        .admin-form-group { margin-bottom: 18px; text-align: left; }
+        .admin-label { display: block; font-family: 'Orbitron', sans-serif; font-size: 11px; color: var(--accent-color); text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.8px;}
+        .admin-input, .admin-select, .admin-textarea { width: 100%; padding: 12px 16px; background: #090c10; border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; outline: none; font-family: 'Inter', sans-serif; font-size: 14px;}
+        .admin-input:focus, .admin-textarea:focus { border-color: var(--accent-color); }
+        
+        .admin-submit-btn {
+            width: 100%; padding: 15px; background: var(--accent-color); color: #000; font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 14px; border: none; border-radius: 10px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.2s;
         }
-        .remove-preview-btn {
-            position: absolute;
-            top: -6px;
-            right: -6px;
-            width: 18px;
-            height: 18px;
-            background: #ff4757;
-            color: #fff;
-            border-radius: 50%;
-            font-size: 11px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-            z-index: 10;
-        }
-        .drag-handle-badge {
-            position: absolute;
-            bottom: 2px;
-            left: 2px;
-            background: rgba(0,0,0,0.75);
-            color: var(--accent-color);
-            font-size: 8px;
-            padding: 1px 4px;
-            border-radius: 3px;
-            font-family: 'Orbitron';
-        }
+        .admin-submit-btn:hover { box-shadow: 0 0 20px var(--accent-color); transform: translateY(-2px); }
+
+        .upload-zone-wrapper { background: #090c10; border: 2px dashed rgba(0, 188, 212, 0.25); border-radius: 12px; padding: 24px; text-align: center; cursor: pointer;}
+        .preview-images-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; justify-content: center; }
+        .preview-container { position: relative; width: 75px; height: 75px; border-radius: 8px; border: 1px solid rgba(0, 188, 212, 0.3); background: #11161d; cursor: grab;}
+        .preview-box { width: 100%; height: 100%; border-radius: 6px; object-fit: cover; }
+        .remove-preview-btn { position: absolute; top: -6px; right: -6px; width: 18px; height: 18px; background: #ff4757; color: #fff; border-radius: 50%; font-size: 11px; display: flex; align-items: center; justify-content: center; cursor: pointer;}
+        .drag-handle-badge { position: absolute; bottom: 2px; left: 2px; background: rgba(0,0,0,0.75); color: var(--accent-color); font-size: 8px; padding: 1px 4px; border-radius: 3px; font-family: 'Orbitron';}
         
         @keyframes pulseGlow {
             0% { box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3); transform: scale(1); }
             50% { box-shadow: 0 6px 28px rgba(255, 153, 0, 0.65); transform: scale(1.015); }
             100% { box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3); transform: scale(1); }
         }
+        @keyframes shimmerBg { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
 
-        @keyframes shimmerBg {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
+        /* Full Screen Modals Viewports */
+        .image-modal { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(7, 9, 12, 0.97); justify-content: center; align-items: center; }
+        .modal-viewport { width: 100%; max-width: 92%; max-height: 85%; display: flex; justify-content: center; align-items: center; position: relative; touch-action: pan-y;}
+        .modal-content { width: 100%; height: auto; max-height: 85vh; object-fit: contain; border-radius: 12px; box-shadow: 0 0 40px rgba(0, 188, 212, 0.4);}
+        .close-modal { position: absolute; top: 20px; right: 25px; color: #fff; font-size: 42px; font-weight: bold; cursor: pointer; z-index: 10001;}
+        .modal-audio-btn { position: absolute; bottom: -55px; left: 50%; transform: translateX(-50%); background: rgba(17, 22, 29, 0.85); border: 1px solid var(--accent-color); color: #fff; padding: 10px 20px; border-radius: 30px; font-weight: 600; font-size: 13px; cursor: pointer; z-index: 10001; display: none; align-items: center; gap: 8px;}
 
-        .image-modal {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(7, 9, 12, 0.97);
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .modal-viewport {
-            width: 100%;
-            max-width: 92%;
-            max-height: 85%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            touch-action: pan-y;
-        }
-
-        .modal-content {
-            width: 100%;
-            height: auto;
-            max-height: 85vh;
-            object-fit: contain;
-            border-radius: 12px;
-            box-shadow: 0 0 40px rgba(0, 188, 212, 0.4);
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 20px; right: 25px;
-            color: #fff;
-            font-size: 42px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.2s;
-            z-index: 10001;
-        }
-        .close-modal:hover { color: var(--accent-color); }
-
-        .modal-audio-btn {
-            position: absolute;
-            bottom: -55px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(17, 22, 29, 0.85);
-            border: 1px solid var(--accent-color);
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 13px;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            z-index: 10001;
-            display: none; 
-            align-items: center;
-            gap: 8px;
-        }
-
-        .modal-nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(17, 22, 29, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-            font-size: 24px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.2s ease;
-            z-index: 10000;
-        }
-        .modal-nav-btn:hover {
-            background: var(--accent-color);
-            color: #000;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 15px var(--accent-color);
-        }
-        .modal-prev { left: -60px; }
-        .modal-next { right: -60px; }
-        
-        .bottom-divider { 
-            margin-top: 60px; 
-            padding-top: 30px; 
-            border-top: 1px dashed rgba(255, 255, 255, 0.08); 
-        }
-        
-        footer { 
-            margin-top: 80px; 
-            font-size: 13.5px; 
-            color: var(--text-desc); 
-            text-align: center;
-            line-height: 1.6;
-            font-weight: 500;
-        }
+        .modal-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(17, 22, 29, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; font-size: 24px; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; z-index: 10000;}
+        .modal-prev { left: -60px; } .modal-next { right: -60px; }
+        .bottom-divider { margin-top: 60px; padding-top: 30px; border-top: 1px dashed rgba(255, 255, 255, 0.08); }
+        footer { margin-top: 80px; font-size: 13.5px; color: var(--text-desc); text-align: center; line-height: 1.6;}
 
         @media (max-width: 768px) {
             .modal-prev { left: 10px; background: rgba(17, 22, 29, 0.85); }
@@ -861,7 +376,6 @@
             .modal-nav-btn { width: 42px; height: 42px; font-size: 20px; }
         }
 
-        /* 📱 RESPONSIVE MEDIA VIEWPORT PROTECTIONS */
         @media (max-width: 600px) {
             body { padding: 95px 16px 30px 16px; } 
             .search-box-wrapper { width: calc(100% - 32px); top: 15px; }
@@ -872,11 +386,7 @@
         }
 
         @media (min-width: 850px) {
-            .item-card {
-                grid-template-columns: 1.2fr 1fr; 
-                align-items: start;
-                gap: 50px;
-            }
+            .item-card { grid-template-columns: 1.2fr 1fr; align-items: start; gap: 50px;}
             .thumbnail-wrapper { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; }
             .thumb-img { width: 65px; height: 65px; }
         }
@@ -887,7 +397,7 @@
     <div class="search-box-wrapper">
         <div class="search-input-container">
             <span class="search-icon">🔍</span>
-            <input type="text" id="mainStoreSearch" class="search-bar" placeholder="Search setups, cars, anime, stickers..." oninput="handleSearchEngine(this.value)">
+            <input type="text" id="mainStoreSearch" class="search-bar" placeholder="Search setups, stickers, keyboards, anime..." oninput="handleSearchEngine(this.value)">
         </div>
         <div id="suggestionBox" class="search-suggestions"></div>
     </div>
@@ -907,63 +417,148 @@
             </div>
 
             <div id="adminWorkspaceFormBlock" style="display:none;">
-                <h2 class="category-title" style="color:var(--accent-color); border-bottom-color:var(--accent-color);">VibeForge Admin Panel</h2>
-                
-                <form id="adminProductForm" onsubmit="handleAdminFormSubmit(event)">
-                    <div class="admin-form-group">
-                        <label class="admin-label">Product Category Scope</label>
-                        <select id="formCategory" class="admin-select" required onchange="updateSubCategoryOptions(this.value)">
-                            <option value="desk">🕹️ Desk Upgrades</option>
-                            <option value="decor">🎨 Trendy Room Decor</option>
-                            <option value="collect">⚔️ Premium Collectibles</option>
-                        </select>
-                    </div>
-                    <div class="admin-form-group">
-                        <label class="admin-label">Sub-Category Selection Target</label>
-                        <select id="formSubId" class="admin-select" required></select>
-                    </div>
-                    <div class="admin-form-group">
-                        <label class="admin-label">Unique Product ID (pId / Hash Tag Link)</label>
-                        <input type="text" id="formPid" class="admin-input" placeholder="e.g., custom_mouse" required>
-                    </div>
-                    <div class="admin-form-group">
-                        <label class="admin-label">Product Title</label>
-                        <input type="text" id="formTitle" class="admin-input" placeholder="Enter clean product name" required>
-                    </div>
-                    
-                    <div class="admin-form-group">
-                        <label class="admin-label">📸 Select Product Photos (Supports Multiple Selection at Once + Drag Sort)</label>
-                        <div class="upload-zone-wrapper" onclick="document.getElementById('dashboardPhotoInput').click()">
-                            <p style="font-size:13.5px; color:var(--accent-color); font-weight:600; margin-bottom:4px;">✨ Click to Select Multiple Photos</p>
-                            <p style="font-size:12px; color:var(--text-desc);">You can select multiple photos at once. Added items append automatically. Drag thumbs to adjust sequencing array.</p>
-                            <input type="file" id="dashboardPhotoInput" accept="image/*" multiple style="display:none;" onchange="handleAdminPhotoAccumulator(this)">
+                <div class="admin-nav-tabs">
+                    <button id="tab-add-btn" class="admin-tab-btn active-admin-tab" onclick="switchAdminSection('add')">📥 Add Product</button>
+                    <button id="tab-edit-btn" class="admin-tab-btn" onclick="switchAdminSection('edit')">🛠️ Edit / Update Product</button>
+                    <button id="tab-stats-btn" class="admin-tab-btn" onclick="switchAdminSection('stats')">📊 Real-Time Analytics</button>
+                </div>
+
+                <div id="admin-add-section">
+                    <h2 class="category-title" style="color:var(--accent-color); border-bottom-color:var(--accent-color); font-size:18px; margin-bottom:20px;">📦 Publish New Product Node</h2>
+                    <form id="adminProductForm" onsubmit="handleAdminFormSubmit(event, 'add')">
+                        <div class="admin-form-group">
+                            <label class="admin-label">Product Category Scope</label>
+                            <select id="formCategory" class="admin-select" required onchange="updateSubCategoryOptions(this.value, 'formSubId')">
+                                <option value="desk">🕹️ Desk Upgrades</option>
+                                <option value="decor">🎨 Trendy Room Decor</option>
+                                <option value="collect">⚔️ Premium Collectibles</option>
+                            </select>
                         </div>
-                        <div id="photoPreviewThumbnailsRow" class="preview-images-row"></div>
+                        <div class="admin-form-group">
+                            <label class="admin-label">Sub-Category Selection Target</label>
+                            <select id="formSubId" class="admin-select" required></select>
+                        </div>
+                        <div class="admin-form-group">
+                            <label class="admin-label">Unique Product ID (pId / Link Hash ID)</label>
+                            <input type="text" id="formPid" class="admin-input" placeholder="e.g., wash_mat" required>
+                        </div>
+                        <div class="admin-form-group">
+                            <label class="admin-label">Product Title</label>
+                            <input type="text" id="formTitle" class="admin-input" placeholder="Enter highly conversion attractive title..." required>
+                        </div>
+                        <div class="admin-form-group">
+                            <label class="admin-label">📸 Select Product Photos (Supports Multiple Selection at Once)</label>
+                            <div class="upload-zone-wrapper" onclick="document.getElementById('dashboardPhotoInput').click()">
+                                <p style="font-size:13px; color:var(--accent-color); font-weight:600;">✨ Click to Select Multiple Photos</p>
+                                <input type="file" id="dashboardPhotoInput" accept="image/*" multiple style="display:none;" onchange="handleAdminPhotoAccumulator(this, 'photoPreviewThumbnailsRow')">
+                            </div>
+                            <div id="photoPreviewThumbnailsRow" class="preview-images-row"></div>
+                        </div>
+                        <div class="admin-form-group">
+                            <label class="admin-label">Amazon Affiliate Link URL</label>
+                            <input type="url" id="formAmazon" class="admin-input" placeholder="https://amzn.to/..." required>
+                        </div>
+                        <div class="admin-form-group">
+                            <label class="admin-label">Marketing Description Text (Include Emojis)</label>
+                            <textarea id="formText" class="admin-textarea" rows="4" placeholder="Enter high-converting sales copywriting here..." required></textarea>
+                        </div>
+                        <button type="submit" id="submitFormMainBtn" class="admin-submit-btn">🚀 Publish to Cloud Database</button>
+                    </form>
+                </div>
+
+                <div id="admin-edit-section" style="display:none;">
+                    <h2 class="category-title" style="color:var(--urgency-orange); border-bottom-color:var(--urgency-orange); font-size:18px; margin-bottom:20px;">🛠️ Edit Existing Product Blueprint</h2>
+                    
+                    <div class="admin-form-group" style="background:rgba(255,165,2,0.04); padding:16px; border-radius:12px; border:1px solid rgba(255,165,2,0.15); display:flex; gap:12px; align-items:flex-end;">
+                        <div style="flex-grow:1;">
+                            <label class="admin-label" style="color:var(--urgency-orange);">🔍 Enter Product pId to Edit</label>
+                            <input type="text" id="searchEditPid" class="admin-input" placeholder="e.g., wash_mat or naruto_fig">
+                        </div>
+                        <button type="button" class="admin-tab-btn active-admin-tab" style="background:var(--urgency-orange); border-color:var(--urgency-orange); height:45px;" onclick="loadProductToEditorFramework()">Fetch Core</button>
                     </div>
 
-                    <div class="admin-form-group" style="border: 1px dashed rgba(0, 188, 212, 0.3); padding: 15px; border-radius: 10px; background: rgba(0,0,0,0.2);">
-                        <label class="admin-label" style="color:#ffa502;">🎥 Product Video File Setup (Optional)</label>
-                        <input type="text" id="formVideoSrc" class="admin-input" placeholder="e.g., keyboard_video.mp4 (Glitch file or link)" style="margin-bottom:12px;">
-                        
-                        <label class="admin-label">🎯 Video Slide Position Number</label>
-                        <select id="formVideoPosition" class="admin-select">
-                            <option value="0">1st Position (Show Video First)</option>
-                            <option value="2">3rd Position</option>
-                            <option value="5">6th Position</option>
-                            <option value="last">Last Position (At the very end)</option>
-                        </select>
+                    <div id="editorFormContainerContainer" style="display:none; margin-top:25px;">
+                        <form id="adminEditProductForm" onsubmit="handleAdminFormSubmit(event, 'edit')">
+                            <input type="hidden" id="editCategory">
+                            <input type="hidden" id="editSubId">
+                            <input type="hidden" id="editPid">
+
+                            <div class="admin-form-group">
+                                <label class="admin-label">Product Title</label>
+                                <input type="text" id="editTitle" class="admin-input" required>
+                            </div>
+                            <div class="admin-form-group">
+                                <label class="admin-label">📸 Media Storage Nodes (Keeps original if left untouched)</label>
+                                <div class="upload-zone-wrapper" onclick="document.getElementById('editDashboardPhotoInput').click()">
+                                    <p style="font-size:13px; color:var(--urgency-orange); font-weight:600;">🔄 Click to Select/Overwrite Images Array</p>
+                                    <input type="file" id="editDashboardPhotoInput" accept="image/*" multiple style="display:none;" onchange="handleAdminPhotoAccumulator(this, 'editPhotoPreviewThumbnailsRow')">
+                                </div>
+                                <div id="editPhotoPreviewThumbnailsRow" class="preview-images-row"></div>
+                            </div>
+                            <div class="admin-form-group">
+                                <label class="admin-label">Amazon Affiliate Link URL</label>
+                                <input type="url" id="editAmazon" class="admin-input" required>
+                            </div>
+                            <div class="admin-form-group">
+                                <label class="admin-label">Marketing Description Text</label>
+                                <textarea id="editText" class="admin-textarea" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" id="submitEditFormMainBtn" class="admin-submit-btn" style="background:var(--urgency-orange);">💾 Apply Overwrite Modifications</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="admin-stats-section" style="display:none;">
+                    <h2 class="category-title" style="color:var(--stat-purple); border-bottom-color:var(--stat-purple); font-size:18px; margin-bottom:20px;">📊 Real-Time Traffic & Action-Click Analytics</h2>
+                    
+                    <div class="analytics-summary-grid">
+                        <div class="metric-scorecard">
+                            <div class="metric-title">📈 Total Site Traffic Visits</div>
+                            <div id="stat-total-visits" class="metric-value color-accent">0</div>
+                        </div>
+                        <div class="metric-scorecard">
+                            <div class="metric-title">🛒 Total Amazon Buy Clicks</div>
+                            <div id="stat-total-clicks" class="metric-value color-purple">0</div>
+                        </div>
+                        <div class="metric-scorecard">
+                            <div class="metric-title">🎯 Conversion CTR Rate</div>
+                            <div id="stat-ctr" class="metric-value color-green">0.00%</div>
+                        </div>
                     </div>
 
-                    <div class="admin-form-group">
-                        <label class="admin-label">Amazon Affiliate Link URL</label>
-                        <input type="url" id="formAmazon" class="admin-input" placeholder="https://amzn.to/..." required>
+                    <h3 class="admin-label" style="font-size:12px; margin-bottom:10px; color:#fff;">⚡ Live Visitor Activity Logs</h3>
+                    <div class="analytics-table-wrapper">
+                        <table class="analytics-table">
+                            <thead>
+                                <tr>
+                                    <th>👤 User Persona</th>
+                                    <th>⏳ Last Active Time</th>
+                                    <th>👀 Pages / Products Explored</th>
+                                    <th>⚡ Outbound Links Triggered</th>
+                                </tr>
+                            </thead>
+                            <tbody id="visitorLogsTableBody">
+                                <tr><td colspan="4" style="text-align:center; color:var(--text-desc);">Analyzing synchronization tokens...</td></tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="admin-form-group">
-                        <label class="admin-label">Marketing Description Text</label>
-                        <textarea id="formText" class="admin-textarea" rows="4" placeholder="Enter conversion copywriting..." required></textarea>
+
+                    <h3 class="admin-label" style="font-size:12px; margin-bottom:10px; color:#fff;">🎯 Product Performance Leaderboard</h3>
+                    <div class="analytics-table-wrapper">
+                        <table class="analytics-table">
+                            <thead>
+                                <tr>
+                                    <th>ID Hash</th>
+                                    <th>Product Node Title</th>
+                                    <th>🛒 Conversion Clicks</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productStatsTableBody">
+                                <tr><td colspan="3" style="text-align:center; color:var(--text-desc);">Calculating clicks matrices...</td></tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <button type="submit" id="submitFormMainBtn" class="admin-submit-btn">🚀 Publish to Cloud Database</button>
-                </form>
+                </div>
             </div>
         </div>
 
@@ -977,31 +572,30 @@
             <div class="profile-header" id="main-profile-header">
                 <img class="profile-img" src="logo.jpg.jpeg" alt="VibeForge US Logo">
                 <h1 class="profile-name">VibeForge US</h1>
-                <p class="profile-bio">Forging the ultimate visual vibes. Curating premium Aesthetic Desk Setups, Diecast Cars & Room Decor. Upgrade your space! 🛠️🏎️</p>
+                <p class="profile-bio">Forging the ultimate visual vibes. Curating premium Aesthetic Desk Setups, Diecast Cars & Room Decor. Upgrade your space! 🛠️🏎️✨</p>
             </div>
 
             <div id="shop-grid">
-                
                 <div class="section-title">🕹️ Aesthetic Desk Upgrades</div>
                 <div class="links-wrapper">
                     <a href="?page=desk&id=keyboard" class="affiliate-card">
                         <img class="product-img" src="keyboard.jpg.png" alt="Keyboard">
-                        <div class="link-info"><div class="link-title">Minimalist Keyboards</div><div class="link-desc">Super clean RGB layouts for setups.</div></div>
+                        <div class="link-info"><div class="link-title">Minimalist Keyboards ⌨️</div><div class="link-desc">Super clean RGB layouts for setups.</div></div>
                         <div class="arrow-icon">➔</div>
                     </a>
                     <a href="?page=desk&id=accessories" class="affiliate-card">
                         <img class="product-img" src="accessories.jpg.jpg" alt="Desk Accessories">
-                        <div class="link-info"><div class="link-title">Desk Accessories & RGB</div><div class="link-desc">Aesthetic mini plants, dynamic ambient light strips.</div></div>
+                        <div class="link-info"><div class="link-title">Desk Accessories & RGB 💡</div><div class="link-desc">Aesthetic mini plants, dynamic ambient light strips.</div></div>
                         <div class="arrow-icon">➔</div>
                     </a>
                     <a href="?page=desk&id=deskmat" class="affiliate-card">
                         <img class="product-img" src="deskmat.jpg.jpg" alt="Desk Mat">
-                        <div class="link-info"><div class="link-title">Premium Desk Mats</div><div class="link-desc">Smooth minimalist felt & RGB mouse pads.</div></div>
+                        <div class="link-info"><div class="link-title">Premium Desk Mats 🏯</div><div class="link-desc">Smooth minimalist felt & RGB mouse pads.</div></div>
                         <div class="arrow-icon">➔</div>
                     </a>
                     <a href="?page=desk&id=mouse" class="affiliate-card">
                         <img class="product-img" src="mouse.jpg.webp" alt="Gaming Mouse">
-                        <div class="link-info"><div class="link-title">Gaming & Ergo Mice</div><div class="link-desc">High-precision wireless & aesthetic custom mice.</div></div>
+                        <div class="link-info"><div class="link-title">Gaming & Ergo Mice 🖱️</div><div class="link-desc">High-precision wireless & aesthetic custom mice.</div></div>
                         <div class="arrow-icon">➔</div>
                     </a>
                 </div>
@@ -1010,12 +604,12 @@
                 <div class="links-wrapper">
                     <a href="?page=decor&id=posters" class="affiliate-card">
                         <img class="product-img" src="poster.jpg.jpg" alt="Anime Posters">
-                        <div class="link-info"><div class="link-title">Aesthetic Wall Posters</div><div class="link-desc">High-quality wall art packs for your room backdrop.</div></div>
+                        <div class="link-info"><div class="link-title">Aesthetic Wall Posters 🖼️</div><div class="link-desc">High-quality wall art packs for your room backdrop.</div></div>
                         <div class="arrow-icon">➔</div>
                     </a>
                     <a href="?page=decor&id=stickers" class="affiliate-card">
                         <img class="product-img" src="stickers.jpg.avif" alt="Vinyl Stickers">
-                        <div class="link-info"><div class="link-title">Trending Vinyl Stickers</div><div class="link-desc">Waterproof stickers for laptops & custom cases.</div></div>
+                        <div class="link-info"><div class="link-title">Trending Vinyl Stickers 🎮</div><div class="link-desc">Waterproof stickers for laptops & custom cases.</div></div>
                         <div class="arrow-icon">➔</div>
                     </a>
                 </div>
@@ -1024,39 +618,31 @@
                 <div class="links-wrapper">
                     <a href="?page=collect&id=cars" class="affiliate-card">
                         <img class="product-img" src="cars.jpg.jpeg" alt="Diecast Cars">
-                        <div class="link-info"><div class="link-title">Diecast Car Models</div><div class="link-desc">Highly detailed scale models (JDM & Muscle).</div></div>
+                        <div class="link-info"><div class="link-title">Diecast Car Models 🏎️</div><div class="link-desc">Highly detailed scale models (JDM & Muscle).</div></div>
                         <div class="arrow-icon">➔</div>
                     </a>
                     <a href="?page=collect&id=figures" class="affiliate-card">
                         <img class="product-img" src="figures.jpg.png" alt="Anime Figures">
-                        <div class="link-info"><div class="link-title">Premium Anime Figures</div><div class="link-desc">High-quality figures & mecha to level up shelves.</div></div>
+                        <div class="link-info"><div class="link-title">Premium Anime Figures ⚔️</div><div class="link-desc">High-quality figures & mecha to level up shelves.</div></div>
                         <div class="arrow-icon">➔</div>
                     </a>
                     <a href="?page=collect&id=manga" class="affiliate-card">
                         <img class="product-img" src="manga.jpg.jpg" alt="Manga Box Sets">
-                        <div class="link-info"><div class="link-title">Top Manga Box Sets</div><div class="link-desc">Start building your ultimate dream manga shelves.</div></div>
+                        <div class="link-info"><div class="link-title">Top Manga Box Sets 📚</div><div class="link-desc">Start building your ultimate dream manga shelves.</div></div>
                         <div class="arrow-icon">➔</div>
                     </a>
                 </div>
-
             </div>
         </div>
 
         <footer>
-            <p>© 2026 VibeForge | Forging the Ultimate Desktop Aesthetics & Premium Anime Collectibles.</p>
+            <p>© 2026 VibeForge | Forging the Ultimate Desktop Aesthetics & Premium Anime Collectibles. ✨</p>
         </footer>
     </div>
 
     <div id="fullScreenModal" class="image-modal">
         <span class="close-modal" onclick="closeFullPhoto()">&times;</span>
-        <div class="modal-viewport" 
-             onmousedown="startModalSwipe(event)" 
-             onmousemove="moveModalSwipe(event)" 
-             onmouseup="endModalSwipe()" 
-             onmouseleave="endModalSwipe()"
-             ontouchstart="startModalSwipe(event)"
-             ontouchmove="moveModalSwipe(event)"
-             ontouchend="endModalSwipe()">
+        <div class="modal-viewport" onmousedown="startModalSwipe(event)" onmousemove="moveModalSwipe(event)" onmouseup="endModalSwipe()" onmouseleave="endModalSwipe()" ontouchstart="startModalSwipe(event)" ontouchmove="moveModalSwipe(event)" ontouchend="endModalSwipe()">
             <button class="modal-nav-btn modal-prev" onclick="modalPrev(event)">&#10094;</button>
             <div id="modalMediaContainer" style="width:100%; display:flex; justify-content:center;"></div>
             <button class="modal-nav-btn modal-next" onclick="modalNext(event)">&#10095;</button>
@@ -1068,16 +654,33 @@
         const BIN_ID = "6a168b308ef04f4538201165";
         const MASTER_KEY = "$2a$10$1.u4APlqFaGOTmoYPCQZee79CwgRpDRTdVIw78XB1oFdXz0OBVltu";
         const IMGBB_API_KEY = "1ba4b53e10eccb5c4f297b9289c45c98"; 
-        
         const VAULT_HASH = "VibeforgeSam@6263"; 
+        
         let isAdminAuthenticated = false;
-
         let blogData = {}; 
         let activeIndices = {};
         let currentModalCardIndex = null; 
-        
         let accumulatedFilesArray = []; 
-        let draggedElementSrc = null;
+
+        // 📊 INTELLIGENT DEEP MONITOR DATA STORAGE SCHEMAS
+        let telemetryDatabase = {
+            totalVisits: 0,
+            clickCounts: {},
+            visitorProfiles: {}
+        };
+
+        // Initialize user profile logic session parameters
+        let currentUserSessionToken = "";
+        function initializeVisitorTrackingCore() {
+            if(!localStorage.getItem('vf_session_node')) {
+                let randomSuffix = Math.floor(1000 + Math.random() * 9000);
+                let prefixes = ["Guest_User_", "Viber_", "Otaku_", "SetupEnthusiast_"];
+                let chosenPrefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+                localStorage.setItem('vf_session_node', chosenPrefix + randomSuffix);
+            }
+            currentUserSessionToken = localStorage.getItem('vf_session_node');
+            syncTrafficLogToCloudCore(currentUserSessionToken, "Page Load", window.location.hash || "Home View");
+        }
 
         async function fetchLiveCloudDatabase() {
             try {
@@ -1086,30 +689,261 @@
                     headers: { 'X-Master-Key': MASTER_KEY }
                 });
                 const data = await response.json();
-                blogData = data.record;
+                
+                // Separate master operational data arrays from analytics blocks
+                if(data.record.productsCoreData) {
+                    blogData = data.record.productsCoreData;
+                    telemetryDatabase = data.record.telemetryDatabase || telemetryDatabase;
+                } else {
+                    blogData = data.record; // Legacy compatibility mode fallback
+                }
+                
+                initializeVisitorTrackingCore();
                 route(); 
             } catch (err) {
                 console.error("Database connection failure:", err);
             }
         }
 
-        window.handleSearchEngine = function(query) {
-            const suggestBox = document.getElementById('suggestionBox');
-            if(!query.trim() || !Object.keys(blogData).length) {
-                suggestBox.style.display = 'none';
-                return;
+        async function pushSystemStateToCloudBin() {
+            try {
+                let comprehensivePayload = {
+                    productsCoreData: blogData,
+                    telemetryDatabase: telemetryDatabase
+                };
+                await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json', 'X-Master-Key': MASTER_KEY },
+                    body: JSON.stringify(comprehensivePayload)
+                });
+            } catch(e) {
+                console.error("Telemetry sync error:", e);
+            }
+        }
+
+        function syncTrafficLogToCloudCore(userTag, actionType, description) {
+            if(!telemetryDatabase.visitorProfiles) telemetryDatabase.visitorProfiles = {};
+            if(!telemetryDatabase.clickCounts) telemetryDatabase.clickCounts = {};
+            
+            if(actionType === "Page Load") {
+                telemetryDatabase.totalVisVisits = (telemetryDatabase.totalVisVisits || 0) + 1;
+            } else if(actionType === "Amazon Buy Trigger") {
+                telemetryDatabase.totalClicks = (telemetryDatabase.totalClicks || 0) + 1;
+                telemetryDatabase.clickCounts[description] = (telemetryDatabase.clickCounts[description] || 0) + 1;
+            }
+
+            if(!telemetryDatabase.visitorProfiles[userTag]) {
+                telemetryDatabase.visitorProfiles[userTag] = { lastActive: "", history: [], clicks: [] };
             }
             
-            let html = "";
-            const cleanQuery = query.toLowerCase();
+            let timeStamp = new Date().toLocaleTimeString() + " (" + new Date().toLocaleDateString('en-US', {month:'short', day:'numeric'}) + ")";
+            telemetryDatabase.visitorProfiles[userTag].lastActive = timeStamp;
+            
+            if(actionType === "Page Load") {
+                if(!telemetryDatabase.visitorProfiles[userTag].history.includes(description)) {
+                    telemetryDatabase.visitorProfiles[userTag].history.push(description);
+                }
+            } else {
+                telemetryDatabase.visitorProfiles[userTag].clicks.push(description);
+            }
+            
+            // Debounce or soft save telemetry state periodically
+            if(Math.random() > 0.6) { pushSystemStateToCloudBin(); }
+        }
+
+        window.registerAffiliateOutboundClick = function(productIdHash) {
+            syncTrafficLogToCloudCore(currentUserSessionToken, "Amazon Buy Trigger", productIdHash);
+        }
+
+        window.switchAdminSection = function(sectionKey) {
+            document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active-admin-tab'));
+            document.getElementById(`tab-${sectionKey}-btn`).classList.add('active-admin-tab');
+            
+            document.getElementById('admin-add-section').style.display = sectionKey === 'add' ? 'block' : 'none';
+            document.getElementById('admin-edit-section').style.display = sectionKey === 'edit' ? 'block' : 'none';
+            document.getElementById('admin-stats-section').style.display = sectionKey === 'stats' ? 'block' : 'none';
+
+            if(sectionKey === 'stats') renderLiveTelemetryDashboardView();
+        }
+
+        function renderLiveTelemetryDashboardView() {
+            document.getElementById('stat-total-visits').innerText = telemetryDatabase.totalVisVisits || 0;
+            document.getElementById('stat-total-clicks').innerText = telemetryDatabase.totalClicks || 0;
+            
+            let ctr = 0;
+            if(telemetryDatabase.totalVisVisits > 0) {
+                ctr = ((telemetryDatabase.totalClicks || 0) / telemetryDatabase.totalVisVisits) * 100;
+            }
+            document.getElementById('stat-ctr').innerText = ctr.toFixed(2) + "%";
+
+            // Populate Visitor Activity Table Frame
+            const logsTable = document.getElementById('visitorLogsTableBody');
+            logsTable.innerHTML = "";
+            let profiles = telemetryDatabase.visitorProfiles || {};
+            
+            if(Object.keys(profiles).length === 0) {
+                logsTable.innerHTML = `<tr><td colspan="4" style="text-align:center;">No active sessions registered.</td></tr>`;
+            } else {
+                Object.keys(profiles).forEach(pKey => {
+                    let pData = profiles[pKey];
+                    let exploredStr = pData.history.join(', ') || "None";
+                    let triggeredStr = pData.clicks.join(', ') || "No clicks yet";
+                    logsTable.innerHTML += `
+                        <tr>
+                            <td><span class="user-identity-badge">👤 ${pKey}</span></td>
+                            <td style="color:var(--accent-color); font-weight:600;">${pData.lastActive}</td>
+                            <td style="font-size:12.5px; opacity:0.8;">${exploredStr}</td>
+                            <td style="color:var(--shipping-green); font-weight:bold;">${triggeredStr}</td>
+                        </tr>
+                    `;
+                });
+            }
+
+            // Populate Leaderboard Rankings Metrics
+            const metricsTable = document.getElementById('productStatsTableBody');
+            metricsTable.innerHTML = "";
+            let clicksMap = telemetryDatabase.clickCounts || {};
+            
+            let sortableArray = [];
+            Object.keys(clicksMap).forEach(id => { sortableArray.push({id: id, count: clicksMap[id]}); });
+            sortableArray.sort((a,b) => b.count - a.count);
+
+            if(sortableArray.length === 0) {
+                metricsTable.innerHTML = `<tr><td colspan="3" style="text-align:center;">No transactions logged yet.</td></tr>`;
+            } else {
+                sortableArray.forEach(item => {
+                    metricsTable.innerHTML += `
+                        <tr>
+                            <td style="font-family:'Orbitron'; color:var(--urgency-orange); font-weight:bold;">#${item.id}</td>
+                            <td style="font-weight:600;">Product Node Module (${item.id.toUpperCase()})</td>
+                            <td style="color:var(--stat-purple); font-weight:800; font-size:16px;">🔥 ${item.count} Clicks</td>
+                        </tr>
+                    `;
+                });
+            }
+        }
+
+        window.loadProductToEditorFramework = function() {
+            const queryPid = document.getElementById('searchEditPid').value.trim().toLowerCase();
+            if(!queryPid) return;
+
+            let matchedProduct = null;
+            let targetCat = "", targetSub = "";
+
+            Object.keys(blogData).forEach(cKey => {
+                Object.keys(blogData[cKey]).forEach(sKey => {
+                    blogData[cKey][sKey].forEach(prod => {
+                        if(prod.pId === queryPid) {
+                            matchedProduct = prod; targetCat = cKey; targetSub = sKey;
+                        }
+                    });
+                });
+            });
+
+            if(!matchedProduct) {
+                alert("❌ Item ID missing inside active cloud arrays.");
+                document.getElementById('editorFormContainerContainer').style.display = "none";
+                return;
+            }
+
+            document.getElementById('editCategory').value = targetCat;
+            document.getElementById('editSubId').value = targetSub;
+            document.getElementById('editPid').value = matchedProduct.pId;
+            document.getElementById('editTitle').value = matchedProduct.title;
+            document.getElementById('editAmazon').value = matchedProduct.amazon;
+            document.getElementById('editText').value = matchedProduct.text || "";
+            
+            // Reset image buffer variables for edit frame rows
+            accumulatedFilesArray = [];
+            const previewRow = document.getElementById('editPhotoPreviewThumbnailsRow');
+            previewRow.innerHTML = "";
+            
+            matchedProduct.images.forEach(img => {
+                if(!img.toLowerCase().endsWith('.mp4')) {
+                    accumulatedFilesArray.push({ fileObject: null, dataUrl: img });
+                }
+            });
+            renderAccumulatedThumbnailsGrid('editPhotoPreviewThumbnailsRow');
+
+            document.getElementById('editorFormContainerContainer').style.display = "block";
+        };
+
+        window.verifyAdminPasskeyAuth = function() {
+            if(document.getElementById('adminPassKeyField').value === VAULT_HASH) {
+                isAdminAuthenticated = true;
+                document.getElementById('adminAuthScreen').style.display = "none";
+                document.getElementById('adminWorkspaceFormBlock').style.display = "block";
+                updateSubCategoryOptions(document.getElementById('formCategory').value, 'formSubId');
+            } else {
+                alert("⛔ ACCESS DENIED: Signature lock active.");
+            }
+        }
+
+        window.exitAdminView = function() {
+            isAdminAuthenticated = false; window.location.hash = ''; route();
+        }
+
+        window.handleAdminPhotoAccumulator = function(input, previewRowElementId) {
+            if (!input.files.length) return;
+            const newFiles = Array.from(input.files);
+            let processedCount = 0;
+            
+            newFiles.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    accumulatedFilesArray.push({ fileObject: file, dataUrl: e.target.result });
+                    processedCount++;
+                    if(processedCount === newFiles.length) { renderAccumulatedThumbnailsGrid(previewRowElementId); }
+                }
+                reader.readAsDataURL(file);
+            });
+            input.value = ""; 
+        }
+
+        function renderAccumulatedThumbnailsGrid(elementId) {
+            const previewRow = document.getElementById(elementId);
+            previewRow.innerHTML = "";
+            accumulatedFilesArray.forEach((item, index) => {
+                previewRow.innerHTML += `
+                    <div class="preview-container" draggable="true" data-index="${index}" ondragstart="handlePreviewDragStart(event)" ondragover="handlePreviewDragOver(event)" ondrop="handlePreviewDrop(event, '${elementId}')">
+                        <span class="remove-preview-btn" onclick="removeAccumulatedPhotoIndex(event, ${index}, '${elementId}')">&times;</span>
+                        <img src="${item.dataUrl}" class="preview-box">
+                        <span class="drag-handle-badge">Pos ${index + 1}</span>
+                    </div>
+                `;
+            });
+        }
+
+        window.removeAccumulatedPhotoIndex = function(e, index, elementId) {
+            if(e) e.stopPropagation(); accumulatedFilesArray.splice(index, 1); renderAccumulatedThumbnailsGrid(elementId);
+        }
+
+        window.handlePreviewDragStart = function(e) { e.dataTransfer.setData("text/plain", e.target.closest('.preview-container').getAttribute('data-index')); }
+        window.handlePreviewDragOver = function(e) { e.preventDefault(); }
+        window.handlePreviewDrop = function(e, elementId) {
+            e.preventDefault();
+            const sourceIdx = parseInt(e.dataTransfer.getData("text/plain"));
+            const targetContainer = e.target.closest('.preview-container');
+            if(!targetContainer) return;
+            const targetIdx = parseInt(targetContainer.getAttribute('data-index'));
+            if(sourceIdx === targetIdx) return;
+            const movedElement = accumulatedFilesArray.splice(sourceIdx, 1)[0];
+            accumulatedFilesArray.splice(targetIdx, 0, movedElement);
+            renderAccumulatedThumbnailsGrid(elementId);
+        }
+
+        window.handleSearchEngine = function(query) {
+            const suggestBox = document.getElementById('suggestionBox');
+            if(!query.trim() || !Object.keys(blogData).length) { suggestBox.style.display = 'none'; return; }
+            let html = ""; const cleanQuery = query.toLowerCase();
 
             Object.keys(blogData).forEach(pageKey => {
                 Object.keys(blogData[pageKey]).forEach(idKey => {
                     blogData[pageKey][idKey].forEach(product => {
-                        if(product.title.toLowerCase().includes(cleanQuery) || idKey.toLowerCase().includes(cleanQuery) || pageKey.toLowerCase().includes(cleanQuery)) {
+                        if(product.title.toLowerCase().includes(cleanQuery) || product.pId.toLowerCase().includes(cleanQuery)) {
                             html += `
                                 <a class="suggestion-item" href="#${product.pId}">
-                                    <img class="suggestion-thumb" src="${product.images[0].endsWith('.mp4') ? 'logo.jpg.jpeg' : product.images[0]}">
+                                    <img class="suggestion-thumb" src="${product.images[0]}">
                                     <div>
                                         <div style="font-weight:600; font-size:13px; color:#fff;">${product.title.substring(0, 45)}...</div>
                                         <div style="font-size:11px; color:var(--accent-color); text-transform:uppercase;">In ${idKey}</div>
@@ -1120,217 +954,68 @@
                     });
                 });
             });
-
-            if(html) {
-                suggestBox.innerHTML = html;
-                suggestBox.style.display = 'block';
-            } else {
-                suggestBox.style.display = 'none';
-            }
+            if(html) { suggestBox.innerHTML = html; suggestBox.style.display = 'block'; } else { suggestBox.style.display = 'none'; }
         }
 
         window.clearSearchAndReturn = function() {
             document.getElementById('mainStoreSearch').value = "";
             document.getElementById('suggestionBox').style.display = 'none';
-            window.location.hash = '';
-            route();
+            window.location.hash = ''; route();
         }
 
-        function isVideoFile(path) {
-            return path.toLowerCase().endsWith('.mp4');
-        }
-
-        function getSeedMetricsHash(seedId) {
-            let num = 0;
-            for (let i = 0; i < seedId.length; i++) { num += seedId.charCodeAt(i); }
-            return num;
-        }
+        function isVideoFile(path) { return path.toLowerCase().endsWith('.mp4'); }
+        function getSeedMetricsHash(seedId) { let num = 0; for (let i = 0; i < seedId.length; i++) { num += seedId.charCodeAt(i); } return num; }
 
         function generateMixedUrgencyBlock(seedKey, pIndex) {
             const alertStyles = [
-                `<div class="urgency-badge badge-red"><span class="pulse-dot"></span>Only 3 left in stock - Order Soon</div>`,
-                `<div class="urgency-badge badge-orange"><span class="pulse-dot"></span>⚡ Selling Fast! High demand among collectors</div>`,
-                `<div class="urgency-badge badge-red"><span class="pulse-dot"></span>Only 5 remaining - Items selling out</div>`,
+                `<div class="urgency-badge badge-red"><span class="pulse-dot"></span>Only 3 left in stock - Order Soon ⏱️</div>`,
+                `<div class="urgency-badge badge-orange"><span class="pulse-dot"></span>⚡ Selling Fast! High demand among creators</div>`,
+                `<div class="urgency-badge badge-red"><span class="pulse-dot"></span>Only 5 remaining - Items selling out 🔥</div>`,
                 `<div class="urgency-badge badge-orange"><span class="pulse-dot"></span>✨ Limited Edition Batch - Limited Availability</div>`
             ];
-            let indexCalc = (seedKey.charCodeAt(0) + seedKey.charCodeAt(seedKey.length - 1) + pIndex) % alertStyles.length;
-            return alertStyles[indexCalc];
+            return alertStyles[(seedKey.charCodeAt(0) + pIndex) % alertStyles.length];
         }
 
         function generateRandomSalesTracker(seedId) {
-            let hash = getSeedMetricsHash(seedId);
-            let boundedOrders = 27 + (hash % 22); 
             return `
                 <div class="sales-tracker">
                     <div class="sales-tracker-icon">🛒</div>
-                    <div><b>${boundedOrders} people</b> ordered this item in the last 24 hours</div>
+                    <div><b>${27 + (getSeedMetricsHash(seedId) % 22)} people</b> ordered this layout package in the last 24 hours</div>
                 </div>
             `;
         }
 
         function generateLiveShippingDateHtml() {
+            let deliveryDate = new Date(); deliveryDate.setDate(deliveryDate.getDate() + 2);
             const daysList = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             const monthsList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-            let deliveryDate = new Date();
-            deliveryDate.setDate(deliveryDate.getDate() + 2);
-            return `
-                <div class="shipping-countdown">
-                    ✈️ <span>Free Fast Delivery to US! Guaranteed by <b>${daysList[deliveryDate.getDay()]}, ${monthsList[deliveryDate.getMonth()]} ${deliveryDate.getDate()}</b></span>
-                </div>
-            `;
+            return `<div class="shipping-countdown">✈️ <span>Free Tracked Delivery! Guaranteed by <b>${daysList[deliveryDate.getDay()]}, ${monthsList[deliveryDate.getMonth()]} ${deliveryDate.getDate()}</b></span></div>`;
         }
 
-        function generateSmartFaqAccordionHtml(seedId, currentIdContext) {
-            let itemPackText = "Includes the premium display asset, official setup hardware bundle, and safe configuration guides.";
-            let licensedText = "Yes, we source 100% authentic, officially licensed items imported straight from authorized global channels.";
-            
-            if(currentIdContext.toLowerCase().includes('manga')) {
-                itemPackText = "Contains the official publisher volume bundle set, safely locked in high-grade protective shielding wrap to prevent shelf damage.";
-                licensedText = "Yes, 100% authentic official English serialization prints sourced from authorized publishing networks inside the United States.";
-            } else if(currentIdContext.toLowerCase().includes('car') || currentIdContext.toLowerCase().includes('figure')) {
-                itemPackText = "Includes the collector edition highly-detailed model chassis, individual scaling accent frames, and custom mount displays.";
-            }
-
+        function generateSmartFaqAccordionHtml(id) {
             return `
                 <div class="faq-accordion-section">
-                    <div class="faq-header-label">⚙️ Product Specifications & FAQs</div>
-                    
+                    <div class="faq-header-label">⚙️ Specifications & FAQs</div>
                     <div class="accordion-tab">
-                        <button class="accordion-trigger" onclick="toggleAccordionTab(this)">
-                            <span>📦 What's included in the pack?</span>
-                            <span class="accordion-icon-marker">+</span>
-                        </button>
-                        <div class="accordion-panel-content">
-                            <p>${itemPackText}</p>
-                        </div>
+                        <button class="accordion-trigger" onclick="toggleAccordionTab(this)"><span>📦 Pack Manifest?</span><span class="accordion-icon-marker">+</span></button>
+                        <div class="accordion-panel-content"><p>Includes official system asset module bundle, protective shielding transit wraps, and hardware safe configuration keys.</p></div>
                     </div>
-
                     <div class="accordion-tab">
-                        <button class="accordion-trigger" onclick="toggleAccordionTab(this)">
-                            <span>🌐 Is this the Official US Edition?</span>
-                            <span class="accordion-icon-marker">+</span>
-                        </button>
-                        <div class="accordion-panel-content">
-                            <p>${licensedText}</p>
-                        </div>
-                    </div>
-
-                    <div class="accordion-tab">
-                        <button class="accordion-trigger" onclick="toggleAccordionTab(this)">
-                            <span>🛡️ Safe Transit Guarantee?</span>
-                            <span class="accordion-icon-marker">+</span>
-                        </button>
-                        <div class="accordion-panel-content">
-                            <p>Every order is heavily wrapped in multi-layer shockproof bubble skins and packed into hard-box outer layers to absolute premium mint condition delivery.</p>
-                        </div>
+                        <button class="accordion-trigger" onclick="toggleAccordionTab(this)"><span>🌐 Safe Transit Guarantee?</span><span class="accordion-icon-marker">+</span></button>
+                        <div class="accordion-panel-content"><p>Every package undergoes triple-layer industrial bubble layout isolation wraps to protect against dynamic shipping transit stress points.</p></div>
                     </div>
                 </div>
             `;
         }
 
-        window.toggleAccordionTab = function(buttonElement) {
-            const currentTab = buttonElement.parentElement;
-            const cardParent = currentTab.closest('.item-details');
-            cardParent.querySelectorAll('.accordion-tab').forEach(tab => {
-                if(tab !== currentTab) tab.classList.remove('active-tab');
-            });
-            currentTab.classList.toggle('active-tab');
-        }
-
-        window.verifyAdminPasskeyAuth = function() {
-            const typedKey = document.getElementById('adminPassKeyField').value;
-            if(typedKey === VAULT_HASH) {
-                isAdminAuthenticated = true;
-                document.getElementById('adminAuthScreen').style.display = "none";
-                document.getElementById('adminWorkspaceFormBlock').style.display = "block";
-                updateSubCategoryOptions(document.getElementById('formCategory').value);
-            } else {
-                alert("⛔ ACCESS DENIED: Intruder signature flagged by security core.");
-                document.getElementById('adminPassKeyField').value = "";
-            }
-        }
-
-        window.exitAdminView = function() {
-            isAdminAuthenticated = false; 
-            document.getElementById('adminPassKeyField').value = "";
-            window.location.hash = '';
-            route();
-        }
-
-        window.handleAdminPhotoAccumulator = function(input) {
-            if (!input.files.length) return;
-            
-            const newFiles = Array.from(input.files);
-            let processedCount = 0;
-            
-            newFiles.forEach(file => {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    accumulatedFilesArray.push({
-                        fileObject: file,
-                        dataUrl: e.target.result
-                    });
-                    processedCount++;
-                    if(processedCount === newFiles.length) {
-                        renderAccumulatedThumbnailsGrid();
-                    }
-                }
-                reader.readAsDataURL(file);
-            });
-
-            input.value = ""; 
-        }
-
-        function renderAccumulatedThumbnailsGrid() {
-            const previewRow = document.getElementById('photoPreviewThumbnailsRow');
-            previewRow.innerHTML = "";
-
-            accumulatedFilesArray.forEach((item, index) => {
-                previewRow.innerHTML += `
-                    <div class="preview-container" 
-                         draggable="true" 
-                         data-index="${index}"
-                         ondragstart="handlePreviewDragStart(event)"
-                         ondragover="handlePreviewDragOver(event)"
-                         ondrop="handlePreviewDrop(event)">
-                        <span class="remove-preview-btn" onclick="removeAccumulatedPhotoIndex(event, ${index})">&times;</span>
-                        <img src="${item.dataUrl}" class="preview-box">
-                        <span class="drag-handle-badge">Pos ${index + 1}</span>
-                    </div>
-                `;
-            });
-        }
-
-        window.removeAccumulatedPhotoIndex = function(e, index) {
-            if(e) e.stopPropagation();
-            accumulatedFilesArray.splice(index, 1);
-            renderAccumulatedThumbnailsGrid();
-        }
-
-        window.handlePreviewDragStart = function(e) {
-            e.dataTransfer.setData("text/plain", e.target.closest('.preview-container').getAttribute('data-index'));
-        }
-        window.handlePreviewDragOver = function(e) {
-            e.preventDefault(); 
-        }
-        window.handlePreviewDrop = function(e) {
-            e.preventDefault();
-            const sourceIdx = parseInt(e.dataTransfer.getData("text/plain"));
-            const targetContainer = e.target.closest('.preview-container');
-            if(!targetContainer) return;
-            const targetIdx = parseInt(targetContainer.getAttribute('data-index'));
-
-            if(sourceIdx === targetIdx) return;
-
-            const movedElement = accumulatedFilesArray.splice(sourceIdx, 1)[0];
-            accumulatedFilesArray.splice(targetIdx, 0, movedElement);
-            
-            renderAccumulatedThumbnailsGrid();
+        window.toggleAccordionTab = function(btn) {
+            const curr = btn.parentElement;
+            curr.closest('.item-details').querySelectorAll('.accordion-tab').forEach(t => { if(t !== curr) t.classList.remove('active-tab'); });
+            curr.classList.toggle('active-tab');
         }
 
         function route() {
-            if (!Object.keys(blogData).length) return; 
-            
+            if (!Object.keys(blogData).length) return;
             const hash = window.location.hash.replace('#', '');
             const urlParams = new URLSearchParams(window.location.search);
             
@@ -1341,500 +1026,186 @@
             const mainProfileHeader = document.getElementById('main-profile-header');
             const itemsContainer = document.getElementById('items-container');
 
-            adminPanel.style.display = "none";
-            blogView.style.display = "none";
-            homeView.style.display = "block";
-            mainProfileHeader.style.display = "block";
-            shopGrid.classList.remove('bottom-divider');
+            adminPanel.style.display = "none"; blogView.style.display = "none"; homeView.style.display = "block"; mainProfileHeader.style.display = "block"; shopGrid.classList.remove('bottom-divider');
 
             if(hash === "admin") {
-                mainProfileHeader.style.display = "none";
-                shopGrid.classList.add('bottom-divider');
-                adminPanel.style.display = "block";
-                
+                mainProfileHeader.style.display = "none"; shopGrid.classList.add('bottom-divider'); adminPanel.style.display = "block";
                 if(!isAdminAuthenticated) {
-                    document.getElementById('adminAuthScreen').style.display = "flex";
-                    document.getElementById('adminWorkspaceFormBlock').style.display = "none";
+                    document.getElementById('adminAuthScreen').style.display = "flex"; document.getElementById('adminWorkspaceFormBlock').style.display = "none";
                 } else {
-                    document.getElementById('adminAuthScreen').style.display = "none";
-                    document.getElementById('adminWorkspaceFormBlock').style.display = "block";
+                    document.getElementById('adminAuthScreen').style.display = "none"; document.getElementById('adminWorkspaceFormBlock').style.display = "block";
                 }
                 return;
             }
 
-            let page = urlParams.get('page');
-            let id = urlParams.get('id');
-            let targetProduct = urlParams.get('product') || hash;
-
+            let page = urlParams.get('page'); let id = urlParams.get('id'); let targetProduct = urlParams.get('product') || hash;
             if (hash && (!page || !id)) {
-                Object.keys(blogData).forEach(pKey => {
-                    Object.keys(blogData[pKey]).forEach(idKey => {
-                        blogData[pKey][idKey].forEach(prod => {
-                            if (prod.pId === hash) { page = pKey; id = idKey; }
-                        });
-                    });
-                });
+                Object.keys(blogData).forEach(pK => { Object.keys(blogData[pK]).forEach(idK => { blogData[pK][idK].forEach(p => { if(p.pId === hash) { page = pK; id = idK; } }); }); });
             }
 
-            document.getElementById('suggestionBox').style.display = 'none';
-
             if (page && id && blogData[page] && blogData[page][id]) {
-                blogView.style.display = 'block';
-                mainProfileHeader.style.display = 'none'; 
-                shopGrid.classList.add('bottom-divider'); 
+                blogView.style.display = 'block'; mainProfileHeader.style.display = 'none'; shopGrid.classList.add('bottom-divider');
+                itemsContainer.innerHTML = ""; document.getElementById('category-heading').innerText = id.toUpperCase() + " COLLECTION ✨";
                 
-                itemsContainer.innerHTML = "";
-                document.getElementById('category-heading').innerText = id.toUpperCase() + " COLLECTION";
-                
-                activeIndices = {}; 
-
                 let productsList = [...blogData[page][id]];
                 if (targetProduct) {
-                    const foundIndex = productsList.findIndex(p => p.pId === targetProduct);
-                    if (foundIndex > -1) {
-                        const targetObj = productsList.splice(foundIndex, 1)[0];
-                        productsList.unshift(targetObj); 
-                    }
+                    const fIdx = productsList.findIndex(p => p.pId === targetProduct);
+                    if (fIdx > -1) { productsList.unshift(productsList.splice(fIdx, 1)[0]); }
                 }
 
                 productsList.forEach((product, pIndex) => {
-                    activeIndices[pIndex] = 0; 
-                    const defaultMedia = product.images[0];
-                    let thumbsHtml = "";
+                    activeIndices[pIndex] = 0;
+                    let thumbsHtml = ""; const maxThumbs = 5;
                     
-                    // 🌟 SMART MEDIA LIMITER: Only show max 5 thumbnail buttons to keep clean layout layout
-                    const maxVisibleThumbs = 5;
                     if(product.images.length > 1) {
-                        product.images.forEach((srcPath, iIndex) => {
-                            if (iIndex < maxVisibleThumbs) {
-                                let thumbSrc = isVideoFile(srcPath) ? "logo.jpg.jpeg" : srcPath;
-                                thumbsHtml += `<img class="thumb-img ${iIndex === 0 ? 'active' : ''}" id="thumb-${pIndex}-${iIndex}" src="${thumbSrc}" onclick="jumpToImage(${pIndex}, ${iIndex}, '${srcPath}')" alt="thumbnail">`;
+                        product.images.forEach((src, iIdx) => {
+                            if(iIdx < maxThumbs) {
+                                thumbsHtml += `<img class="thumb-img ${iIdx === 0 ? 'active' : ''}" id="thumb-${pIndex}-${iIdx}" src="${src}" onclick="jumpToImage(${pIndex}, ${iIdx}, '${src}')">`;
                             }
                         });
-                        
-                        // If total items exceed constraint limits, attach an interactive counter badge loop indicators
-                        if (product.images.length > maxVisibleThumbs) {
-                            const extraCount = product.images.length - maxVisibleThumbs;
-                            thumbsHtml += `<div class="more-photos-badge" onclick="openFullPhoto(${pIndex}, '${product.images[maxVisibleThumbs]}')">+${extraCount}</div>`;
+                        if (product.images.length > maxThumbs) {
+                            thumbsHtml += `<div class="more-photos-badge" onclick="openFullPhoto(${pIndex}, '${product.images[maxThumbs]}')">+${product.images.length - maxThumbs}</div>`;
                         }
                     }
 
-                    let viewportMediaHtml = "";
-                    if(isVideoFile(defaultMedia)) {
-                        viewportMediaHtml = `<video id="main-img-${pIndex}" class="blog-video-player" src="${defaultMedia}" autoplay loop muted playsinline onclick="checkClickOrSwipe(event, ${pIndex}, '${defaultMedia}')"></video>`;
-                    } else {
-                        viewportMediaHtml = `<img id="main-img-${pIndex}" class="blog-img" src="${defaultMedia}" onclick="checkClickOrSwipe(event, ${pIndex}, '${defaultMedia}')" alt="${product.title}" draggable="false">`;
-                    }
+                    // Log telemetry data product impressions details
+                    syncTrafficLogToCloudCore(currentUserSessionToken, "Page Load", product.pId);
 
-                    const alertBadgeHtml = generateMixedUrgencyBlock(product.pId, pIndex);
-                    const realTimeSalesHtml = generateRandomSalesTracker(product.pId);
-                    const dynamicShippingHtml = generateLiveShippingDateHtml();
-                    const accordionFaqHtml = generateSmartFaqAccordionHtml(product.pId, id);
-
-                    const cardHtml = `
+                    itemsContainer.innerHTML += `
                         <div class="item-card" id="p-card-${product.pId}">
                             <div class="gallery-container" id="gallery-${pIndex}" data-cardindex="${pIndex}">
-                                <div class="swiper-viewport" 
-                                     onmousedown="startSwipe(event, ${pIndex})" 
-                                     onmousemove="moveSwipe(event, ${pIndex})" 
-                                     onmouseup="endSwipe(${pIndex})" 
-                                     onmouseleave="endSwipe(${pIndex})"
-                                     ontouchstart="startSwipe(event, ${pIndex})"
-                                     ontouchmove="moveSwipe(event, ${pIndex})"
-                                     ontouchend="endSwipe(${pIndex})">
-                                    ${viewportMediaHtml}
+                                <div class="swiper-viewport" onmousedown="startSwipe(event, ${pIndex})" onmousemove="moveSwipe(event, ${pIndex})" onmouseup="endSwipe(${pIndex})" onmouseleave="endSwipe(${pIndex})" ontouchstart="startSwipe(event, ${pIndex})" ontouchmove="moveSwipe(event, ${pIndex})" ontouchend="endSwipe(${pIndex})">
+                                    <img id="main-img-${pIndex}" class="blog-img" src="${product.images[0]}" onclick="checkClickOrSwipe(event, ${pIndex}, '${product.images[0]}')" draggable="false">
                                 </div>
-                                <div class="zoom-hint">👈 Swipe file view or click to view full screen 🔍</div>
+                                <div class="zoom-hint">👈 Swipe view or click to view full screen 🔍</div>
                                 <div class="thumbnail-wrapper">${thumbsHtml}</div>
                             </div>
                             <div class="item-details">
                                 <h3 class="blog-title">${product.title}</h3>
-                                <div>${alertBadgeHtml}</div>
+                                <div>${generateMixedUrgencyBlock(product.pId, pIndex)}</div>
                                 <p class="blog-text">${product.text}</p>
-                                ${realTimeSalesHtml}
-                                ${dynamicShippingHtml}
-                                ${accordionFaqHtml}
-                                <a href="${product.amazon}" target="_blank" class="amazon-btn">CHECK PRICE ON AMAZON ➔</a>
-                                <div class="trust-tokens-row">
-                                    <div class="trust-tag"><span>✓</span> Verified Purchase</div>
-                                    <div class="trust-tag"><span>✓</span> US Tracked Delivery</div>
-                                    <div class="trust-tag"><span>✓</span> Secure Content Page</div>
-                                </div>
+                                ${generateRandomSalesTracker(product.pId)}
+                                ${generateLiveShippingDateHtml()}
+                                ${generateSmartFaqAccordionHtml(id)}
+                                <a href="${product.amazon}" target="_blank" class="amazon-btn" onclick="registerAffiliateOutboundClick('${product.pId}')">CHECK PRICE ON AMAZON ➔</a>
                             </div>
                         </div>
                     `;
-                    itemsContainer.innerHTML += cardHtml;
                 });
-                
-                if(hash && hash !== "admin") {
-                    setTimeout(() => {
-                        const targetedElement = document.getElementById(`p-card-${hash}`);
-                        if(targetedElement) targetedElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 350);
-                } else {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
             }
         }
 
-        function updateSubCategoryOptions(mainCat) {
-            const subIdMenu = document.getElementById('formSubId');
-            subIdMenu.innerHTML = "";
-            let options = [];
-            if(mainCat === 'desk') options = ["keyboard", "accessories", "deskmat", "mouse"];
-            if(mainCat === 'decor') options = ["posters", "stickers"];
-            if(mainCat === 'collect') options = ["cars", "manga", "figures"];
-            
-            options.forEach(opt => {
-                subIdMenu.innerHTML += `<option value="${opt}">${opt.toUpperCase()}</option>`;
-            });
+        window.updateSubCategoryOptions = function(mainCat, subMenuId) {
+            const menu = document.getElementById(subMenuId); menu.innerHTML = "";
+            let opts = mainCat === 'desk' ? ["keyboard", "accessories", "deskmat", "mouse"] : mainCat === 'decor' ? ["posters", "stickers"] : ["cars", "manga", "figures"];
+            opts.forEach(o => { menu.innerHTML += `<option value="${o}">${o.toUpperCase()}</option>`; });
         }
 
-        async function handleAdminFormSubmit(e) {
+        async function handleAdminFormSubmit(e, actionType) {
             e.preventDefault();
-            const submitBtn = document.getElementById('submitFormMainBtn');
+            const prefix = actionType === 'add' ? 'form' : 'edit';
+            const btn = document.getElementById(actionType === 'add' ? 'submitFormMainBtn' : 'submitEditFormMainBtn');
             
-            const category = document.getElementById('formCategory').value;
-            const subId = document.getElementById('formSubId').value;
-            const pId = document.getElementById('formPid').value.trim().toLowerCase();
-            const title = document.getElementById('formTitle').value.trim();
-            const amazon = document.getElementById('formAmazon').value.trim();
-            const text = document.getElementById('formText').value.trim();
-            
-            const videoSrc = document.getElementById('formVideoSrc').value.trim();
-            const videoPosition = document.getElementById('formVideoPosition').value;
+            const category = document.getElementById(`${prefix}Category`).value;
+            const subId = document.getElementById(`${prefix}SubId`).value;
+            const pId = document.getElementById(`${prefix}Pid`).value.trim().toLowerCase();
+            const title = document.getElementById(`${prefix}Title`).value.trim();
+            const amazon = document.getElementById(`${prefix}Amazon`).value.trim();
+            const text = document.getElementById(`${prefix}Text`).value.trim();
 
-            submitBtn.innerText = "⚡ Uploading Sorted Grid to Imgbb...";
-            submitBtn.disabled = true;
-
-            let uploadedImageUrls = [];
+            btn.innerText = "⚡ Uploading Data Resources..."; btn.disabled = true;
+            let uploadedUrls = [];
 
             try {
                 for (let i = 0; i < accumulatedFilesArray.length; i++) {
-                    let item = accumulatedFilesArray[i];
-                    
-                    if (item.fileObject === null && item.dataUrl.startsWith("http")) {
-                        uploadedImageUrls.push(item.dataUrl);
-                        continue;
+                    let fItem = accumulatedFilesArray[i];
+                    if (fItem.fileObject === null && fItem.dataUrl.startsWith("http")) {
+                        uploadedUrls.push(fItem.dataUrl); continue;
                     }
-
-                    let formData = new FormData();
-                    formData.append("image", item.fileObject);
-                    
-                    const imgbbResponse = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-                        method: "POST",
-                        body: formData
-                    });
-                    
-                    const imgbbResult = await imgbbResponse.json();
-                    if(imgbbResult.success) {
-                        uploadedImageUrls.push(imgbbResult.data.url);
-                    } else {
-                        throw new Error("Imgbb data socket loss");
-                    }
-                }
-            } catch(uploadErr) {
-                alert("❌ Photo compilation workflow aborted. Imgbb server handshakes timing out.");
-                submitBtn.innerText = "🚀 Publish to Cloud Database";
-                submitBtn.disabled = false;
-                return;
-            }
-
-            if(uploadedImageUrls.length === 0) {
-                const currentList = blogData[category][subId];
-                const matchingProd = currentList.find(p => p.pId === pId);
-                if(matchingProd) {
-                    uploadedImageUrls = matchingProd.images.filter(img => !isVideoFile(img));
-                }
-            }
-
-            let finalMediaArray = [...uploadedImageUrls];
-            if(videoSrc) {
-                if(videoPosition === '0') {
-                    finalMediaArray.unshift(videoSrc); 
-                } else if(videoPosition === 'last') {
-                    finalMediaArray.push(videoSrc); 
-                } else {
-                    let insertIndex = parseInt(videoPosition);
-                    if(insertIndex > finalMediaArray.length) insertIndex = finalMediaArray.length;
-                    finalMediaArray.splice(insertIndex, 0, videoSrc);
-                }
-            }
-
-            if(finalMediaArray.length === 0) {
-                alert("⛔ Error: Media grid empty! Add at least one photo resource node or video stream.");
-                submitBtn.innerText = "🚀 Publish to Cloud Database";
-                submitBtn.disabled = false;
-                return;
-            }
-
-            const newProductObj = { pId, title, images: finalMediaArray, text, amazon };
-
-            let currentList = blogData[category][subId];
-            const matchingIndex = currentList.findIndex(p => p.pId === pId);
-            if(matchingIndex > -1) {
-                currentList[matchingIndex] = newProductObj;
-            } else {
-                currentList.unshift(newProductObj);
-            }
-
-            submitBtn.innerText = "💾 Pushing Overwrites to Cloud Storage...";
-
-            try {
-                const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Master-Key': MASTER_KEY
-                    },
-                    body: JSON.stringify(blogData)
-                });
-                
-                if(response.ok) {
-                    alert(`🎉 Boom! Product '${pId}' is now live with your exact drag-sorted layout configuration sequence!`);
-                    document.getElementById('adminProductForm').reset();
-                    document.getElementById('photoPreviewThumbnailsRow').innerHTML = "";
-                    accumulatedFilesArray = []; 
-                    window.location.hash = `#${pId}`; 
-                    route();
-                } else {
-                    alert("❌ Api push failed. Check payload routing configuration.");
+                    let fd = new FormData(); fd.append("image", fItem.fileObject);
+                    const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: "POST", body: fd });
+                    const resJson = await res.json();
+                    if(resJson.success) uploadedUrls.push(resJson.data.url);
                 }
             } catch(err) {
-                alert("❌ Fatal connection lost runtime network issue.");
-            } finally {
-                submitBtn.innerText = "🚀 Publish to Cloud Database";
-                submitBtn.disabled = false;
+                alert("❌ Photo transmission lost."); btn.innerText = "Retry Payload"; btn.disabled = false; return;
             }
+
+            const activeNodeProduct = { pId, title, images: uploadedUrls, text, amazon };
+            let activeList = blogData[category][subId] || [];
+
+            if(actionType === 'add') {
+                activeList.unshift(activeNodeProduct);
+            } else {
+                const idx = activeList.findIndex(p => p.pId === pId);
+                if(idx > -1) activeList[idx] = activeNodeProduct;
+            }
+            blogData[category][subId] = activeList;
+
+            // Save unified ecosystem state maps variables to storage bins
+            try {
+                let completePayload = { productsCoreData: blogData, telemetryDatabase: telemetryDatabase };
+                const saveResponse = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+                    method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Master-Key': MASTER_KEY }, body: JSON.stringify(completePayload)
+                });
+                if(saveResponse.ok) {
+                    alert(`🎉 Success! Product pipeline entry '${pId}' synchronized perfectly.`);
+                    window.location.hash = `#${pId}`; route();
+                }
+            } catch(ex) { alert("❌ Cloud sync runtime dropped."); } finally { btn.disabled = false; btn.innerText = "Execute Node"; }
         }
 
-        let swipeStartX = 0;
-        let swipeCurrentX = 0;
-        let isSwiping = false;
-
-        window.startSwipe = function(e, cardIndex) {
-            isSwiping = true;
-            swipeStartX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-            swipeCurrentX = swipeStartX;
-        }
-
-        window.moveSwipe = function(e, cardIndex) {
-            if (!isSwiping) return;
-            swipeCurrentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-        }
-
-        window.endSwipe = function(cardIndex) {
-            if (!isSwiping) return;
-            isSwiping = false;
-            
+        // Swiper gesture mechanics core controls logic integrations
+        let swipeStartX = 0, swipeCurrentX = 0, isSwiping = false;
+        window.startSwipe = function(e, cardIdx) { isSwiping = true; swipeStartX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; swipeCurrentX = swipeStartX; }
+        window.moveSwipe = function(e, cardIdx) { if (!isSwiping) return; swipeCurrentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; }
+        window.endSwipe = function(cardIdx) {
+            if (!isSwiping) return; isSwiping = false;
             const diffX = swipeStartX - swipeCurrentX;
-            const threshold = 50; 
-            const urlParams = new URLSearchParams(window.location.search);
-            const hash = window.location.hash.replace('#', '');
-            let page = urlParams.get('page');
-            let id = urlParams.get('id');
-
-            if (hash && (!page || !id)) {
-                Object.keys(blogData).forEach(pK => {
-                    Object.keys(blogData[pK]).forEach(idK => {
-                        blogData[pK][idK].forEach(p => { if(p.pId === hash) { page = pK; id = idK; } });
-                    });
-                });
-            }
-            
-            let productsList = [...blogData[page][id]];
-            const targetProduct = urlParams.get('product') || hash;
-            if (targetProduct) {
-                const foundIndex = productsList.findIndex(p => p.pId === targetProduct);
-                if (foundIndex > -1) {
-                    const targetObj = productsList.splice(foundIndex, 1)[0];
-                    productsList.unshift(targetObj);
-                }
-            }
-            
-            const imagesArray = productsList[cardIndex].images;
-            
-            if (Math.abs(diffX) > threshold) {
-                let currentIdx = activeIndices[cardIndex];
-                if (diffX > 0) {
-                    if (currentIdx < imagesArray.length - 1) { currentIdx++; } else { currentIdx = 0; }
-                } else {
-                    if (currentIdx > 0) { currentIdx--; } else { currentIdx = imagesArray.length - 1; }
-                }
-                jumpToImage(cardIndex, currentIdx, imagesArray[currentIdx]);
+            if (Math.abs(diffX) > 60) {
+                let imgs = getActiveImagesContext(cardIdx); let cIdx = activeIndices[cardIdx];
+                if (diffX > 0) { cIdx = (cIdx < imgs.length - 1) ? cIdx + 1 : 0; } else { cIdx = (cIdx > 0) ? cIdx - 1 : imgs.length - 1; }
+                jumpToImage(cardIdx, cIdx, imgs[cIdx]);
             }
         }
-
-        window.checkClickOrSwipe = function(e, cardIndex, mediaSrc) {
-            const diff = Math.abs(swipeStartX - swipeCurrentX);
-            if (diff < 10) { openFullPhoto(cardIndex, mediaSrc); }
-        }
-
-        window.jumpToImage = function(cardIndex, imgIndex, targetSrc) {
-            activeIndices[cardIndex] = imgIndex;
-            const mediaViewport = document.getElementById(`gallery-${cardIndex}`).querySelector('.swiper-viewport');
-            
-            if(isVideoFile(targetSrc)) {
-                mediaViewport.innerHTML = `<video id="main-img-${cardIndex}" class="blog-video-player" src="${targetSrc}" autoplay loop muted playsinline onclick="checkClickOrSwipe(event, ${cardIndex}, '${targetSrc}')"></video>`;
-            } else {
-                mediaViewport.innerHTML = `<img id="main-img-${cardIndex}" class="blog-img" src="${targetSrc}" onclick="checkClickOrSwipe(event, ${cardIndex}, '${targetSrc}')" alt="VibeForge Asset" draggable="false">`;
-            }
-            
-            const gallery = document.getElementById('gallery-' + cardIndex);
-            if (gallery) {
-                gallery.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
-                const activeThumb = document.getElementById(`thumb-${cardIndex}-${imgIndex}`);
-                if (activeThumb) activeThumb.classList.add('active');
-            }
-        }
-
-        window.openFullPhoto = function(cardIndex, mediaSrc) {
-            currentModalCardIndex = cardIndex;
-            const modal = document.getElementById('fullScreenModal');
-            modal.style.display = "flex";
-            renderModalContent(mediaSrc);
-            
-            const images = getActiveImagesContext(cardIndex);
-            const prevBtn = document.querySelector('.modal-prev');
-            const nextBtn = document.querySelector('.modal-next');
-            
-            if(images.length <= 1) {
-                prevBtn.style.display = 'none';
-                nextBtn.style.display = 'none';
-            } else {
-                prevBtn.style.display = 'flex';
-                nextBtn.style.display = 'flex';
-            }
-        }
-
-        function renderModalContent(srcPath) {
-            const targetContainer = document.getElementById('modalMediaContainer');
-            const audioBtn = document.getElementById('modalAudioToggle');
-            
-            if(isVideoFile(srcPath)) {
-                targetContainer.innerHTML = `<video id="modalTargetVideo" class="modal-content" src="${srcPath}" autoplay loop muted playsinline></video>`;
-                audioBtn.style.display = "flex";
-                audioBtn.innerText = "🔊 Unmute Music";
-            } else {
-                targetContainer.innerHTML = `<img class="modal-content" id="modalTargetImg" src="${srcPath}" draggable="false">`;
-                audioBtn.style.display = "none";
-            }
-        }
-
-        window.toggleModalAudio = function(e) {
-            if(e) e.stopPropagation();
-            const videoElement = document.getElementById('modalTargetVideo');
-            const audioBtn = document.getElementById('modalAudioToggle');
-            if(!videoElement) return;
-            
-            if(videoElement.muted) {
-                videoElement.muted = false;
-                audioBtn.innerText = "🔇 Mute Audio";
-            } else {
-                videoElement.muted = true;
-                audioBtn.innerText = "🔊 Unmute Music";
-            }
-        }
-
-        window.closeFullPhoto = function() {
-            document.getElementById('modalMediaContainer').innerHTML = "";
-            document.getElementById('fullScreenModal').style.display = "none";
-            currentModalCardIndex = null;
-        }
-
-        function getActiveImagesContext(cardIndex) {
-            const urlParams = new URLSearchParams(window.location.search);
-            const hash = window.location.hash.replace('#', '');
-            let page = urlParams.get('page');
-            let id = urlParams.get('id');
-
-            if (hash && (!page || !id)) {
-                Object.keys(blogData).forEach(pK => {
-                    Object.keys(blogData[pK]).forEach(idK => {
-                        blogData[pK][idK].forEach(p => { if(p.pId === hash) { page = pK; id = idK; } });
-                    });
-                });
-            }
-            let productsList = [...blogData[page][id]];
-            const targetProduct = urlParams.get('product') || hash;
-            if (targetProduct) {
-                const foundIndex = productsList.findIndex(p => p.pId === targetProduct);
-                if (foundIndex > -1) {
-                    const targetObj = productsList.splice(foundIndex, 1)[0];
-                    productsList.unshift(targetObj);
-                }
-            }
-            return productsList[cardIndex].images;
-        }
-
-        window.modalNext = function(e) {
-            if(e) e.stopPropagation();
-            if(currentModalCardIndex === null) return;
-            
-            const images = getActiveImagesContext(currentModalCardIndex);
-            let currentIdx = activeIndices[currentModalCardIndex];
-            
-            if(currentIdx < images.length - 1) { currentIdx++; } else { currentIdx = 0; }
-            
-            jumpToImage(currentModalCardIndex, currentIdx, images[currentIdx]);
-            renderModalContent(images[currentIdx]);
-        }
-
-        window.modalPrev = function(e) {
-            if(e) e.stopPropagation();
-            if(currentModalCardIndex === null) return;
-            
-            const images = getActiveImagesContext(currentModalCardIndex);
-            let currentIdx = activeIndices[currentModalCardIndex];
-            
-            if(currentIdx > 0) { currentIdx--; } else { currentIdx = images.length - 1; }
-            
-            jumpToImage(currentModalCardIndex, currentIdx, images[currentIdx]);
-            renderModalContent(images[currentIdx]);
-        }
-
-        window.addEventListener('keydown', function(e) {
-            const modal = document.getElementById('fullScreenModal');
-            if(modal.style.display === "flex") {
-                if(e.key === "ArrowRight") modalNext();
-                if(e.key === "ArrowLeft") modalPrev();
-                if(e.key === "Escape") closeFullPhoto();
-            }
-        });
-
-        let modalSwipeStartX = 0;
-        let modalSwipeCurrentX = 0;
-        let isModalSwiping = false;
-
-        window.startModalSwipe = function(e) {
-            if(e.target.classList.contains('modal-nav-btn') || e.target.classList.contains('modal-audio-btn')) return;
-            isModalSwiping = true;
-            modalSwipeStartX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-            modalSwipeCurrentX = modalSwipeStartX;
-        }
-
-        window.moveModalSwipe = function(e) {
-            if(!isModalSwiping) return;
-            modalSwipeCurrentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-        }
-
-        window.endModalSwipe = function() {
-            if(!isModalSwiping) return;
-            isModalSwiping = false;
-            const diffX = modalSwipeStartX - modalSwipeCurrentX;
-            const threshold = 40;
-            if (Math.abs(diffX) > threshold) {
-                if (diffX > 0) { modalNext(); } else { modalPrev(); }
-            }
-        }
-
-        document.getElementById('fullScreenModal').addEventListener('click', function(e) {
-            if(e.target.id === 'fullScreenModal' || e.target.classList.contains('modal-viewport')) { closeFullPhoto(); }
-        });
-
-        window.addEventListener('hashchange', route);
-        window.addEventListener('popstate', route);
+        window.checkClickOrSwipe = function(e, cardIdx, src) { if (Math.abs(swipeStartX - swipeCurrentX) < 10) openFullPhoto(cardIdx, src); }
         
+        window.jumpToImage = function(cardIdx, imgIdx, src) {
+            activeIndices[cardIdx] = imgIdx;
+            document.getElementById(`gallery-${cardIdx}`).querySelector('.swiper-viewport').innerHTML = `<img id="main-img-${cardIdx}" class="blog-img" src="${src}" onclick="checkClickOrSwipe(event, ${cardIdx}, '${src}')" draggable="false">`;
+            const g = document.getElementById('gallery-' + cardIdx);
+            if (g) { g.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active')); const active = document.getElementById(`thumb-${cardIdx}-${imgIdx}`); if (active) active.classList.add('active'); }
+        }
+
+        window.openFullPhoto = function(cardIdx, src) {
+            currentModalCardIndex = cardIdx; document.getElementById('fullScreenModal').style.display = "flex";
+            document.getElementById('modalMediaContainer').innerHTML = `<img class="modal-content" id="modalTargetImg" src="${src}" draggable="false">`;
+        }
+        window.closeFullPhoto = function() { document.getElementById('fullScreenModal').style.display = "none"; }
+
+        function getActiveImagesContext(cardIdx) {
+            const urlParams = new URLSearchParams(window.location.search);
+            let page = urlParams.get('page'), id = urlParams.get('id');
+            return blogData[page][id][cardIdx].images;
+        }
+
+        window.modalNext = function() {
+            let imgs = getActiveImagesContext(currentModalCardIndex); let idx = activeIndices[currentModalCardIndex];
+            idx = (idx < imgs.length - 1) ? idx + 1 : 0; jumpToImage(currentModalCardIndex, idx, imgs[idx]);
+            document.getElementById('modalMediaContainer').innerHTML = `<img class="modal-content" src="${imgs[idx]}">`;
+        }
+        window.modalPrev = function() {
+            let imgs = getActiveImagesContext(currentModalCardIndex); let idx = activeIndices[currentModalCardIndex];
+            idx = (idx > 0) ? idx - 1 : imgs.length - 1; jumpToImage(currentModalCardIndex, idx, imgs[idx]);
+            document.getElementById('modalMediaContainer').innerHTML = `<img class="modal-content" src="${imgs[idx]}">`;
+        }
+
+        let mStartX = 0, mCurX = 0, mSwiping = false;
+        window.startModalSwipe = function(e) { if(e.target.classList.contains('modal-nav-btn')) return; mSwiping = true; mStartX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; mCurX = mStartX; }
+        window.moveModalSwipe = function(e) { if(!mSwiping) return; mCurX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; }
+        window.endModalSwipe = function() { if(!mSwiping) return; mSwiping = false; if(Math.abs(mStartX - mCurX) > 40) { if(mStartX - mCurX > 0) modalNext(); else modalPrev(); } }
+
+        window.addEventListener('hashchange', route); window.addEventListener('popstate', route);
         fetchLiveCloudDatabase();
     </script>
 </body>
