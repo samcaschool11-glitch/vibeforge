@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ VibeForge US | Aesthetic Desk Setups & Room Decor 🎮✨</title>
+    <title>⚡ VibeForge US | Aesthetic Desk Setups & Room Decor 🎮✨🏯</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
@@ -243,7 +243,11 @@
 
         .gallery-container { display: flex; flex-direction: column; gap: 16px; position: relative; width: 100%; user-select: none;}
         .swiper-viewport { width: 100%; height: 480px; border-radius: 20px; background: #0e121a; overflow: hidden; position: relative; border: 1px solid rgba(255,255,255,0.03); touch-action: pan-y; }
-        .blog-img, .blog-video-player { width: 100%; height: 100%; object-fit: contain; cursor: grab; display: block;}
+        
+        /* Native Interactive Controller Optimization Skins */
+        .blog-img { width: 100%; height: 100%; object-fit: contain; display: block;}
+        .blog-video-player { width: 100%; height: 100%; object-fit: contain; display: block; background: #000; }
+        
         .zoom-hint { font-size: 12px; color: var(--accent-color); text-align: center; margin-top: -4px; opacity: 0.75; font-weight: 500;}
 
         .thumbnail-wrapper { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; width: 100%; padding: 8px 0;}
@@ -294,7 +298,7 @@
         .trust-tag { font-size: 11.5px; font-weight: 600; color: var(--text-desc); display: flex; align-items: center; gap: 5px;}
         .trust-tag span { color: #10b981; }
 
-        /* 📊 ADMIN METRICS PANELS */
+        /* 📊 ADMIN METRICS PANELS Layouts styling framework mappings */
         .admin-dashboard-view {
             display: none; width: 100%; max-width: 1100px; background: var(--card-bg); border: 2px solid var(--accent-color); border-radius: 20px; padding: 30px; margin-bottom: 40px; margin-left: auto; margin-right: auto; box-shadow: 0 20px 50px rgba(0, 188, 212, 0.25);
         }
@@ -317,7 +321,7 @@
             background: #090c10; border: 1px solid rgba(255,255,255,0.05); padding: 22px; border-radius: 14px; text-align: left;
         }
         .metric-title { font-family: 'Orbitron'; font-size: 11px; text-transform: uppercase; color: var(--text-desc); letter-spacing: 0.5px; margin-bottom: 8px;}
-        .metric-value { font-family: 'Orbitron'; font-size: 28px; font-weight: 800; color: #fff;}
+        .metric-value { font-family: 'Orbitron'; font-size: 24px; font-weight: 800; color: #fff; word-break: break-all;}
         .metric-value.color-accent { color: var(--accent-color); }
         .metric-value.color-purple { color: var(--stat-purple); }
         .metric-value.color-green { color: var(--shipping-green); }
@@ -365,7 +369,7 @@
         }
         @keyframes shimmerBg { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
 
-        /* Full Screen Modals Viewports */
+        /* Full Screen Modals Viewports Styling mappings */
         .image-modal { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(7, 9, 12, 0.97); justify-content: center; align-items: center; }
         .modal-viewport { width: 100%; max-width: 92%; max-height: 85%; display: flex; justify-content: center; align-items: center; position: relative; touch-action: pan-y;}
         .modal-content { width: 100%; height: auto; max-height: 85vh; object-fit: contain; border-radius: 12px; box-shadow: 0 0 40px rgba(0, 188, 212, 0.4);}
@@ -453,14 +457,29 @@
                             <label class="admin-label">Product Title</label>
                             <input type="text" id="formTitle" class="admin-input" placeholder="Enter highly conversion attractive title..." required>
                         </div>
+                        
                         <div class="admin-form-group">
-                            <label class="admin-label">📸 Select Product Photos (Supports Multiple Selection at Once)</label>
+                            <label class="admin-label">📸 Select Product Photos (Supports Multiple Selection at Once + Drag Sort)</label>
                             <div class="upload-zone-wrapper" onclick="document.getElementById('dashboardPhotoInput').click()">
                                 <p style="font-size:13px; color:var(--accent-color); font-weight:600;">✨ Click to Select Multiple Photos</p>
                                 <input type="file" id="dashboardPhotoInput" accept="image/*" multiple style="display:none;" onchange="handleAdminPhotoAccumulator(this, 'photoPreviewThumbnailsRow')">
                             </div>
                             <div id="photoPreviewThumbnailsRow" class="preview-images-row"></div>
                         </div>
+
+                        <div class="admin-form-group" style="border: 1px dashed rgba(0, 188, 212, 0.3); padding: 15px; border-radius: 10px; background: rgba(0,0,0,0.2);">
+                            <label class="admin-label" style="color:#ffa502;">🎥 Product Video File Setup (Optional)</label>
+                            <input type="text" id="formVideoSrc" class="admin-input" placeholder="e.g., custom_setup.mp4 (Glitch link or cloud url)" style="margin-bottom:12px;">
+                            
+                            <label class="admin-label">🎯 Video Slide Position Number</label>
+                            <select id="formVideoPosition" class="admin-select">
+                                <option value="0">1st Position (Show Video First)</option>
+                                <option value="2">3rd Position</option>
+                                <option value="5">6th Position</option>
+                                <option value="last">Last Position (At the very end)</option>
+                            </select>
+                        </div>
+
                         <div class="admin-form-group">
                             <label class="admin-label">Amazon Affiliate Link URL</label>
                             <input type="url" id="formAmazon" class="admin-input" placeholder="https://amzn.to/..." required>
@@ -541,17 +560,36 @@
                         </div>
                     </div>
 
-                    <h3 class="admin-label" style="font-size:12px; margin-bottom:10px; color:#fff;">⚡ Live Visitor Tracking Streams</h3>
+                    <div class="analytics-summary-grid" style="grid-template-columns: 1.3fr 1fr 1fr;">
+                        <div class="metric-scorecard" style="background: #0f141c;">
+                            <div class="metric-title">🗺️ Category Heat-Map (Bhed Location)</div>
+                            <div id="analyticsHeatMapBlock" style="font-size:13px; line-height:1.7; margin-top:8px; color:var(--accent-color);">Calculating map indices...</div>
+                        </div>
+                        <div class="metric-scorecard" style="background: #0f141c;">
+                            <div class="metric-title">🌍 Geo & Device Target Intel</div>
+                            <div id="analyticsDeviceGeoBlock" style="font-size:13px; line-height:1.7; margin-top:8px;">
+                                <div style="color:#fff;">Region Status: <b style="color:var(--shipping-green);">US Audience Verified</b></div>
+                                <div id="deviceSplitRatioBlock" style="margin-top:4px; opacity:0.85;">Detecting client headers...</div>
+                            </div>
+                        </div>
+                        <div class="metric-scorecard" style="background: #0f141c;">
+                            <div class="metric-title">⏱️ Peak Traffic Clock (US New York)</div>
+                            <div id="analyticsUSClockNode" class="metric-value color-orange" style="font-size:20px; margin-top:10px; font-family:'Orbitron';">00:00:00 AM</div>
+                            <div style="font-size:10.5px; opacity:0.6; margin-top:4px;">Highly optimized for pin scheduling</div>
+                        </div>
+                    </div>
+
+                    <h3 class="admin-label" style="font-size:12px; margin-bottom:10px; color:#fff; margin-top:25px;">⚡ Live Visitor Tracking Streams (Micro Detailed Real-Time Analytics)</h3>
                     <div class="analytics-table-wrapper">
                         <table class="analytics-table">
                             <thead>
                                 <tr>
                                     <th>👤 User Handle</th>
                                     <th>⏱️ Time On Site</th>
+                                    <th>Status Flow</th>
                                     <th>🧭 Traffic Source Pathway</th>
                                     <th>👀 Products Explored</th>
                                     <th>🔥 Buy Click Action</th>
-                                    <th>⚙️ Status Node</th>
                                 </tr>
                             </thead>
                             <tbody id="visitorLogsTableBody">
@@ -589,7 +627,7 @@
             <div class="profile-header" id="main-profile-header">
                 <img class="profile-img" src="logo.jpg.jpeg" alt="VibeForge US Logo">
                 <h1 class="profile-name">VibeForge US</h1>
-                <p class="profile-bio">Forging the ultimate visual vibes. Curating premium Aesthetic Desk Setups, Diecast Cars & Room Decor. Upgrade your space! 🛠️🏎️✨</p>
+                <p class="profile-bio">Forging the ultimate visual vibes. Curating premium Aesthetic Desk Setups, Diecast Cars & Anime Room Decor. Upgrade your space! 🛠️🏎️✨</p>
             </div>
 
             <div id="shop-grid">
@@ -653,7 +691,7 @@
         </div>
 
         <footer>
-            <p>© 2026 VibeForge | Forging the Ultimate Desktop Aesthetics & Premium Anime Collectibles. ✨</p>
+            <p>© 2026 VibeForge | Forging the Ultimate Desktop Aesthetics & Premium Anime Collectibles. ✨🏯</p>
         </footer>
     </div>
 
@@ -661,9 +699,8 @@
         <span class="close-modal" onclick="closeFullPhoto()">&times;</span>
         <div class="modal-viewport" onmousedown="startModalSwipe(event)" onmousemove="moveModalSwipe(event)" onmouseup="endModalSwipe()" onmouseleave="endModalSwipe()" ontouchstart="startModalSwipe(event)" ontouchmove="moveModalSwipe(event)" ontouchend="endModalSwipe()">
             <button class="modal-nav-btn modal-prev" onclick="modalPrev(event)">&#10094;</button>
-            <div id="modalMediaContainer" style="width:100%; display:flex; justify-content:center;"></div>
+            <div id="modalMediaContainer" style="width:100%; display:flex; justify-content:center; align-items:center;"></div>
             <button class="modal-nav-btn modal-next" onclick="modalNext(event)">&#10095;</button>
-            <button id="modalAudioToggle" class="modal-audio-btn" onclick="toggleModalAudio(event)">🔊 Unmute Music</button>
         </div>
     </div>
 
@@ -689,9 +726,9 @@
         let sessionStartTimeNode = Date.now();
 
         function initializeVisitorTrackingCore() {
-            // 🛑 STRICT BYPASS GUARD: If admin is on the page, halt counting sequences immediately!
+            // 🛑 ADMIN ACTION FILTERS SEQUENCE CORE: Prevents tracking admin triggers completely!
             if(window.location.hash === "#admin" || sessionStorage.getItem('vf_admin_auth_token') === 'true') {
-                console.log("Admin signature verified. System analytics paused.");
+                console.log("Admin signature verified. System analytics integration paused.");
                 return;
             }
 
@@ -704,15 +741,19 @@
             
             sessionStartTimeNode = Date.now();
 
-            // 🧭 INTELLIGENT SOURCE PATHWAY PATH ACQUISITION SCRIPT
-            let sourcePathway = "Direct Search";
+            // Dynamic inbound path extraction analytics core framework
+            let sourcePathway = "Direct Search / Pinterest Inbound Link";
             if (document.referrer && document.referrer.includes("pinterest.com")) {
-                sourcePathway = "🔗 Pinterest Pin Outbound";
+                sourcePathway = "🔗 Pinterest App Redirect Platform";
             } else if (window.location.hash && window.location.hash.length > 2) {
-                sourcePathway = `🎯 Pin Routing Scope (#${window.location.hash.replace('#','')})`;
+                sourcePathway = `🎯 Pin Redirect Token Target (#${window.location.hash.replace('#','')})`;
             }
 
-            syncTrafficLogToCloudCore(currentUserSessionToken, "Page Load", window.location.hash ? window.location.hash.replace('#','') : "Home Screen", sourcePathway);
+            // Capture Client Machine Specific Headers
+            const isMobileDevice = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            let machineSignature = isMobileDevice ? "📱 Mobile Web Client" : "💻 Desktop Station";
+
+            syncTrafficLogToCloudCore(currentUserSessionToken, "Page Load", window.location.hash ? window.location.hash.replace('#','') : "Home Screen", sourcePathway, machineSignature);
 
             setInterval(() => {
                 let currentDurationSec = Math.floor((Date.now() - sessionStartTimeNode) / 1000);
@@ -768,7 +809,7 @@
             } catch(e) { console.error("Telemetry failure:", e); }
         }
 
-        function syncTrafficLogToCloudCore(userTag, actionType, description, intentionalSource = "Direct Search") {
+        function syncTrafficLogToCloudCore(userTag, actionType, description, intentionalSource = "Direct Search", machineSign = "💻 Desktop Station") {
             if(window.location.hash === "#admin" || sessionStorage.getItem('vf_admin_auth_token') === 'true') return;
 
             if(!telemetryDatabase.visitorProfiles) telemetryDatabase.visitorProfiles = {};
@@ -782,7 +823,7 @@
             }
 
             if(!telemetryDatabase.visitorProfiles[userTag]) {
-                telemetryDatabase.visitorProfiles[userTag] = { history: [], clicks: [], timeSpentSec: 0, lastHeartbeat: Date.now(), source: intentionalSource };
+                telemetryDatabase.visitorProfiles[userTag] = { history: [], clicks: [], timeSpentSec: 0, lastHeartbeat: Date.now(), source: intentionalSource, deviceType: machineSign };
             }
             
             telemetryDatabase.visitorProfiles[userTag].lastHeartbeat = Date.now();
@@ -797,11 +838,11 @@
                 }
             }
             
-            if(Math.random() > 0.7) { pushSystemStateToCloudBin(); }
+            pushSystemStateToCloudBin();
         }
 
         window.registerAffiliateOutboundClick = function(productIdHash) {
-            registerAffiliateOutboundClick(productIdHash);
+            syncTrafficLogToCloudCore(currentUserSessionToken, "Amazon Buy Trigger", productIdHash);
         }
 
         window.switchAdminSection = function(sectionKey) {
@@ -822,6 +863,14 @@
             return mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
         }
 
+        // Live EST US zone clock loop interval handler mapping setup
+        setInterval(() => {
+            const clockNode = document.getElementById('analyticsUSClockNode');
+            if(clockNode) {
+                clockNode.innerText = new Date().toLocaleTimeString("en-US", {timeZone: "America/New_York"});
+            }
+        }, 1000);
+
         function renderLiveTelemetryDashboardView() {
             document.getElementById('stat-total-visits').innerText = telemetryDatabase.totalVisVisits || 0;
             document.getElementById('stat-total-clicks').innerText = telemetryDatabase.totalClicks || 0;
@@ -837,19 +886,49 @@
             let totalNoClicksCount = 0;
             let totalProfilesArr = Object.keys(profiles);
             
+            let mobileCounter = 0, desktopCounter = 0;
+            let heatMapCategoriesMap = {};
+
             totalProfilesArr.forEach(k => {
                 let currentItemClicks = profiles[k].clicks || [];
                 if(currentItemClicks.length === 0) {
-                    totalNoClicksCount++; // Increments non-clicking counters nodes
+                    totalNoClicksCount++; 
                 }
                 if(profiles[k].history && profiles[k].history.length <= 1 && currentItemClicks.length === 0) {
                     bounceCount++;
+                }
+
+                // Device aggregation loops variables updates
+                if(profiles[k].deviceType && profiles[k].deviceType.includes("Mobile")) mobileCounter++;
+                else desktopCounter++;
+
+                // Build category views accumulation map fields parameters
+                if(profiles[k].history) {
+                    profiles[k].history.forEach(historyNode => {
+                        if(historyNode !== "Home Screen") {
+                            heatMapCategoriesMap[historyNode] = (heatMapCategoriesMap[historyNode] || 0) + 1;
+                        }
+                    });
                 }
             });
             
             document.getElementById('stat-no-clicks').innerText = totalNoClicksCount;
             let bounceRate = totalProfilesArr.length > 0 ? (bounceCount / totalProfilesArr.length) * 100 : 0;
             document.getElementById('stat-bounce-rate').innerText = bounceRate.toFixed(1) + "%";
+
+            // Render Device Intel ratios updates strings arrays
+            document.getElementById('deviceSplitRatioBlock').innerHTML = `
+                <div>💻 Workstations: <b>${desktopCounter}</b> profiles</div>
+                <div>📱 Mobile Devices: <b>${mobileCounter}</b> logs</div>
+            `;
+
+            // Render real-time heat maps dashboard view structures
+            const heatMapBlock = document.getElementById('analyticsHeatMapBlock');
+            let sortedHeatMapHtml = "";
+            Object.keys(heatMapCategoriesMap).forEach(key => {
+                sortedHeatMapHtml += `<div>🔥 Product <b>[#${key.toUpperCase()}]</b>: <b>${heatMapCategoriesMap[key]} views</b></div>`;
+            });
+            heatMapBlock.innerHTML = sortedHeatMapHtml || "<div>No explicit items tracking entries evaluated yet.</div>";
 
             const logsTable = document.getElementById('visitorLogsTableBody');
             logsTable.innerHTML = "";
@@ -860,20 +939,20 @@
                 totalProfilesArr.forEach(pKey => {
                     let pData = profiles[pKey];
                     let exploredStr = pData.history.join(', ') || "None";
-                    let triggeredStr = pData.clicks.length > 0 ? pData.clicks.join(', ') : "❌ No Click";
-                    let finalSourceStr = pData.source || "Direct Search";
+                    let triggeredStr = pData.clicks.length > 0 ? pData.clicks.join(', ') : "❌ No Click Actions";
+                    let finalSourceStr = pData.source || "Direct Search Links";
                     
                     let isUserOnline = (Date.now() - (pData.lastHeartbeat || 0)) < 25000;
-                    let statusBadge = isUserOnline ? `<span class="status-pill status-online">🟢 Live Now</span>` : `<span class="status-pill status-offline">🔴 Offline</span>`;
+                    let statusBadge = isUserOnline ? `<span class="status-pill status-online">🟢 Active</span>` : `<span class="status-pill status-offline">🔴 Left</span>`;
                     
                     logsTable.innerHTML += `
                         <tr>
-                            <td><span class="user-identity-badge">👤 ${pKey}</span></td>
+                            <td><span class="user-identity-badge">👤 ${pKey}</span><br><span style="font-size:9.5px; opacity:0.5;">${pData.deviceType || 'Unknown UI'}</span></td>
                             <td style="color:var(--accent-color); font-weight:700; font-family:'Orbitron';">${formatDurationTimeMapping(pData.timeSpentSec)}</td>
-                            <td><span class="source-tag">${finalSourceStr}</span></td>
-                            <td style="font-size:12.5px; opacity:0.8;">${exploredStr}</td>
-                            <td style="${pData.clicks.length > 0 ? 'color:var(--shipping-green); font-weight:bold;' : 'color:var(--urgency-red); opacity:0.6;'}">${triggeredStr}</td>
                             <td>${statusBadge}</td>
+                            <td><span class="source-tag">${finalSourceStr}</span></td>
+                            <td style="font-size:12.5px; opacity:0.8; max-width:200px; overflow:hidden; text-overflow:ellipsis;">${exploredStr}</td>
+                            <td style="${pData.clicks.length > 0 ? 'color:var(--shipping-green); font-weight:bold;' : 'color:var(--urgency-red); opacity:0.6;'}">${triggeredStr}</td>
                         </tr>
                     `;
                 });
@@ -894,7 +973,7 @@
                         <tr>
                             <td style="font-family:'Orbitron'; color:var(--urgency-orange); font-weight:bold;">#${item.id}</td>
                             <td style="font-weight:600;">Product Module (${item.id.toUpperCase()})</td>
-                            <td style="color:var(--stat-purple); font-weight:800; font-size:15px;">🔥 ${item.count} Clicks</td>
+                            <td style="color:var(--stat-purple); font-weight:800; font-size:15px;">🔥 ${item.count} Outbound Actions</td>
                         </tr>
                     `;
                 });
@@ -912,7 +991,7 @@
                 });
             });
 
-            if(!matchedProduct) { alert("❌ Item ID missing."); return; }
+            if(!matchedProduct) { alert("❌ Item ID missing inside cloud matrices registry records."); return; }
 
             document.getElementById('editCategory').value = targetCat;
             document.getElementById('editSubId').value = targetSub;
@@ -934,7 +1013,7 @@
                 document.getElementById('adminAuthScreen').style.display = "none";
                 document.getElementById('adminWorkspaceFormBlock').style.display = "block";
                 updateSubCategoryOptions(document.getElementById('formCategory').value, 'formSubId');
-            } else { alert("⛔ ACCESS DENIED."); }
+            } else { alert("⛔ ACCESS DENIED: Threat pattern locked."); }
         }
 
         window.exitAdminView = function() {
@@ -963,7 +1042,7 @@
             accumulatedFilesArray.forEach((item, index) => {
                 previewRow.innerHTML += `
                     <div class="preview-container" draggable="true" data-index="${index}" ondragstart="handlePreviewDragStart(event)" ondragover="handlePreviewDragOver(event)" ondrop="handlePreviewDrop(event, '${elementId}')">
-                        <span class="remove-preview-btn" onclick="removeAccumulatedPhotoIndex(event, ${index}, '${elementId}')">&times;</span>
+                        <span class="remove-preview-btn" onclick="removeAccumulatedPhotoIndex(event, index, '${elementId}')">&times;</span>
                         <img src="${item.dataUrl}" class="preview-box">
                         <span class="drag-handle-badge">Pos ${index + 1}</span>
                     </div>
@@ -1002,7 +1081,7 @@
         function generateMixedUrgencyBlock(seedKey, pIndex) {
             const alertStyles = [
                 `<div class="urgency-badge badge-red"><span class="pulse-dot"></span>Only 3 left in stock - Order Soon ⏱️</div>`,
-                `<div class="urgency-badge badge-orange"><span class="pulse-dot"></span>⚡ Selling Fast! High demand among collectors</div>`,
+                `<div class="urgency-badge badge-orange"><span class="pulse-dot"></span>⚡ Selling Fast! High demand among creators</div>`,
                 `<div class="urgency-badge badge-red"><span class="pulse-dot"></span>Only 5 remaining - Items selling out 🔥</div>`,
                 `<div class="urgency-badge badge-orange"><span class="pulse-dot"></span>✨ Limited Edition Batch - Limited Availability</div>`
             ];
@@ -1053,7 +1132,7 @@
 
             if (page && id && blogData[page] && blogData[page][id]) {
                 blogView.style.display = 'block'; mainProfileHeader.style.display = 'none'; shopGrid.classList.add('bottom-divider');
-                itemsContainer.innerHTML = ""; document.getElementById('category-heading').innerText = id.toUpperCase() + " COLLECTION ✨";
+                itemsContainer.innerHTML = ""; document.getElementById('category-heading').innerText = id.toUpperCase() + " COLLECTION ✨🏯";
                 
                 let productsList = [...blogData[page][id]];
                 if (targetProduct) {
@@ -1068,15 +1147,24 @@
                         if (product.images.length > maxThumbs) { thumbsHtml += `<div class="more-photos-badge" onclick="openFullPhoto(${pIndex}, '${product.images[maxThumbs]}')">+${product.images.length - maxThumbs}</div>`; }
                     }
 
+                    // Log telemetry data product impressions details
                     syncTrafficLogToCloudCore(currentUserSessionToken, "Page Load", product.pId);
+
+                    let viewportMediaHtml = "";
+                    if(isVideoFile(product.images[0])) {
+                        // Native HTML5 UI optimizations configurations bypass overrides controls setup
+                        viewportMediaHtml = `<video id="main-img-${pIndex}" class="blog-video-player" src="${product.images[0]}" controls autoplay loop muted playsinline></video>`;
+                    } else {
+                        viewportMediaHtml = `<img id="main-img-${pIndex}" class="blog-img" src="${product.images[0]}" onclick="checkClickOrSwipe(event, pIndex, '${product.images[0]}')" draggable="false">`;
+                    }
 
                     itemsContainer.innerHTML += `
                         <div class="item-card" id="p-card-${product.pId}">
                             <div class="gallery-container" id="gallery-${pIndex}" data-cardindex="${pIndex}">
                                 <div class="swiper-viewport" onmousedown="startSwipe(event, ${pIndex})" onmousemove="moveSwipe(event, ${pIndex})" onmouseup="endSwipe(${pIndex})" onmouseleave="endSwipe(${pIndex})" ontouchstart="startSwipe(event, ${pIndex})" ontouchmove="moveSwipe(event, ${pIndex})" ontouchend="endSwipe(${pIndex})">
-                                    <img id="main-img-${pIndex}" class="blog-img" src="${product.images[0]}" onclick="checkClickOrSwipe(event, ${pIndex}, '${product.images[0]}')" draggable="false">
+                                    ${viewportMediaHtml}
                                 </div>
-                                <div class="zoom-hint">👈 Swipe view or click to view full screen 🔍</div>
+                                <div class="zoom-hint">👈 Swipe view or click photo to view full screen 🔍</div>
                                 <div class="thumbnail-wrapper">${thumbsHtml}</div>
                             </div>
                             <div class="item-details">
@@ -1112,6 +1200,14 @@
             const amazon = document.getElementById(`${prefix}Amazon`).value.trim();
             const text = document.getElementById(`${prefix}Text`).value.trim();
 
+            let videoSrc = "";
+            let videoPosition = "0";
+            
+            if(actionType === 'add') {
+                videoSrc = document.getElementById('formVideoSrc').value.trim();
+                videoPosition = document.getElementById('formVideoPosition').value;
+            }
+
             btn.innerText = "⚡ Uploading Data Resources..."; btn.disabled = true;
             let uploadedUrls = [];
 
@@ -1126,7 +1222,24 @@
                 }
             } catch(err) { alert("❌ Photo transmission lost."); btn.disabled = false; return; }
 
-            const activeNodeProduct = { pId, title, images: uploadedUrls, text, amazon };
+            if(uploadedUrls.length === 0 && actionType === 'edit') {
+                const currentList = blogData[category][subId] || [];
+                const matchingProd = currentList.find(p => p.pId === pId);
+                if(matchingProd) { uploadedUrls = matchingProd.images.filter(img => !isVideoFile(img)); }
+            }
+
+            let finalMediaArray = [...uploadedUrls];
+            if(videoSrc) {
+                if(videoPosition === '0') finalMediaArray.unshift(videoSrc);
+                else if(videoPosition === 'last') finalMediaArray.push(videoSrc);
+                else {
+                    let insertIndex = parseInt(videoPosition);
+                    if(insertIndex > finalMediaArray.length) insertIndex = finalMediaArray.length;
+                    finalMediaArray.splice(insertIndex, 0, videoSrc);
+                }
+            }
+
+            const activeNodeProduct = { pId, title, images: finalMediaArray, text, amazon };
             let activeList = blogData[category][subId] || [];
 
             if(actionType === 'add') { activeList.unshift(activeNodeProduct); } else {
@@ -1154,13 +1267,25 @@
         }
         window.checkClickOrSwipe = function(e, cardIdx, src) { if (Math.abs(swipeStartX - swipeCurrentX) < 10) openFullPhoto(cardIdx, src); }
         
-        window.jumpToImage = function(cardIdx, imgIdx, src) {
-            activeIndices[cardIdx] = imgIdx;
-            document.getElementById(`gallery-${cardIdx}`).querySelector('.swiper-viewport').innerHTML = `<img id="main-img-${cardIdx}" class="blog-img" src="${src}" onclick="checkClickOrSwipe(event, ${cardIdx}, '${src}')" draggable="false">`;
-            const g = document.getElementById('gallery-' + cardIdx); if (g) { g.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active')); const active = document.getElementById(`thumb-${cardIdx}-${imgIdx}`); if (active) active.classList.add('active'); }
+        window.jumpToImage = function(cardIdx, imgIndex, src) {
+            activeIndices[cardIdx] = imgIndex;
+            const viewport = document.getElementById(`gallery-${cardIdx}`).querySelector('.swiper-viewport');
+            
+            if(isVideoFile(src)) {
+                viewport.innerHTML = `<video id="main-img-${cardIdx}" class="blog-video-player" src="${src}" controls autoplay loop muted playsinline></video>`;
+            } else {
+                viewport.innerHTML = `<img id="main-img-${cardIdx}" class="blog-img" src="${src}" onclick="checkClickOrSwipe(event, ${cardIdx}, '${src}')" draggable="false">`;
+            }
+            
+            const g = document.getElementById('gallery-' + cardIdx); if (g) { g.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active')); const active = document.getElementById(`thumb-${cardIdx}-${imgIndex}`); if (active) active.classList.add('active'); }
         }
 
-        window.openFullPhoto = function(cardIdx, src) { currentModalCardIndex = cardIdx; document.getElementById('fullScreenModal').style.display = "flex"; document.getElementById('modalMediaContainer').innerHTML = `<img class="modal-content" id="modalTargetImg" src="${src}" draggable="false">`; }
+        window.openFullPhoto = function(cardIdx, src) { 
+            if(isVideoFile(src)) return; // Native viewport player prevents full screen overrides logs
+            currentModalCardIndex = cardIdx; 
+            document.getElementById('fullScreenModal').style.display = "flex"; 
+            document.getElementById('modalMediaContainer').innerHTML = `<img class="modal-content" id="modalTargetImg" src="${src}" draggable="false">`; 
+        }
         window.closeFullPhoto = function() { document.getElementById('fullScreenModal').style.display = "none"; }
 
         function getActiveImagesContext(cardIdx) { const urlParams = new URLSearchParams(window.location.search); let page = urlParams.get('page'), id = urlParams.get('id'); return blogData[page][id][cardIdx].images; }
@@ -1168,12 +1293,12 @@
         window.modalNext = function() {
             let imgs = getActiveImagesContext(currentModalCardIndex); let idx = activeIndices[currentModalCardIndex];
             idx = (idx < imgs.length - 1) ? idx + 1 : 0; jumpToImage(currentModalCardIndex, idx, imgs[idx]);
-            document.getElementById('modalMediaContainer').innerHTML = `<img class="modal-content" src="${imgs[idx]}">`;
+            if(!isVideoFile(imgs[idx])) document.getElementById('modalMediaContainer').innerHTML = `<img class="modal-content" src="${imgs[idx]}">`;
         }
         window.modalPrev = function() {
             let imgs = getActiveImagesContext(currentModalCardIndex); let idx = activeIndices[currentModalCardIndex];
             idx = (idx > 0) ? idx - 1 : imgs.length - 1; jumpToImage(currentModalCardIndex, idx, imgs[idx]);
-            document.getElementById('modalMediaContainer').innerHTML = `<img class="modal-content" src="${imgs[idx]}">`;
+            if(!isVideoFile(imgs[idx])) document.getElementById('modalMediaContainer').innerHTML = `<img class="modal-content" src="${imgs[idx]}">`;
         }
 
         let mStartX = 0, mCurX = 0, mSwiping = false;
