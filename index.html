@@ -360,6 +360,29 @@
             border-color: var(--accent-color); 
             transform: scale(1.06); 
         }
+
+        /* 🌟 EXTRA MEDIA INDICATOR BADGE */
+        .more-photos-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 62px;
+            height: 62px;
+            border-radius: 10px;
+            background: rgba(17, 22, 29, 0.85);
+            border: 2px dashed rgba(0, 188, 212, 0.4);
+            color: var(--accent-color);
+            font-size: 12px;
+            font-family: 'Orbitron';
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .more-photos-badge:hover {
+            background: var(--accent-color);
+            color: #000;
+            box-shadow: 0 0 15px var(--accent-color);
+        }
         
         .item-details {
             display: flex;
@@ -880,7 +903,7 @@
                     <label class="admin-label">Enter Cryptographic Passkey</label>
                     <input type="password" id="adminPassKeyField" class="admin-input" placeholder="••••••••••••" style="text-align:center;">
                 </div>
-                <button onclick="verifyAdminPasskeyAuth()" class="admin-submit-btn" style="max-width:200px;">Unlock Engine</button>
+                <input type="button" onclick="verifyAdminPasskeyAuth()" class="admin-submit-btn" style="max-width:200px; display:block; margin:0 auto;" value="Unlock Engine">
             </div>
 
             <div id="adminWorkspaceFormBlock" style="display:none;">
@@ -1379,11 +1402,21 @@
                     const defaultMedia = product.images[0];
                     let thumbsHtml = "";
                     
+                    // 🌟 SMART MEDIA LIMITER: Only show max 5 thumbnail buttons to keep clean layout layout
+                    const maxVisibleThumbs = 5;
                     if(product.images.length > 1) {
                         product.images.forEach((srcPath, iIndex) => {
-                            let thumbSrc = isVideoFile(srcPath) ? "logo.jpg.jpeg" : srcPath;
-                            thumbsHtml += `<img class="thumb-img ${iIndex === 0 ? 'active' : ''}" id="thumb-${pIndex}-${iIndex}" src="${thumbSrc}" onclick="jumpToImage(${pIndex}, ${iIndex}, '${srcPath}')" alt="thumbnail">`;
+                            if (iIndex < maxVisibleThumbs) {
+                                let thumbSrc = isVideoFile(srcPath) ? "logo.jpg.jpeg" : srcPath;
+                                thumbsHtml += `<img class="thumb-img ${iIndex === 0 ? 'active' : ''}" id="thumb-${pIndex}-${iIndex}" src="${thumbSrc}" onclick="jumpToImage(${pIndex}, ${iIndex}, '${srcPath}')" alt="thumbnail">`;
+                            }
                         });
+                        
+                        // If total items exceed constraint limits, attach an interactive counter badge loop indicators
+                        if (product.images.length > maxVisibleThumbs) {
+                            const extraCount = product.images.length - maxVisibleThumbs;
+                            thumbsHtml += `<div class="more-photos-badge" onclick="openFullPhoto(${pIndex}, '${product.images[maxVisibleThumbs]}')">+${extraCount}</div>`;
+                        }
                     }
 
                     let viewportMediaHtml = "";
