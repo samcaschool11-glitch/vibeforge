@@ -659,7 +659,7 @@
             transform: translateY(-2px);
         }
 
-        /* 📸 AUTOMATIC UPLOADER BUTTON STYLES */
+        /* 📸 AUTOMATIC UPLOADER GRID WITH ACCUMULATION MATRIX & DRAG SORT FIELDS */
         .upload-zone-wrapper {
             background: #090c10;
             border: 2px dashed rgba(0, 188, 212, 0.25);
@@ -675,16 +675,57 @@
         }
         .preview-images-row {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
-            margin-top: 12px;
+            margin-top: 14px;
+            justify-content: center;
         }
+        .preview-container {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 188, 212, 0.3);
+            background: #11161d;
+            cursor: grab;
+            user-select: none;
+            transition: transform 0.2s ease;
+        }
+        .preview-container:active { cursor: grabbing; }
         .preview-box {
-            width: 60px;
-            height: 60px;
+            width: 100%;
+            height: 100%;
             border-radius: 6px;
             object-fit: cover;
-            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .remove-preview-btn {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 18px;
+            height: 18px;
+            background: #ff4757;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+        .drag-handle-badge {
+            position: absolute;
+            bottom: 2px;
+            left: 2px;
+            background: rgba(0,0,0,0.75);
+            color: var(--accent-color);
+            font-size: 8px;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-family: 'Orbitron';
         }
         
         @keyframes pulseGlow {
@@ -882,12 +923,12 @@
                     </div>
                     
                     <div class="admin-form-group">
-                        <label class="admin-label">📸 Select Product Photos (Direct Upload)</label>
+                        <label class="admin-label">📸 Select Product Photos (Additive Selection + Drag to Sort)</label>
                         <div class="upload-zone-wrapper" onclick="document.getElementById('dashboardPhotoInput').click()">
-                            <p style="font-size:13px; color:var(--text-desc);">Click here to choose multiple photos from gallery</p>
-                            <input type="file" id="dashboardPhotoInput" multiple accept="image/*" style="display:none;" onchange="handleAdminPhotoPreviews(this)">
-                            <div id="photoPreviewThumbnailsRow" class="preview-images-row"></div>
+                            <p style="font-size:13px; color:var(--text-desc);">Click to add photo. Selection is ADDITIVE (won't delete previous ones). Drag thumbs to change position sequence!</p>
+                            <input type="file" id="dashboardPhotoInput" accept="image/*" style="display:none;" onchange="handleAdminPhotoAccumulator(this)">
                         </div>
+                        <div id="photoPreviewThumbnailsRow" class="preview-images-row"></div>
                     </div>
 
                     <div class="admin-form-group" style="border: 1px dashed rgba(0, 188, 212, 0.3); padding: 15px; border-radius: 10px; background: rgba(0,0,0,0.2);">
@@ -1016,7 +1057,7 @@
     <script>
         const BIN_ID = "6a168b308ef04f4538201165";
         const MASTER_KEY = "$2a$10$1.u4APlqFaGOTmoYPCQZee79CwgRpDRTdVIw78XB1oFdXz0OBVltu";
-        const IMGBB_API_KEY = "1ba4b53e10eccb5c4f297b9289c45c98"; // 📸 Updated dynamically with your real API account token
+        const IMGBB_API_KEY = "1ba4b53e10eccb5c4f297b9289c45c98"; 
         
         const VAULT_HASH = "VibeforgeSam@6263"; 
         let isAdminAuthenticated = false;
@@ -1024,7 +1065,10 @@
         let blogData = {}; 
         let activeIndices = {};
         let currentModalCardIndex = null; 
-        let selectedFormFiles = [];
+        
+        // 🔒 SMART LOCAL STATE RETENTION STORE FOR THE ADDITIVE COMPILER HANDLER
+        let accumulatedFilesArray = []; 
+        let draggedElementSrc = null;
 
         async function fetchLiveCloudDatabase() {
             try {
@@ -1204,18 +1248,76 @@
             route();
         }
 
-        window.handleAdminPhotoPreviews = function(input) {
-            const previewRow = document.getElementById('photoPreviewThumbnailsRow');
-            previewRow.innerHTML = "";
-            selectedFormFiles = Array.from(input.files);
-
-            selectedFormFiles.forEach(file => {
+        // 🖼️ ⚙️ CORE ARCHITECTURE UPGRADE: ACCUMULATION ENGINE MATRIX (Fixes overwritten select issues)
+        window.handleAdminPhotoAccumulator = function(input) {
+            if (!input.files.length) return;
+            
+            const newFiles = Array.from(input.files);
+            
+            newFiles.forEach(file => {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    previewRow.innerHTML += `<img src="${e.target.result}" class="preview-box">`;
+                    // Cache item objects directly with localized runtime memory pointers
+                    accumulatedFilesArray.push({
+                        fileObject: file,
+                        dataUrl: e.target.result
+                    });
+                    renderAccumulatedThumbnailsGrid();
                 }
                 reader.readAsDataURL(file);
             });
+
+            input.value = ""; // Clear file field so identical item selection triggers loop fresh
+        }
+
+        // 🖼️ 🔥 DYNAMIC SORTABLE GRAPHICS COMPILER WITH RE-ARRANGEMENT drag-drop CAPABILITIES
+        function renderAccumulatedThumbnailsGrid() {
+            const previewRow = document.getElementById('photoPreviewThumbnailsRow');
+            previewRow.innerHTML = "";
+
+            accumulatedFilesArray.forEach((item, index) => {
+                previewRow.innerHTML += `
+                    <div class="preview-container" 
+                         draggable="true" 
+                         data-index="${index}"
+                         ondragstart="handlePreviewDragStart(event)"
+                         ondragover="handlePreviewDragOver(event)"
+                         ondrop="handlePreviewDrop(event)">
+                        <span class="remove-preview-btn" onclick="removeAccumulatedPhotoIndex(event, ${index})">&times;</span>
+                        <img src="${item.dataUrl}" class="preview-box">
+                        <span class="drag-handle-badge">Pos ${index + 1}</span>
+                    </div>
+                `;
+            });
+        }
+
+        window.removeAccumulatedPhotoIndex = function(e, index) {
+            if(e) e.stopPropagation();
+            accumulatedFilesArray.splice(index, 1);
+            renderAccumulatedThumbnailsGrid();
+        }
+
+        // 🔀 DRAG MECHANICS EVENT INJECTIONS HOOKS
+        window.handlePreviewDragStart = function(e) {
+            e.dataTransfer.setData("text/plain", e.target.closest('.preview-container').getAttribute('data-index'));
+        }
+        window.handlePreviewDragOver = function(e) {
+            e.preventDefault(); // Required browser parameter interface bypass configuration
+        }
+        window.handlePreviewDrop = function(e) {
+            e.preventDefault();
+            const sourceIdx = parseInt(e.dataTransfer.getData("text/plain"));
+            const targetContainer = e.target.closest('.preview-container');
+            if(!targetContainer) return;
+            const targetIdx = parseInt(targetContainer.getAttribute('data-index'));
+
+            if(sourceIdx === targetIdx) return;
+
+            // Shift array indices mapping parameters instantly
+            const movedElement = accumulatedFilesArray.splice(sourceIdx, 1)[0];
+            accumulatedFilesArray.splice(targetIdx, 0, movedElement);
+            
+            renderAccumulatedThumbnailsGrid();
         }
 
         function route() {
@@ -1370,6 +1472,7 @@
             });
         }
 
+        // 🚀 SMART PARSER AND FORM TRANSMITTER 
         async function handleAdminFormSubmit(e) {
             e.preventDefault();
             const submitBtn = document.getElementById('submitFormMainBtn');
@@ -1384,15 +1487,24 @@
             const videoSrc = document.getElementById('formVideoSrc').value.trim();
             const videoPosition = document.getElementById('formVideoPosition').value;
 
-            submitBtn.innerText = "⚡ Uploading Photos to Imgbb...";
+            submitBtn.innerText = "⚡ Uploading Sorted Grid to Imgbb...";
             submitBtn.disabled = true;
 
             let uploadedImageUrls = [];
 
             try {
-                for (let i = 0; i < selectedFormFiles.length; i++) {
+                // Loop sequentially using the custom drag-sorted cache model structure array
+                for (let i = 0; i < accumulatedFilesArray.length; i++) {
+                    let item = accumulatedFilesArray[i];
+                    
+                    // Optimization condition check: If item is already an Imgbb URL string link, don't upload again
+                    if (item.fileObject === null && item.dataUrl.startsWith("http")) {
+                        uploadedImageUrls.push(item.dataUrl);
+                        continue;
+                    }
+
                     let formData = new FormData();
-                    formData.append("image", selectedFormFiles[i]);
+                    formData.append("image", item.fileObject);
                     
                     const imgbbResponse = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
                         method: "POST",
@@ -1403,11 +1515,11 @@
                     if(imgbbResult.success) {
                         uploadedImageUrls.push(imgbbResult.data.url);
                     } else {
-                        throw new Error("Imgbb secure handshake failure");
+                        throw new Error("Imgbb data socket loss");
                     }
                 }
             } catch(uploadErr) {
-                alert("❌ Photo upload to Imgbb failed. Check file formats.");
+                alert("❌ Photo compilation workflow aborted. Imgbb server handshakes timing out.");
                 submitBtn.innerText = "🚀 Publish to Cloud Database";
                 submitBtn.disabled = false;
                 return;
@@ -1435,7 +1547,7 @@
             }
 
             if(finalMediaArray.length === 0) {
-                alert("⛔ Error: You must either upload a photo or add a video track asset!");
+                alert("⛔ Error: Media grid empty! Add at least one photo resource node or video stream.");
                 submitBtn.innerText = "🚀 Publish to Cloud Database";
                 submitBtn.disabled = false;
                 return;
@@ -1451,7 +1563,7 @@
                 currentList.unshift(newProductObj);
             }
 
-            submitBtn.innerText = "💾 Updating Cloud Databanks...";
+            submitBtn.innerText = "💾 Pushing Overwrites to Cloud Storage...";
 
             try {
                 const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
@@ -1464,14 +1576,14 @@
                 });
                 
                 if(response.ok) {
-                    alert(`🎉 Success! Product '${pId}' is now completely live via secure upload!`);
+                    alert(`🎉 Boom! Product '${pId}' is now live with your exact drag-sorted layout configuration sequence!`);
                     document.getElementById('adminProductForm').reset();
                     document.getElementById('photoPreviewThumbnailsRow').innerHTML = "";
-                    selectedFormFiles = [];
+                    accumulatedFilesArray = []; // Flush active storage parameters clean
                     window.location.hash = `#${pId}`; 
                     route();
                 } else {
-                    alert("❌ Api push failed. Check payload parameters.");
+                    alert("❌ Api push failed. Check payload routing configuration.");
                 }
             } catch(err) {
                 alert("❌ Fatal connection lost runtime network issue.");
