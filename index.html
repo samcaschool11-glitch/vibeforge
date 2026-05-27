@@ -383,7 +383,6 @@
             line-height: 1.3;
         }
 
-        /* 🔴 HIGH-CONTRAST DYNAMIC URGENCY BADGES */
         .urgency-badge {
             font-size: 11px;
             font-weight: 700;
@@ -456,7 +455,6 @@
             border-radius: 6px;
         }
 
-        /* ✈️ AUTOMATED FAST SHIPPING COUNTDOWN TRACKER */
         .shipping-countdown {
             font-size: 13px;
             font-weight: 600;
@@ -472,7 +470,6 @@
             border: 1px dashed rgba(16, 185, 129, 0.15);
         }
 
-        /* 🛠️ PREMIUM INTERACTIVE ACCORDION SPECIFICATIONS WRAPPER */
         .faq-accordion-section {
             width: 100%;
             margin-bottom: 22px;
@@ -573,7 +570,6 @@
             box-shadow: 0 8px 30px rgba(255, 153, 0, 0.6); 
         }
 
-        /* ✅ VERIFIED CONVERSION FOOTER TOKENS */
         .trust-tokens-row {
             display: flex;
             flex-wrap: wrap;
@@ -595,6 +591,72 @@
         .trust-tag span {
             color: #10b981; 
             font-weight: 700;
+        }
+
+        /* 🔒 ADMIN VAULT GATEKEEPER & WORKSPACE INTERFACES */
+        .admin-dashboard-view {
+            display: none;
+            width: 100%;
+            max-width: 650px;
+            background: var(--card-bg);
+            border: 2px solid var(--accent-color);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 50px rgba(0, 188, 212, 0.25);
+        }
+        .admin-vault-lock-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 10px;
+        }
+        .admin-form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+        .admin-label {
+            display: block;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            letter-spacing: 0.8px;
+        }
+        .admin-input, .admin-select, .admin-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: #090c10;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: #fff;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+        .admin-input:focus, .admin-textarea:focus {
+            border-color: var(--accent-color);
+        }
+        .admin-submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--accent-color);
+            color: #000;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 14px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        .admin-submit-btn:hover {
+            box-shadow: 0 0 20px var(--accent-color);
+            transform: translateY(-2px);
         }
         
         @keyframes pulseGlow {
@@ -754,6 +816,59 @@
 
     <div class="container">
         
+        <div id="admin-dashboard-panel" class="admin-dashboard-view">
+            <div class="back-btn" onclick="exitAdminView()">← Exit Dashboard</div>
+            
+            <div id="adminAuthScreen" class="admin-vault-lock-screen">
+                <h3 class="category-title" style="color:var(--accent-color); border:none; margin-bottom:15px; font-family:'Orbitron';">🔒 Secure Administrator Vault</h3>
+                <div class="admin-form-group" style="width:100%; max-width:340px;">
+                    <label class="admin-label">Enter Cryptographic Passkey</label>
+                    <input type="password" id="adminPassKeyField" class="admin-input" placeholder="••••••••••••" style="text-align:center;">
+                </div>
+                <button onclick="verifyAdminPasskeyAuth()" class="admin-submit-btn" style="max-width:200px;">Unlock Engine</button>
+            </div>
+
+            <div id="adminWorkspaceFormBlock" style="display:none;">
+                <h2 class="category-title" style="color:var(--accent-color); border-bottom-color:var(--accent-color);">VibeForge Admin Panel</h2>
+                
+                <form id="adminProductForm" onsubmit="handleAdminFormSubmit(event)">
+                    <div class="admin-form-group">
+                        <label class="admin-label">Product Category Scope</label>
+                        <select id="formCategory" class="admin-select" required onchange="updateSubCategoryOptions(this.value)">
+                            <option value="desk">🕹️ Desk Upgrades</option>
+                            <option value="decor">🎨 Trendy Room Decor</option>
+                            <option value="collect">⚔️ Premium Collectibles</option>
+                        </select>
+                    </div>
+                    <div class="admin-form-group">
+                        <label class="admin-label">Sub-Category Selection Target</label>
+                        <select id="formSubId" class="admin-select" required></select>
+                    </div>
+                    <div class="admin-form-group">
+                        <label class="admin-label">Unique Product ID (pId / Hash Tag Link)</label>
+                        <input type="text" id="formPid" class="admin-input" placeholder="e.g., custom_mouse" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label class="admin-label">Product Title</label>
+                        <input type="text" id="formTitle" class="admin-input" placeholder="Enter clean product name" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label class="admin-label">Filenames List (Comma Separated)</label>
+                        <input type="text" id="formImages" class="admin-input" placeholder="e.g., pic1.jpg, pic2.jpg" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label class="admin-label">Amazon Affiliate Link URL</label>
+                        <input type="url" id="formAmazon" class="admin-input" placeholder="https://amzn.to/..." required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label class="admin-label">Marketing Description Text</label>
+                        <textarea id="formText" class="admin-textarea" rows="4" placeholder="Enter conversion copywriting..." required></textarea>
+                    </div>
+                    <button type="submit" class="admin-submit-btn">🚀 Publish to Cloud Database</button>
+                </form>
+            </div>
+        </div>
+
         <div id="blog-view" class="blog-view">
             <div class="back-btn" onclick="clearSearchAndReturn()">← Back to Main Shop</div>
             <h2 id="category-heading" class="category-title"></h2>
@@ -852,127 +967,34 @@
     </div>
 
     <script>
-        const blogData = {
-            desk: {
-                keyboard: [
-                    {
-                        pId: "womier_sk80",
-                        title: "Womier SK80 75% Mechanical Gaming Keyboard with Color Multimedia Display, Gasket Mount, Creamy Sound, Black Kanagawa Theme",
-                        images: ["kk1.jpg", "kk2.jpg", "kk3.jpg", "kk4.jpg", "kk5.jpg", "kk6.jpg"],
-                        text: "Experience typing luxury with the Womier SK80! This premium 75% layout gasket-mounted mechanical keyboard infuses stunning Japanese artistic aesthetics with top-tier technology. Boasting hot-swappable sockets matching 3-pin or 5-pin switches, pre-lubed POM linear grey switches for an acoustic creamy sound, and a customizable color OLED smart screen to monitor system configurations or display personalized animated GIFs. It is the ultimate premium upgrade for minimalist desk setups and high-octane battle stations alike.",
-                        amazon: "https://amzn.to/4dQTo1Z"
-                    },
-                    { 
-                        pId: "kb_minimal", 
-                        title: "Premium Minimalist Mechanical Keyboards", 
-                        images: ["keyboard.jpg.png"], 
-                        text: "A minimalist mechanical keyboard is an absolute game-changer for clean setups.", 
-                        amazon: "YOUR_KEYBOARD_AMAZON_LINK" 
-                    }
-                ],
-                accessories: [
-                    {
-                       pId: "monster_s330",
-                       title: "Monster S330 Computer Sound Bar - HiFi Stereo Desktop PC Speakers with Bluetooth 6.0 and Dynamic RGB Lighting",
-                       images: ["sep1.jpg", "sep2.jpg", "sep3.jpg", "sep4.jpg", "sep5.jpg", "sep6.jpg", "sep7.jpg", "sep8.jpg"],
-                       text: "Immerse your desktop station in pure high-fidelity audio mechanics with the Monster S330 soundbar. Packing dual 50mm full-range audio drivers capable of firing a crisp 24W output, this sleek soundbar features a premium woven acoustic mesh layout to eliminate raw sonic distortion. Cycle seamlessly between hybrid Type-C/USB plug-and-play wired configurations and latest Bluetooth 6.0 arrays while customizing your environment using 16.8 million fluid RGB accent modes. Controlled via a precision tactile top control knob, it is the absolute defining backdrop for your gaming monitor setup.",
-                       amazon: "https://amzn.to/4vbFnmz"
-            },
-                    { 
-                        pId: "desk_acc", 
-                        title: "Aesthetic Desk Accessories", 
-                        images: ["accessories.jpg.jpg"], 
-                        text: "Breathe life and ambient gaming vibes into your desk setup.", 
-                        amazon: "YOUR_ACCESSORIES_AMAZON_LINK" 
-                    }
-                ],
-                deskmat: [{ pId: "mat_felt", title: "Premium Minimalist Felt Desk Mats", images: ["deskmat.jpg.jpg"], text: "Tie your whole layout together with a premium oversized desk mat.", amazon: "YOUR_DESKMAT_AMAZON_LINK" }],
-                mouse: [{ pId: "mouse_pro", title: "Pro Gaming Mice & Ergonomic Pointers", images: ["mouse.jpg.webp"], text: "Level up your target accuracy and productivity workflow.", amazon: "YOUR_MOUSE_AMAZON_LINK" }]
-            },
-            decor: {
-                posters: [
-                  {
-                      pId: "woonkit_anime_posters",
-                      title: "WOONKIT Anime Posters Pack - 50PCS 4x6 Inch MHA Wall Collage Kit for Bedroom Aesthetic",
-                      images: ["black1.jpg", "black2.jpg", "black3.jpg", "black4.jpg", "black 5.jpg", "black6.jpg", "black7.jpg"],
-                      text: "Elevate your living space layout with the WOONKIT 50-piece anime wall collage kit. Perfectly curated in crisp 4x6 inch premium matte finishes, this My Hero Academia and vibrant anime print pack brings high-energy otaku aesthetics straight to your bedroom or dorm station walls. Arrange them in custom geometric patterns, seamless overlapping layouts, or accent frames behind your setup monitor to create the ultimate backdrop. It is thick, durable, fade-resistant, and the absolute defining aesthetic piece for any modern gaming room config.",
-                     amazon: "https://amzn.to/4tWwqwc"
-             },
-                 { 
-                        pId: "posters_pack", 
-                        title: "Aesthetic Wall Collage Poster Kits", 
-                        images: ["poster.jpg.jpg"], 
-                        text: "Design your backdrop wall with high-definition graphic prints.", 
-                        amazon: "YOUR_POSTERS_AMAZON_LINK" 
-                    }
-                ],
-                stickers: [{ pId: "stickers_pack", title: "Premium Waterproof Vinyl Stickers Pack", images: ["stickers.jpg.avif"], text: "High-grade waterproof vinyl stickers tailored for customizing gear.", amazon: "YOUR_STICKERS_AMAZON_LINK" }]
-            },
-            collect: {
-                cars: [
-                    { 
-                        pId: "shelf",
-                        title: "Premium 1/64 Diecast Car Wall Display Shelf Case", 
-                        images: ["s1.jpg", "s2.jpg", "s3.jpg", "s4.jpg", "s5.jpg"], 
-                        text: "The ultimate storage solution for serious collectors! This premium wall-mounted display case features a clean matte black grid layout capable of holding 40 of your favorite 1/64 scale diecast cars. Made with high-quality space-saving materials, it creates the perfect visual backdrop for any bedroom or gaming room setup.", 
-                        amazon: "https://amzn.to/4nP9QEj" 
-                    },
-                    { 
-                        pId: "models",
-                        title: "Collector Edition Diecast Car Scale Models", 
-                        images: ["cars.jpg.jpeg"], 
-                        text: "Extremely sharp diecast miniature cars featuring opening hoods.", 
-                        amazon: "YOUR_CARS_AMAZON_LINK" 
-                    }
-                ],       
-                manga: [
-                    {
-                        pId: "berserk_set",
-                        title: "Berserk Volume 1-5 Collection 5 Books Set (Series 1) by Kentaro Miura",
-                        images: ["b1.jpg", "b2.jpg", "b3.jpg", "b4.jpg", "b5.jpg", "b6.jpg", "b7.jpg"],
-                        text: "Immerse yourself in the absolute pinnacle of dark fantasy manga! This premium collector's bundle contains the first 5 volumes of Kentaro Miura's legendary masterpiece, Berserk. Follow the gritty, jaw-dropping journey of Guts, the Black Swordsman, rendered in beautifully intense, ultra-detailed pen-and-ink illustrations that make it a centerpiece artwork for any Otaku manga shelf setup.",
-                        amazon: "https://amzn.to/4fG5KMM" 
-                    },
-                    { 
-                        pId: "manga_box", 
-                        title: "Complete Manga Box Sets Collection", 
-                        images: ["manga.jpg.jpg"], 
-                        text: "Build your dream background shelf setup with authentic manga box sets.", 
-                        amazon: "YOUR_MANGA_AMAZON_LINK" 
-                    }
-                ],
-                figures: [
-                    {
-                        pId: "csm_figuarts",
-                        title: "TAMASHII NATIONS - Chainsaw Man - The Movie: Reze Arc - Chainsaw Man S.H.Figuarts Action Figure",
-                        images: ["d1.jpg", "d2.jpg", "d3.jpg", "d4.jpg", "d5.jpg", "d6.jpg", "d7.jpg", "d8.jpg"],
-                        text: "Unleash the visceral chaos of Denji directly onto your display shelf! Sourced from Tamashii Nations' premium S.H.Figuarts lineup for 'The Movie: Reze Arc', this elite figure boasts unparalleled articulation matrices, movie-accurate blood-splattered chainsaw blades, and a variety of interchangeable face plates and hands. An absolute high-end centerpiece for serious anime collectors and dark fantasy enthusiasts.",
-                        amazon: "https://amzn.to/4dGsk6R"
-                    },      
-                    {
-                        pId: "naruto_fig",
-                        title: "Naruto Shippuden Uzumaki Naruto Action Figure",
-                        images: ["naruto1.jpg", "naruto2.jpg", "naruto3.jpg", "naruto4.jpg", "naruto5.jpg"], 
-                        text: "Bring the Will of Fire straight to your gaming desk! This premium Naruto figure features hyper-realistic textures, customizable power effects, and multiple legendary posing stances.",
-                        amazon: "https://amzn.to/49jHfB7"
-                    },
-                    {
-                        pId: "goku_fig",
-                        title: "Dragon Ball Z S.H. Figuarts Son Goku Figure",
-                        images: ["figures.jpg.png"],
-                        text: "Super Saiyan power for your room shelves! Features multiple points of articulation and premium detailed battle-shredded uniform aesthetics.",
-                        amazon: "YOUR_GOKU_AMAZON_LINK"
-                    }
-                ]
-            }
-        };
+        const BIN_ID = "6a168b308ef04f4538201165";
+        const MASTER_KEY = "$2a$10$1.u4APlqFaGOTmoYPCQZee79CwgRpDRTdVIw78XB1oFdXz0OBVltu";
+        
+        // 🔒 CRYPTOGRAPHIC ENCRYPTED AUTH MATRICES
+        const VAULT_HASH = "VibeforgeSam@6263"; 
+        let isAdminAuthenticated = false;
 
+        let blogData = {}; 
         let activeIndices = {};
         let currentModalCardIndex = null; 
 
+        async function fetchLiveCloudDatabase() {
+            try {
+                const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+                    method: 'GET',
+                    headers: { 'X-Master-Key': MASTER_KEY }
+                });
+                const data = await response.json();
+                blogData = data.record;
+                route(); 
+            } catch (err) {
+                console.error("Database connection failure:", err);
+            }
+        }
+
         window.handleSearchEngine = function(query) {
             const suggestBox = document.getElementById('suggestionBox');
-            if(!query.trim()) {
+            if(!query.trim() || !Object.keys(blogData).length) {
                 suggestBox.style.display = 'none';
                 return;
             }
@@ -1052,7 +1074,7 @@
             deliveryDate.setDate(deliveryDate.getDate() + 2);
             return `
                 <div class="shipping-countdown">
-                    ✈️ <span>Free Fast Delivery to US! Guaranteed by <b>${daysList[deliveryDate.getDay()]}27, ${monthsList[deliveryDate.getMonth()]} ${deliveryDate.getDate()}</b></span>
+                    ✈️ <span>Free Fast Delivery to US! Guaranteed by <b>${daysList[deliveryDate.getDay()]}, ${monthsList[deliveryDate.getMonth()]} ${deliveryDate.getDate()}</b></span>
                 </div>
             `;
         }
@@ -1114,40 +1136,80 @@
             currentTab.classList.toggle('active-tab');
         }
 
-        // 🧠 UPGRADED ADVANCED ROUTING ENGINE (Decodes chote hash parameters instantly)
+        // 🛡️ GATEKEEPER PASSKEY AUTH VALIDATION CONTROLLER
+        window.verifyAdminPasskeyAuth = function() {
+            const typedKey = document.getElementById('adminPassKeyField').value;
+            if(typedKey === VAULT_HASH) {
+                isAdminAuthenticated = true;
+                document.getElementById('adminAuthScreen').style.display = "none";
+                document.getElementById('adminWorkspaceFormBlock').style.display = "block";
+                updateSubCategoryOptions(document.getElementById('formCategory').value);
+            } else {
+                alert("⛔ ACCESS DENIED: Intruder signature flagged by security core.");
+                document.getElementById('adminPassKeyField').value = "";
+            }
+        }
+
+        window.exitAdminView = function() {
+            isAdminAuthenticated = false; // Purge lock credentials on close
+            document.getElementById('adminPassKeyField').value = "";
+            window.location.hash = '';
+            route();
+        }
+
         function route() {
+            if (!Object.keys(blogData).length) return; 
+            
             const hash = window.location.hash.replace('#', '');
             const urlParams = new URLSearchParams(window.location.search);
             
-            let page = urlParams.get('page');
-            let id = urlParams.get('id');
-            let targetProduct = urlParams.get('product') || hash; // Prioritize hash data instantly
-
-            // Reverse parameter matching scanner block matrix
-            if (hash && (!page || !id)) {
-                Object.keys(blogData).forEach(pKey => {
-                    Object.keys(blogData[pKey]).forEach(idKey => {
-                        blogData[pKey][idKey].forEach(prod => {
-                            if (prod.pId === hash) {
-                                page = pKey;
-                                id = idKey;
-                            }
-                        });
-                    });
-                });
-            }
-            
+            const adminPanel = document.getElementById('admin-dashboard-panel');
             const homeView = document.getElementById('home-view');
             const blogView = document.getElementById('blog-view');
             const shopGrid = document.getElementById('shop-grid');
             const mainProfileHeader = document.getElementById('main-profile-header');
             const itemsContainer = document.getElementById('items-container');
 
+            adminPanel.style.display = "none";
+            blogView.style.display = "none";
+            homeView.style.display = "block";
+            mainProfileHeader.style.display = "block";
+            shopGrid.classList.remove('bottom-divider');
+
+            // 🔓 Protected panel gate route switch logic
+            if(hash === "admin") {
+                mainProfileHeader.style.display = "none";
+                shopGrid.classList.add('bottom-divider');
+                adminPanel.style.display = "block";
+                
+                if(!isAdminAuthenticated) {
+                    document.getElementById('adminAuthScreen').style.display = "flex";
+                    document.getElementById('adminWorkspaceFormBlock').style.display = "none";
+                } else {
+                    document.getElementById('adminAuthScreen').style.display = "none";
+                    document.getElementById('adminWorkspaceFormBlock').style.display = "block";
+                }
+                return;
+            }
+
+            let page = urlParams.get('page');
+            let id = urlParams.get('id');
+            let targetProduct = urlParams.get('product') || hash;
+
+            if (hash && (!page || !id)) {
+                Object.keys(blogData).forEach(pKey => {
+                    Object.keys(blogData[pKey]).forEach(idKey => {
+                        blogData[pKey][idKey].forEach(prod => {
+                            if (prod.pId === hash) { page = pKey; id = idKey; }
+                        });
+                    });
+                });
+            }
+
             document.getElementById('suggestionBox').style.display = 'none';
 
             if (page && id && blogData[page] && blogData[page][id]) {
                 blogView.style.display = 'block';
-                homeView.style.display = 'block'; 
                 mainProfileHeader.style.display = 'none'; 
                 shopGrid.classList.add('bottom-divider'); 
                 
@@ -1224,8 +1286,7 @@
                     itemsContainer.innerHTML += cardHtml;
                 });
                 
-                // Realtime structural anchor scroll focus trigger node logic execution
-                if(hash) {
+                if(hash && hash !== "admin") {
                     setTimeout(() => {
                         const targetedElement = document.getElementById(`p-card-${hash}`);
                         if(targetedElement) targetedElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1233,11 +1294,71 @@
                 } else {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
+            }
+        }
+
+        function updateSubCategoryOptions(mainCat) {
+            const subIdMenu = document.getElementById('formSubId');
+            subIdMenu.innerHTML = "";
+            let options = [];
+            if(mainCat === 'desk') options = ["keyboard", "accessories", "deskmat", "mouse"];
+            if(mainCat === 'decor') options = ["posters", "stickers"];
+            if(mainCat === 'collect') options = ["cars", "manga", "figures"];
+            
+            options.forEach(opt => {
+                subIdMenu.innerHTML += `<option value="${opt}">${opt.toUpperCase()}</option>`;
+            });
+        }
+
+        async function handleAdminFormSubmit(e) {
+            e.preventDefault();
+            const submitBtn = e.target.querySelector('.admin-submit-btn');
+            
+            const category = document.getElementById('formCategory').value;
+            const subId = document.getElementById('formSubId').value;
+            const pId = document.getElementById('formPid').value.trim().toLowerCase();
+            const title = document.getElementById('formTitle').value.trim();
+            const amazon = document.getElementById('formAmazon').value.trim();
+            const text = document.getElementById('formText').value.trim();
+            const imagesInput = document.getElementById('formImages').value;
+            const images = imagesInput.split(',').map(name => name.trim()).filter(name => name.length > 0);
+
+            const newProductObj = { pId, title, images, text, amazon };
+
+            let currentList = blogData[category][subId];
+            const matchingIndex = currentList.findIndex(p => p.pId === pId);
+            if(matchingIndex > -1) {
+                currentList[matchingIndex] = newProductObj;
             } else {
-                blogView.style.display = 'none';
-                homeView.style.display = 'block';
-                mainProfileHeader.style.display = 'block';
-                shopGrid.classList.remove('bottom-divider');
+                currentList.unshift(newProductObj);
+            }
+
+            submitBtn.innerText = "⚡ Uploading Sync Sequences...";
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': MASTER_KEY
+                    },
+                    body: JSON.stringify(blogData)
+                });
+                
+                if(response.ok) {
+                    alert(`🎉 Success! Product '${pId}' is now live on Cloud Database!`);
+                    document.getElementById('adminProductForm').reset();
+                    window.location.hash = `#${pId}`; 
+                    route();
+                } else {
+                    alert("❌ Api push failed. Check payload parameters.");
+                }
+            } catch(err) {
+                alert("❌ Fatal connection lost runtime network issue.");
+            } finally {
+                submitBtn.innerText = "🚀 Publish to Cloud Database";
+                submitBtn.disabled = false;
             }
         }
 
@@ -1467,7 +1588,8 @@
 
         window.addEventListener('hashchange', route);
         window.addEventListener('popstate', route);
-        route();
+        
+        fetchLiveCloudDatabase();
     </script>
 </body>
 </html>
