@@ -44,7 +44,7 @@
 
         .container { 
             width: 100%; 
-            max-width: 1250px; /* Expanded for ultimate spacious design */
+            max-width: 1250px; 
         }
 
         /* 🔍 GLOBAL ABSOLUTE POSITIONED HEADER SEARCH BAR CONTROL */
@@ -253,7 +253,6 @@
             color: var(--accent-color);
         }
 
-        /* 🔥 CLEAN NO-BORDER OPEN LAYOUT MATRIX FOR PRODUCT BLOCKS */
         .blog-view {
             display: none;
             width: 100%;
@@ -284,15 +283,15 @@
         
         .items-grid { 
             display: grid; 
-            gap: 50px; /* More breathing room between multiple items */
+            gap: 50px; 
             margin-top: 20px; 
         }
         
         .item-card { 
-            background: transparent; /* Removed dark background container to remove congested box look */
-            padding: 0; /* Clear tight spacing constraints completely */
+            background: transparent; 
+            padding: 0; 
             display: grid;
-            gap: 40px; /* Spacious separation between slide gallery and product descriptions */
+            gap: 40px; 
             grid-template-columns: 1fr;
         }
 
@@ -308,7 +307,7 @@
         
         .swiper-viewport {
             width: 100%;
-            height: 480px; /* Increased dramatically for beautiful large photo displays */
+            height: 480px; 
             border-radius: 20px;
             background: #0e121a;
             overflow: hidden;
@@ -369,7 +368,7 @@
         }
 
         .blog-title { 
-            font-size: 24px; /* Scaled up title hierarchy beautifully */
+            font-size: 24px; 
             margin-bottom: 12px; 
             color: #fff; 
             font-weight: 700; 
@@ -851,14 +850,14 @@
 
         @media (min-width: 850px) {
             .item-card {
-                grid-template-columns: 1.2fr 1fr; /* Ultra-wide un-congested landscape orientation mapping */
+                grid-template-columns: 1.2fr 1fr; 
                 align-items: start;
                 gap: 50px;
             }
             .thumbnail-wrapper { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; }
             .thumb-img { width: 65px; height: 65px; }
         }
-    </script>
+    </style>
 </head>
 <body>
 
@@ -1235,7 +1234,6 @@
             route();
         }
 
-        // 🖼️ ⚙️ SMART PARSER: ACCUMULATES MULTI-SELECT AND SINGLE CHOSEN NODES CONCURRENTLY
         window.handleAdminPhotoAccumulator = function(input) {
             if (!input.files.length) return;
             
@@ -1250,7 +1248,6 @@
                         dataUrl: e.target.result
                     });
                     processedCount++;
-                    // Trigger grid redraw only when the full selected block completes parsing
                     if(processedCount === newFiles.length) {
                         renderAccumulatedThumbnailsGrid();
                     }
@@ -1258,7 +1255,7 @@
                 reader.readAsDataURL(file);
             });
 
-            input.value = ""; // Flush input target fresh
+            input.value = ""; 
         }
 
         function renderAccumulatedThumbnailsGrid() {
@@ -1272,7 +1269,7 @@
                          data-index="${index}"
                          ondragstart="handlePreviewDragStart(event)"
                          ondragover="handlePreviewDragOver(event)"
-                         onddrop="handlePreviewDrop(event)">
+                         ondrop="handlePreviewDrop(event)">
                         <span class="remove-preview-btn" onclick="removeAccumulatedPhotoIndex(event, ${index})">&times;</span>
                         <img src="${item.dataUrl}" class="preview-box">
                         <span class="drag-handle-badge">Pos ${index + 1}</span>
