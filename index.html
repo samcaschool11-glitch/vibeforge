@@ -658,6 +658,34 @@
             box-shadow: 0 0 20px var(--accent-color);
             transform: translateY(-2px);
         }
+
+        /* 📸 AUTOMATIC UPLOADER BUTTON STYLES */
+        .upload-zone-wrapper {
+            background: #090c10;
+            border: 2px dashed rgba(0, 188, 212, 0.25);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .upload-zone-wrapper:hover {
+            border-color: var(--accent-color);
+            background: rgba(0, 188, 212, 0.03);
+        }
+        .preview-images-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+        .preview-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
         
         @keyframes pulseGlow {
             0% { box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3); transform: scale(1); }
@@ -852,10 +880,29 @@
                         <label class="admin-label">Product Title</label>
                         <input type="text" id="formTitle" class="admin-input" placeholder="Enter clean product name" required>
                     </div>
+                    
                     <div class="admin-form-group">
-                        <label class="admin-label">Filenames List (Comma Separated)</label>
-                        <input type="text" id="formImages" class="admin-input" placeholder="e.g., pic1.jpg, pic2.jpg" required>
+                        <label class="admin-label">📸 Select Product Photos (Direct Upload)</label>
+                        <div class="upload-zone-wrapper" onclick="document.getElementById('dashboardPhotoInput').click()">
+                            <p style="font-size:13px; color:var(--text-desc);">Click here to choose multiple photos from gallery</p>
+                            <input type="file" id="dashboardPhotoInput" multiple accept="image/*" style="display:none;" onchange="handleAdminPhotoPreviews(this)">
+                            <div id="photoPreviewThumbnailsRow" class="preview-images-row"></div>
+                        </div>
                     </div>
+
+                    <div class="admin-form-group" style="border: 1px dashed rgba(0, 188, 212, 0.3); padding: 15px; border-radius: 10px; background: rgba(0,0,0,0.2);">
+                        <label class="admin-label" style="color:#ffa502;">🎥 Product Video File Setup (Optional)</label>
+                        <input type="text" id="formVideoSrc" class="admin-input" placeholder="e.g., keyboard_video.mp4 (Glitch file or link)" style="margin-bottom:12px;">
+                        
+                        <label class="admin-label">🎯 Video Slide Position Number</label>
+                        <select id="formVideoPosition" class="admin-select">
+                            <option value="0">1st Position (Show Video First)</option>
+                            <option value="2">3rd Position</option>
+                            <option value="5">6th Position</option>
+                            <option value="last">Last Position (At the very end)</option>
+                        </select>
+                    </div>
+
                     <div class="admin-form-group">
                         <label class="admin-label">Amazon Affiliate Link URL</label>
                         <input type="url" id="formAmazon" class="admin-input" placeholder="https://amzn.to/..." required>
@@ -864,7 +911,7 @@
                         <label class="admin-label">Marketing Description Text</label>
                         <textarea id="formText" class="admin-textarea" rows="4" placeholder="Enter conversion copywriting..." required></textarea>
                     </div>
-                    <button type="submit" class="admin-submit-btn">🚀 Publish to Cloud Database</button>
+                    <button type="submit" id="submitFormMainBtn" class="admin-submit-btn">🚀 Publish to Cloud Database</button>
                 </form>
             </div>
         </div>
@@ -969,14 +1016,15 @@
     <script>
         const BIN_ID = "6a168b308ef04f4538201165";
         const MASTER_KEY = "$2a$10$1.u4APlqFaGOTmoYPCQZee79CwgRpDRTdVIw78XB1oFdXz0OBVltu";
+        const IMGBB_API_KEY = "1ba4b53e10eccb5c4f297b9289c45c98"; // 📸 Updated dynamically with your real API account token
         
-        // 🔒 CRYPTOGRAPHIC ENCRYPTED AUTH MATRICES
         const VAULT_HASH = "VibeforgeSam@6263"; 
         let isAdminAuthenticated = false;
 
         let blogData = {}; 
         let activeIndices = {};
         let currentModalCardIndex = null; 
+        let selectedFormFiles = [];
 
         async function fetchLiveCloudDatabase() {
             try {
@@ -1136,7 +1184,6 @@
             currentTab.classList.toggle('active-tab');
         }
 
-        // 🛡️ GATEKEEPER PASSKEY AUTH VALIDATION CONTROLLER
         window.verifyAdminPasskeyAuth = function() {
             const typedKey = document.getElementById('adminPassKeyField').value;
             if(typedKey === VAULT_HASH) {
@@ -1151,10 +1198,24 @@
         }
 
         window.exitAdminView = function() {
-            isAdminAuthenticated = false; // Purge lock credentials on close
+            isAdminAuthenticated = false; 
             document.getElementById('adminPassKeyField').value = "";
             window.location.hash = '';
             route();
+        }
+
+        window.handleAdminPhotoPreviews = function(input) {
+            const previewRow = document.getElementById('photoPreviewThumbnailsRow');
+            previewRow.innerHTML = "";
+            selectedFormFiles = Array.from(input.files);
+
+            selectedFormFiles.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewRow.innerHTML += `<img src="${e.target.result}" class="preview-box">`;
+                }
+                reader.readAsDataURL(file);
+            });
         }
 
         function route() {
@@ -1176,7 +1237,6 @@
             mainProfileHeader.style.display = "block";
             shopGrid.classList.remove('bottom-divider');
 
-            // 🔓 Protected panel gate route switch logic
             if(hash === "admin") {
                 mainProfileHeader.style.display = "none";
                 shopGrid.classList.add('bottom-divider');
@@ -1312,7 +1372,7 @@
 
         async function handleAdminFormSubmit(e) {
             e.preventDefault();
-            const submitBtn = e.target.querySelector('.admin-submit-btn');
+            const submitBtn = document.getElementById('submitFormMainBtn');
             
             const category = document.getElementById('formCategory').value;
             const subId = document.getElementById('formSubId').value;
@@ -1320,10 +1380,68 @@
             const title = document.getElementById('formTitle').value.trim();
             const amazon = document.getElementById('formAmazon').value.trim();
             const text = document.getElementById('formText').value.trim();
-            const imagesInput = document.getElementById('formImages').value;
-            const images = imagesInput.split(',').map(name => name.trim()).filter(name => name.length > 0);
+            
+            const videoSrc = document.getElementById('formVideoSrc').value.trim();
+            const videoPosition = document.getElementById('formVideoPosition').value;
 
-            const newProductObj = { pId, title, images, text, amazon };
+            submitBtn.innerText = "⚡ Uploading Photos to Imgbb...";
+            submitBtn.disabled = true;
+
+            let uploadedImageUrls = [];
+
+            try {
+                for (let i = 0; i < selectedFormFiles.length; i++) {
+                    let formData = new FormData();
+                    formData.append("image", selectedFormFiles[i]);
+                    
+                    const imgbbResponse = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                        method: "POST",
+                        body: formData
+                    });
+                    
+                    const imgbbResult = await imgbbResponse.json();
+                    if(imgbbResult.success) {
+                        uploadedImageUrls.push(imgbbResult.data.url);
+                    } else {
+                        throw new Error("Imgbb secure handshake failure");
+                    }
+                }
+            } catch(uploadErr) {
+                alert("❌ Photo upload to Imgbb failed. Check file formats.");
+                submitBtn.innerText = "🚀 Publish to Cloud Database";
+                submitBtn.disabled = false;
+                return;
+            }
+
+            if(uploadedImageUrls.length === 0) {
+                const currentList = blogData[category][subId];
+                const matchingProd = currentList.find(p => p.pId === pId);
+                if(matchingProd) {
+                    uploadedImageUrls = matchingProd.images.filter(img => !isVideoFile(img));
+                }
+            }
+
+            let finalMediaArray = [...uploadedImageUrls];
+            if(videoSrc) {
+                if(videoPosition === '0') {
+                    finalMediaArray.unshift(videoSrc); 
+                } else if(videoPosition === 'last') {
+                    finalMediaArray.push(videoSrc); 
+                } else {
+                    let insertIndex = parseInt(videoPosition);
+                    if(insertIndex > finalMediaArray.length) insertIndex = finalMediaArray.length;
+                    finalMediaArray.splice(insertIndex, 0, videoSrc);
+                }
+            }
+
+            if(finalMediaArray.length === 0) {
+                alert("⛔ Error: You must either upload a photo or add a video track asset!");
+                submitBtn.innerText = "🚀 Publish to Cloud Database";
+                submitBtn.disabled = false;
+                return;
+            }
+
+            const newProductObj = { pId, title, images: finalMediaArray, text, amazon };
 
             let currentList = blogData[category][subId];
             const matchingIndex = currentList.findIndex(p => p.pId === pId);
@@ -1333,8 +1451,7 @@
                 currentList.unshift(newProductObj);
             }
 
-            submitBtn.innerText = "⚡ Uploading Sync Sequences...";
-            submitBtn.disabled = true;
+            submitBtn.innerText = "💾 Updating Cloud Databanks...";
 
             try {
                 const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
@@ -1347,8 +1464,10 @@
                 });
                 
                 if(response.ok) {
-                    alert(`🎉 Success! Product '${pId}' is now live on Cloud Database!`);
+                    alert(`🎉 Success! Product '${pId}' is now completely live via secure upload!`);
                     document.getElementById('adminProductForm').reset();
+                    document.getElementById('photoPreviewThumbnailsRow').innerHTML = "";
+                    selectedFormFiles = [];
                     window.location.hash = `#${pId}`; 
                     route();
                 } else {
