@@ -294,7 +294,7 @@
         .trust-tag { font-size: 11.5px; font-weight: 600; color: var(--text-desc); display: flex; align-items: center; gap: 5px;}
         .trust-tag span { color: #10b981; }
 
-        /* 📊 ADMIN METRICS & ADVANCED ENGINE NAVIGATION PANELS */
+        /* 📊 ADMIN METRICS PANELS */
         .admin-dashboard-view {
             display: none; width: 100%; max-width: 1100px; background: var(--card-bg); border: 2px solid var(--accent-color); border-radius: 20px; padding: 30px; margin-bottom: 40px; margin-left: auto; margin-right: auto; box-shadow: 0 20px 50px rgba(0, 188, 212, 0.25);
         }
@@ -310,9 +310,8 @@
             background: var(--accent-color); color: #000; border-color: var(--accent-color); box-shadow: 0 0 15px rgba(0, 188, 212, 0.3);
         }
 
-        /* Analytics Interface Framework */
         .analytics-summary-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 35px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-bottom: 35px;
         }
         .metric-scorecard {
             background: #090c10; border: 1px solid rgba(255,255,255,0.05); padding: 22px; border-radius: 14px; text-align: left;
@@ -323,6 +322,7 @@
         .metric-value.color-purple { color: var(--stat-purple); }
         .metric-value.color-green { color: var(--shipping-green); }
         .metric-value.color-blue { color: var(--stat-blue); }
+        .metric-value.color-red { color: var(--urgency-red); }
 
         .analytics-table-wrapper {
             background: #090c10; border: 1px solid rgba(255,255,255,0.04); border-radius: 12px; padding: 20px; margin-bottom: 30px; overflow-x: auto;
@@ -340,11 +340,11 @@
         }
         .status-online { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
         .status-offline { background: rgba(255, 71, 87, 0.12); color: #ff4757; border: 1px solid rgba(255, 71, 87, 0.2); }
+        .source-tag { font-family: 'Orbitron'; font-size: 10.5px; padding: 3px 7px; border-radius: 4px; background: rgba(59, 130, 246, 0.1); color: var(--stat-blue); border: 1px solid rgba(59, 130, 246, 0.25); }
 
         .admin-form-group { margin-bottom: 18px; text-align: left; }
         .admin-label { display: block; font-family: 'Orbitron', sans-serif; font-size: 11px; color: var(--accent-color); text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.8px;}
         .admin-input, .admin-select, .admin-textarea { width: 100%; padding: 12px 16px; background: #090c10; border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; outline: none; font-family: 'Inter', sans-serif; font-size: 14px;}
-        .admin-input:focus, .admin-textarea:focus { border-color: var(--accent-color); }
         
         .admin-submit-btn {
             width: 100%; padding: 15px; background: var(--accent-color); color: #000; font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 14px; border: none; border-radius: 10px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.2s;
@@ -370,8 +370,7 @@
         .modal-viewport { width: 100%; max-width: 92%; max-height: 85%; display: flex; justify-content: center; align-items: center; position: relative; touch-action: pan-y;}
         .modal-content { width: 100%; height: auto; max-height: 85vh; object-fit: contain; border-radius: 12px; box-shadow: 0 0 40px rgba(0, 188, 212, 0.4);}
         .close-modal { position: absolute; top: 20px; right: 25px; color: #fff; font-size: 42px; font-weight: bold; cursor: pointer; z-index: 10001;}
-        .modal-audio-btn { position: absolute; bottom: -55px; left: 50%; transform: translateX(-50%); background: rgba(17, 22, 29, 0.85); border: 1px solid var(--accent-color); color: #fff; padding: 10px 20px; border-radius: 30px; font-weight: 600; font-size: 13px; cursor: pointer; z-index: 10001; display: none; align-items: center; gap: 8px;}
-
+        
         .modal-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(17, 22, 29, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; font-size: 24px; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; z-index: 10000;}
         .modal-prev { left: -60px; } .modal-next { right: -60px; }
         .bottom-divider { margin-top: 60px; padding-top: 30px; border-top: 1px dashed rgba(255, 255, 255, 0.08); }
@@ -521,16 +520,20 @@
                     
                     <div class="analytics-summary-grid">
                         <div class="metric-scorecard">
-                            <div class="metric-title">📈 Total Traffic Visits</div>
+                            <div class="metric-title">📈 Real User Traffic Visits</div>
                             <div id="stat-total-visits" class="metric-value color-accent">0</div>
                         </div>
                         <div class="metric-scorecard">
-                            <div class="metric-title">🛒 Total Amazon Buy Clicks</div>
+                            <div class="metric-title">🛒 Amazon Buy Link Clicks</div>
                             <div id="stat-total-clicks" class="metric-value color-purple">0</div>
                         </div>
                         <div class="metric-scorecard">
-                            <div class="metric-title">🎯 Conversion CTR Rate</div>
+                            <div class="metric-title">🎯 Outbound Conversion CTR</div>
                             <div id="stat-ctr" class="metric-value color-green">0.00%</div>
+                        </div>
+                        <div class="metric-scorecard">
+                            <div class="metric-title">❌ Non-Clicking Visitors</div>
+                            <div id="stat-no-clicks" class="metric-value color-red">0</div>
                         </div>
                         <div class="metric-scorecard">
                             <div class="metric-title">📉 Store Bounce Rate</div>
@@ -543,15 +546,16 @@
                         <table class="analytics-table">
                             <thead>
                                 <tr>
-                                    <th>👤 User Handle Suffix</th>
-                                    <th>⏱️ Total Time Spent</th>
+                                    <th>👤 User Handle</th>
+                                    <th>⏱️ Time On Site</th>
+                                    <th>🧭 Traffic Source Pathway</th>
                                     <th>👀 Products Explored</th>
-                                    <th>🔥 Buy Link Click Action</th>
+                                    <th>🔥 Buy Click Action</th>
                                     <th>⚙️ Status Node</th>
                                 </tr>
                             </thead>
                             <tbody id="visitorLogsTableBody">
-                                <tr><td colspan="5" style="text-align:center; color:var(--text-desc);">Analyzing synchronization tokens...</td></tr>
+                                <tr><td colspan="6" style="text-align:center; color:var(--text-desc);">Analyzing synchronization tokens...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -674,7 +678,6 @@
         let currentModalCardIndex = null; 
         let accumulatedFilesArray = []; 
 
-        // 📊 INTELLIGENT MONITOR DATA STORAGE
         let telemetryDatabase = {
             totalVisVisits: 0,
             totalClicks: 0,
@@ -686,6 +689,12 @@
         let sessionStartTimeNode = Date.now();
 
         function initializeVisitorTrackingCore() {
+            // 🛑 STRICT BYPASS GUARD: If admin is on the page, halt counting sequences immediately!
+            if(window.location.hash === "#admin" || sessionStorage.getItem('vf_admin_auth_token') === 'true') {
+                console.log("Admin signature verified. System analytics paused.");
+                return;
+            }
+
             if(!localStorage.getItem('vf_session_node')) {
                 let randomSuffix = Math.floor(1000 + Math.random() * 9000);
                 let prefixes = ["Guest_", "Viber_", "Otaku_", "SetupFan_"];
@@ -693,11 +702,18 @@
             }
             currentUserSessionToken = localStorage.getItem('vf_session_node');
             
-            // Session heartbeat tracker calculation logic
             sessionStartTimeNode = Date.now();
-            syncTrafficLogToCloudCore(currentUserSessionToken, "Page Load", window.location.hash ? window.location.hash.replace('#','') : "Home Screen");
 
-            // Heartbeat updates calculation loop script trigger
+            // 🧭 INTELLIGENT SOURCE PATHWAY PATH ACQUISITION SCRIPT
+            let sourcePathway = "Direct Search";
+            if (document.referrer && document.referrer.includes("pinterest.com")) {
+                sourcePathway = "🔗 Pinterest Pin Outbound";
+            } else if (window.location.hash && window.location.hash.length > 2) {
+                sourcePathway = `🎯 Pin Routing Scope (#${window.location.hash.replace('#','')})`;
+            }
+
+            syncTrafficLogToCloudCore(currentUserSessionToken, "Page Load", window.location.hash ? window.location.hash.replace('#','') : "Home Screen", sourcePathway);
+
             setInterval(() => {
                 let currentDurationSec = Math.floor((Date.now() - sessionStartTimeNode) / 1000);
                 if(telemetryDatabase.visitorProfiles && telemetryDatabase.visitorProfiles[currentUserSessionToken]) {
@@ -706,7 +722,6 @@
                 }
             }, 5000);
 
-            // Cloud commit backup sync handler adjustments on clean unloads
             window.addEventListener('beforeunload', () => {
                 let currentDurationSec = Math.floor((Date.now() - sessionStartTimeNode) / 1000);
                 if(telemetryDatabase.visitorProfiles && telemetryDatabase.visitorProfiles[currentUserSessionToken]) {
@@ -731,7 +746,6 @@
                     blogData = data.record; 
                 }
                 
-                // 🔑 VERIFY SESSION STORAGE RETENTION SCHEMAS FOR DASHBOARD PASSKEY LOCKS
                 if(sessionStorage.getItem('vf_admin_auth_token') === 'true') {
                     isAdminAuthenticated = true;
                 }
@@ -754,7 +768,9 @@
             } catch(e) { console.error("Telemetry failure:", e); }
         }
 
-        function syncTrafficLogToCloudCore(userTag, actionType, description) {
+        function syncTrafficLogToCloudCore(userTag, actionType, description, intentionalSource = "Direct Search") {
+            if(window.location.hash === "#admin" || sessionStorage.getItem('vf_admin_auth_token') === 'true') return;
+
             if(!telemetryDatabase.visitorProfiles) telemetryDatabase.visitorProfiles = {};
             if(!telemetryDatabase.clickCounts) telemetryDatabase.clickCounts = {};
             
@@ -766,7 +782,7 @@
             }
 
             if(!telemetryDatabase.visitorProfiles[userTag]) {
-                telemetryDatabase.visitorProfiles[userTag] = { history: [], clicks: [], timeSpentSec: 0, lastHeartbeat: Date.now() };
+                telemetryDatabase.visitorProfiles[userTag] = { history: [], clicks: [], timeSpentSec: 0, lastHeartbeat: Date.now(), source: intentionalSource };
             }
             
             telemetryDatabase.visitorProfiles[userTag].lastHeartbeat = Date.now();
@@ -785,7 +801,7 @@
         }
 
         window.registerAffiliateOutboundClick = function(productIdHash) {
-            syncTrafficLogToCloudCore(currentUserSessionToken, "Amazon Buy Trigger", productIdHash);
+            registerAffiliateOutboundClick(productIdHash);
         }
 
         window.switchAdminSection = function(sectionKey) {
@@ -816,16 +832,22 @@
             }
             document.getElementById('stat-ctr').innerText = ctr.toFixed(2) + "%";
 
-            // Calculate exact bouncing thresholds rates maps
             let profiles = telemetryDatabase.visitorProfiles || {};
             let bounceCount = 0;
+            let totalNoClicksCount = 0;
             let totalProfilesArr = Object.keys(profiles);
             
             totalProfilesArr.forEach(k => {
-                if(profiles[k].history && profiles[k].history.length <= 1 && (!profiles[k].clicks || profiles[k].clicks.length === 0)) {
+                let currentItemClicks = profiles[k].clicks || [];
+                if(currentItemClicks.length === 0) {
+                    totalNoClicksCount++; // Increments non-clicking counters nodes
+                }
+                if(profiles[k].history && profiles[k].history.length <= 1 && currentItemClicks.length === 0) {
                     bounceCount++;
                 }
             });
+            
+            document.getElementById('stat-no-clicks').innerText = totalNoClicksCount;
             let bounceRate = totalProfilesArr.length > 0 ? (bounceCount / totalProfilesArr.length) * 100 : 0;
             document.getElementById('stat-bounce-rate').innerText = bounceRate.toFixed(1) + "%";
 
@@ -833,23 +855,24 @@
             logsTable.innerHTML = "";
             
             if(totalProfilesArr.length === 0) {
-                logsTable.innerHTML = `<tr><td colspan="5" style="text-align:center;">No sessions logged.</td></tr>`;
+                logsTable.innerHTML = `<tr><td colspan="6" style="text-align:center;">No sessions logged.</td></tr>`;
             } else {
                 totalProfilesArr.forEach(pKey => {
                     let pData = profiles[pKey];
                     let exploredStr = pData.history.join(', ') || "None";
-                    let triggeredStr = pData.clicks.join(', ') || "None";
+                    let triggeredStr = pData.clicks.length > 0 ? pData.clicks.join(', ') : "❌ No Click";
+                    let finalSourceStr = pData.source || "Direct Search";
                     
-                    // Is user currently live within a 20 second heartbeat boundary?
-                    let isUserOnline = (Date.now() - (pData.lastHeartbeat || 0)) < 20000;
+                    let isUserOnline = (Date.now() - (pData.lastHeartbeat || 0)) < 25000;
                     let statusBadge = isUserOnline ? `<span class="status-pill status-online">🟢 Live Now</span>` : `<span class="status-pill status-offline">🔴 Offline</span>`;
                     
                     logsTable.innerHTML += `
                         <tr>
                             <td><span class="user-identity-badge">👤 ${pKey}</span></td>
                             <td style="color:var(--accent-color); font-weight:700; font-family:'Orbitron';">${formatDurationTimeMapping(pData.timeSpentSec)}</td>
+                            <td><span class="source-tag">${finalSourceStr}</span></td>
                             <td style="font-size:12.5px; opacity:0.8;">${exploredStr}</td>
-                            <td style="color:var(--shipping-green); font-weight:bold;">${triggeredStr}</td>
+                            <td style="${pData.clicks.length > 0 ? 'color:var(--shipping-green); font-weight:bold;' : 'color:var(--urgency-red); opacity:0.6;'}">${triggeredStr}</td>
                             <td>${statusBadge}</td>
                         </tr>
                     `;
@@ -907,9 +930,7 @@
         window.verifyAdminPasskeyAuth = function() {
             if(document.getElementById('adminPassKeyField').value === VAULT_HASH) {
                 isAdminAuthenticated = true;
-                // 🔑 COMMIT SESSION STORAGE PERSISTENCE SEQUENCE KEY
                 sessionStorage.setItem('vf_admin_auth_token', 'true');
-                
                 document.getElementById('adminAuthScreen').style.display = "none";
                 document.getElementById('adminWorkspaceFormBlock').style.display = "block";
                 updateSubCategoryOptions(document.getElementById('formCategory').value, 'formSubId');
@@ -917,7 +938,6 @@
         }
 
         window.exitAdminView = function() {
-            // Clear credentials completely only if exit button is explicitly triggered
             isAdminAuthenticated = false; 
             sessionStorage.removeItem('vf_admin_auth_token');
             window.location.hash = ''; route();
@@ -982,7 +1002,7 @@
         function generateMixedUrgencyBlock(seedKey, pIndex) {
             const alertStyles = [
                 `<div class="urgency-badge badge-red"><span class="pulse-dot"></span>Only 3 left in stock - Order Soon ⏱️</div>`,
-                `<div class="urgency-badge badge-orange"><span class="pulse-dot"></span>⚡ Selling Fast! High demand among creators</div>`,
+                `<div class="urgency-badge badge-orange"><span class="pulse-dot"></span>⚡ Selling Fast! High demand among collectors</div>`,
                 `<div class="urgency-badge badge-red"><span class="pulse-dot"></span>Only 5 remaining - Items selling out 🔥</div>`,
                 `<div class="urgency-badge badge-orange"><span class="pulse-dot"></span>✨ Limited Edition Batch - Limited Availability</div>`
             ];
