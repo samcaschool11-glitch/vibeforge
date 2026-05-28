@@ -260,7 +260,7 @@
         .item-details { display: flex; flex-direction: column; justify-content: flex-start; }
         .blog-title { font-size: 24px; margin-bottom: 8px; color: #fff; font-weight: 700; line-height: 1.3;}
 
-        /* ⭐ RATING FRAMEWORK INTERFACE */
+        /* ⭐ RATING FRAMEWORK */
         .rating-wrapper {
             display: flex; align-items: center; gap: 6px; margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #ffb703;
         }
@@ -305,7 +305,7 @@
         .trust-tag { font-size: 11.5px; font-weight: 600; color: var(--text-desc); display: flex; align-items: center; gap: 5px;}
         .trust-tag span { color: #10b981; }
 
-        /* 📊 ADMIN PANELS PLUGINS (Strict Layout Anti-Bleed Blocks) */
+        /* 📊 ADMIN PANELS PLUGINS */
         .admin-dashboard-view {
             display: none; width: 100%; max-width: 1100px; background: var(--card-bg); border: 2px solid var(--accent-color); border-radius: 20px; padding: 30px; margin-bottom: 40px; margin-left: auto; margin-right: auto; box-shadow: 0 20px 50px rgba(0, 188, 212, 0.25);
         }
@@ -348,7 +348,7 @@
             background: rgba(0, 188, 212, 0.05); border: 1px dashed var(--accent-color); padding: 15px; border-radius: 10px; margin-bottom: 20px; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap;
         }
 
-        /* 📸 SMART PHONE PHOTO ACCUMULATOR */
+        /* 📸 PHOTO ACCUMULATOR DRAG MATRIX */
         .image-management-zone {
             display: flex; flex-wrap: wrap; gap: 12px; min-height: 120px; background: #090d14; border: 2px dashed rgba(255,255,255,0.1); border-radius: 12px; padding: 15px; margin-top: 10px;
         }
@@ -436,7 +436,7 @@
                     <h2 class="category-title" style="color:var(--accent-color); border-bottom-color:var(--accent-color); font-size:18px; margin-bottom:20px;">📦 Publish New Product Node</h2>
                     
                     <div id="addProductSuccessLinkBar" class="copy-link-generator-bar" style="display:none;">
-                        <span style="font-size:13px; color:#fff; font-weight:600;">🎉 Product live! Pinterest Link: <code id="generatedAddProductUrlText" style="color:var(--accent-color);">None</code></span>
+                        <span style="font-size:13px; color:#fff; font-weight:600;">🎉 Product live! Link: <code id="generatedAddProductUrlText" style="color:var(--accent-color);">None</code></span>
                         <button type="button" class="admin-tab-btn active-admin-tab" style="padding:6px 12px; font-size:11px;" onclick="copyLiveUrlLinkToClipboard('generatedAddProductUrlText')">📋 Copy Link</button>
                     </div>
 
@@ -463,13 +463,13 @@
                                 <input type="text" id="formRating" class="admin-input" placeholder="e.g., 4.9" value="4.8">
                             </div>
                             <div>
-                                <label class="admin-label">💬 Total Verified Reviews Count</label>
+                                <label class="admin-label">💬 Verified Reviews Count</label>
                                 <input type="number" id="formReviews" class="admin-input" placeholder="e.g., 128" value="96">
                             </div>
                         </div>
                         <div class="admin-form-group">
                             <label class="admin-label">Product Title</label>
-                            <input type="text" id="formTitle" class="admin-input" placeholder="Enter conversion layout title..." required>
+                            <input type="text" id="formTitle" class="admin-input" placeholder="Enter title name..." required>
                         </div>
                         
                         <div class="admin-form-group">
@@ -485,7 +485,7 @@
                         </div>
                         <div class="admin-form-group">
                             <label class="admin-label">Marketing Description Text</label>
-                            <textarea id="formText" class="admin-textarea" rows="4" placeholder="Enter high converting text here..." required></textarea>
+                            <textarea id="formText" class="admin-textarea" rows="4" placeholder="Enter product copy description..." required></textarea>
                         </div>
                         <button type="submit" id="submitFormMainBtn" class="admin-submit-btn">🚀 Publish to Cloud Database</button>
                     </form>
@@ -496,7 +496,7 @@
                     
                     <div class="admin-form-group">
                         <label class="admin-label" style="color:var(--urgency-orange);">🔍 Search Product to Overwrite (Type Name/Title or Unique pId):</label>
-                        <input type="text" id="searchEditPid" class="admin-input" placeholder="Type text nodes to track entries..." oninput="triggerGlobalEditorSearch(this.value)">
+                        <input type="text" id="searchEditPid" class="admin-input" placeholder="Type text node matrices to fetch entries..." oninput="triggerGlobalEditorSearch(this.value)">
                         <div id="editorSearchResultsDropdown" class="search-results-box"></div>
                     </div>
 
@@ -504,7 +504,7 @@
                         
                         <div class="copy-link-generator-bar">
                             <span style="font-size:13px; font-weight:600; color:#fff;">🎯 Correct Pinterest Link Pathway: <code id="liveEditorTargetCleanUrlPlaceholder" style="color:var(--accent-color);">Generating...</code></span>
-                            <button type="button" class="admin-tab-btn" style="background:var(--accent-color); color:#000; padding:6px 14px; font-size:11px;" onclick="copyLiveUrlLinkToClipboard('liveEditorTargetCleanUrlPlaceholder')">📋 Copy Pinterest Link</button>
+                            <button type="button" class="admin-tab-btn" style="background:var(--accent-color); color:#000; padding:6px 14px; font-size:11px;" onclick="copyLiveUrlLinkToClipboard('liveEditorTargetCleanUrlPlaceholder')">📋 Copy Link</button>
                         </div>
 
                         <form id="adminEditProductForm" onsubmit="handleAdminFormSubmit(event, 'edit')">
@@ -782,6 +782,11 @@
             if(sectionKey === 'stats') renderLiveTelemetryDashboardView();
         }
 
+        setInterval(() => {
+            const clockNode = document.getElementById('analyticsUSClockNode');
+            if(clockNode) clockNode.innerText = new Date().toLocaleTimeString("en-US", {timeZone: "America/New_York"});
+        }, 1000);
+
         function renderLiveTelemetryDashboardView() {
             document.getElementById('stat-total-visits').innerText = telemetryDatabase.totalVisVisits || 0;
             document.getElementById('stat-total-clicks').innerText = telemetryDatabase.totalClicks || 0;
@@ -827,15 +832,15 @@
             });
         }
 
-        /* 📋 GLOBAL COPY LINK ENGINE INJECTOR */
+        /* 📋 LINK COPY LOGIC SETUP */
         window.copyLiveUrlLinkToClipboard = function(targetTextElementId) {
             const linkText = document.getElementById(targetTextElementId).innerText;
             navigator.clipboard.writeText(linkText).then(() => {
-                alert("📋 Link Copied Success! Direct Target Match Pathway Layer Locked.");
+                alert("📋 Link Copied Successfully! Target locked.");
             }).catch(err => { alert("Failed to copy link."); });
         }
 
-        /* 🔍 GLOBAL EDITOR INTERACTIVE QUERY FETCH */
+        /* 🔍 DYNAMIC SYSTEM ENGINE INDEX QUERY */
         window.triggerGlobalEditorSearch = function(val) {
             const dropDown = document.getElementById('editorSearchResultsDropdown'); dropDown.innerHTML = '';
             if(!val.trim()) { dropDown.style.display = 'none'; return; }
@@ -866,24 +871,22 @@
             document.getElementById('editRating').value = matchedProduct.rating || "4.8";
             document.getElementById('editReviews').value = matchedProduct.reviews || "95";
 
-            // 🎯 GENERATE ABSOLUTE URL STRING FOR EDITING VIEWS
             let generatedCleanUrlPath = window.location.origin + window.location.pathname + "#" + matchedProduct.pId;
             document.getElementById('liveEditorTargetCleanUrlPlaceholder').innerText = generatedCleanUrlPath;
             
             accumulatedFilesArray = [];
-            matchedProduct.images.forEach(img => { if(!img.toLowerCase().endsWith('.mp4')) { accumulatedFilesArray.push({ fileObject: null, dataUrl: img }); } });
+            matchedProduct.images.forEach(img => { accumulatedFilesArray.push({ fileObject: null, dataUrl: img }); });
             renderAccumulatedThumbnailsGrid('editPhotoPreviewThumbnailsRow');
             
             document.getElementById('editorFormContainerContainer').style.display = "block";
             document.getElementById('editorSearchResultsDropdown').style.display = 'none';
-            document.getElementById('searchEditPid').value = '';
         }
 
         window.deleteActiveEditorProductNode = function() {
             if(!activeEditingId) return;
             let cat = document.getElementById('editCategory').value;
             let sub = document.getElementById('editSubId').value;
-            if(confirm("🚨 Delete this product completely from cloud vault?")) {
+            if(confirm("🚨 Delete this product completely?")) {
                 blogData[cat][sub] = blogData[cat][sub].filter(p => p.pId !== activeEditingId);
                 pushSystemStateToCloudBin().then(() => { alert("🗑️ Deleted!"); location.reload(); });
             }
@@ -969,15 +972,13 @@
             try {
                 let completePayload = { productsCoreData: blogData, telemetryDatabase: telemetryDatabase };
                 const saveResponse = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Master-Key': MASTER_KEY }, body: JSON.stringify(completePayload) });
-                
                 if(saveResponse.ok) { 
                     if(actionType === 'add') {
-                        // 🎯 AFTER ADD PRODUCT SUCCESS: Show static copy link panel block parameters
                         btn.disabled = false; btn.innerText = "🚀 Publish to Cloud Database";
                         let generatedPath = window.location.origin + window.location.pathname + "#" + pId;
                         document.getElementById('generatedAddProductUrlText').innerText = generatedPath;
                         document.getElementById('addProductSuccessLinkBar').style.display = "flex";
-                        alert(`🎉 Product live inside cloud matrix registry! Copy path below.`);
+                        alert(`🎉 Product live inside cloud matrix registry!`);
                         document.getElementById('adminProductForm').reset();
                         accumulatedFilesArray = []; renderAccumulatedThumbnailsGrid('photoPreviewThumbnailsRow');
                     } else {
@@ -1003,15 +1004,24 @@
             if(html) { suggestBox.innerHTML = html; suggestBox.style.display = 'block'; } else { suggestBox.style.display = 'none'; }
         }
 
-        window.clearSearchAndReturn = function() { document.getElementById('mainStoreSearch').value = ""; document.getElementById('suggestionBox').style.display = 'none'; window.location.hash = ''; route(); }
+        /* 🔙 BACK TO SHOP ROUTING RESETTER */
+        window.clearSearchAndReturn = function() { 
+            document.getElementById('mainStoreSearch').value = ""; 
+            document.getElementById('suggestionBox').style.display = 'none'; 
+            window.location.search = "";
+            window.location.hash = ''; 
+            route(); 
+        }
+        
         function isVideoFile(path) { return path.toLowerCase().endsWith('.mp4'); }
         function getSeedMetricsHash(seedId) { let num = 0; for (let i = 0; i < seedId.length; i++) { num += seedId.charCodeAt(i); } return num; }
 
+        /* 🔥 DYNAMIC URGENCIES & SPECIAL/LIMITED RE-INTEGRATOR */
         function generateMixedUrgencyBlock(seedKey, pIndex) {
             const alertStyles = [
                 `<div class="urgency-badge badge-red"><span class="pulse-dot"></span>Only 3 left in stock - Order Soon ⏱️</div>`,
-                `<div class="urgency-badge badge-orange"><span class="pulse-dot"></span>⚡ Selling Fast! High demand among creators</div>`,
-                `<div class="urgency-badge badge-red"><span class="pulse-dot"></span>Only 5 remaining - Items selling out 🔥</div>`
+                `<div class="urgency-badge badge-orange"><span class="pulse-dot"></span>⚡ Limited Edition Batch - High demand among creators</div>`,
+                `<div class="urgency-badge badge-red"><span class="pulse-dot"></span>🔥 Special Edition Layout Package - Selling Out Fast</div>`
             ];
             return alertStyles[(seedKey.charCodeAt(0) + pIndex) % alertStyles.length];
         }
@@ -1062,23 +1072,31 @@
 
                 productsList.forEach((product, pIndex) => {
                     activeIndices[pIndex] = 0; let thumbsHtml = ""; const maxThumbs = 5;
-                    if(product.images.length > 1) {
-                        product.images.forEach((src, iIdx) => { if(iIdx < maxThumbs) { thumbsHtml += `<img class="thumb-img ${iIdx === 0 ? 'active' : ''}" id="thumb-${pIndex}-${iIdx}" src="${src}" onclick="jumpToImage(${pIndex}, ${iIdx}, '${src}')">`; } });
+                    
+                    // 📸 RESTORE 6+ SWIPER IMAGES LOOP BOUNDARIES
+                    if(product.images && product.images.length > 1) {
+                        product.images.forEach((src, iIdx) => { 
+                            if(iIdx < maxThumbs) { thumbsHtml += `<img class="thumb-img ${iIdx === 0 ? 'active' : ''}" id="thumb-${pIndex}-${iIdx}" src="${src}" onclick="jumpToImage(${pIndex}, ${iIdx}, '${src}')">`; } 
+                        });
+                        if (product.images.length > maxThumbs) { 
+                            thumbsHtml += `<div class="more-photos-badge" onclick="openFullPhoto(${pIndex}, '${product.images[maxThumbs]}')">+${product.images.length - maxThumbs}</div>`; 
+                        }
                     }
                     syncTrafficLogToCloudCore(currentUserSessionToken, "Page Load", product.pId);
 
                     let viewportMediaHtml = isVideoFile(product.images[0]) 
                         ? `<video id="main-img-${pIndex}" class="blog-video-player" src="${product.images[0]}" controls autoplay loop muted playsinline></video>`
-                        : `<img id="main-img-${pIndex}" class="blog-img" src="${product.images[0]}" onclick="openFullPhoto(${pIndex}, '${product.images[0]}')">`;
+                        : `<img id="main-img-${pIndex}" class="blog-img" src="${product.images[0]}" onclick="checkClickOrSwipe(event, ${pIndex}, '${product.images[0]}')" draggable="false">`;
 
                     let starScore = product.rating || "4.8"; let reviewCount = product.reviews || "95";
 
                     itemsContainer.innerHTML += `
                         <div class="item-card" id="p-card-${product.pId}">
-                            <div class="gallery-container" id="gallery-${pIndex}">
-                                <div class="swiper-viewport" onmousedown="startSwipe(event, ${pIndex})" onmousemove="moveSwipe(event, ${pIndex})" onmouseup="endSwipe(${pIndex})">
+                            <div class="gallery-container" id="gallery-${pIndex}" data-cardindex="${pIndex}">
+                                <div class="swiper-viewport" onmousedown="startSwipe(event, ${pIndex})" onmousemove="moveSwipe(event, ${pIndex})" onmouseup="endSwipe(${pIndex})" onmouseleave="endSwipe(${pIndex})" ontouchstart="startSwipe(event, ${pIndex})" ontouchmove="moveSwipe(event, ${pIndex})" ontouchend="endSwipe(${pIndex})">
                                     ${viewportMediaHtml}
                                 </div>
+                                <div class="zoom-hint">👈 Swipe view or click photo to view full screen 🔍</div>
                                 <div class="thumbnail-wrapper">${thumbsHtml}</div>
                             </div>
                             <div class="item-details">
@@ -1121,24 +1139,45 @@
         window.exitAdminView = function() { isAdminAuthenticated = false; sessionStorage.removeItem('vf_admin_auth_token'); window.location.hash = ''; route(); }
         
         let swipeStartX = 0, swipeCurrentX = 0, isSwiping = false;
-        window.startSwipe = function(e, cardIdx) { isSwiping = true; swipeStartX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; }
+        window.startSwipe = function(e, cardIdx) { isSwiping = true; swipeStartX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; swipeCurrentX = swipeStartX; }
         window.moveSwipe = function(e, cardIdx) { if (!isSwiping) return; swipeCurrentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; }
         window.endSwipe = function(cardIdx) {
-            isSwiping = false; if (Math.abs(swipeStartX - swipeCurrentX) > 60) {
+            if (!isSwiping) return; isSwiping = false; const diffX = swipeStartX - swipeCurrentX;
+            if (Math.abs(diffX) > 60) {
                 const urlParams = new URLSearchParams(window.location.search); let page = urlParams.get('page'), id = urlParams.get('id');
                 let imgs = blogData[page][id][cardIdx].images; let cIdx = activeIndices[cardIdx];
-                if (swipeStartX - swipeCurrentX > 0) { cIdx = (cIdx < imgs.length - 1) ? cIdx + 1 : 0; } else { cIdx = (cIdx > 0) ? cIdx - 1 : imgs.length - 1; }
+                if (diffX > 0) { cIdx = (cIdx < imgs.length - 1) ? cIdx + 1 : 0; } else { cIdx = (cIdx > 0) ? cIdx - 1 : imgs.length - 1; }
                 jumpToImage(cardIdx, cIdx, imgs[cIdx]);
             }
         }
+        window.checkClickOrSwipe = function(e, cardIdx, src) { if (Math.abs(swipeStartX - swipeCurrentX) < 10) openFullPhoto(cardIdx, src); }
 
         window.jumpToImage = function(cardIdx, imgIndex, src) {
             activeIndices[cardIdx] = imgIndex; const viewport = document.getElementById(`gallery-${cardIdx}`).querySelector('.swiper-viewport');
-            viewport.innerHTML = isVideoFile(src) ? `<video id="main-img-${cardIdx}" class="blog-video-player" src="${src}" controls autoplay loop muted playsinline></video>` : `<img id="main-img-${cardIdx}" class="blog-img" src="${src}" onclick="openFullPhoto(${cardIdx}, '${src}')">`;
+            viewport.innerHTML = isVideoFile(src) ? `<video id="main-img-${cardIdx}" class="blog-video-player" src="${src}" controls autoplay loop muted playsinline></video>` : `<img id="main-img-${cardIdx}" class="blog-img" src="${src}" onclick="checkClickOrSwipe(event, ${cardIdx}, '${src}')">`;
+            const g = document.getElementById('gallery-' + cardIdx); if (g) { g.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active')); const active = document.getElementById(`thumb-${cardIdx}-${imgIndex}`); if (active) active.classList.add('active'); }
         }
 
         window.openFullPhoto = function(cardIdx, src) { if(isVideoFile(src)) return; currentModalCardIndex = cardIdx; document.getElementById('fullScreenModal').style.display = "flex"; document.getElementById('modalMediaContainer').innerHTML = `<img class="modal-content" src="${src}">`; }
         window.closeFullPhoto = function() { document.getElementById('fullScreenModal').style.display = "none"; }
+
+        window.modalNext = function() {
+            const urlParams = new URLSearchParams(window.location.search); let page = urlParams.get('page'), id = urlParams.get('id');
+            let imgs = blogData[page][id][currentModalCardIndex].images; let idx = activeIndices[currentModalCardIndex];
+            idx = (idx < imgs.length - 1) ? idx + 1 : 0; jumpToImage(currentModalCardIndex, idx, imgs[idx]);
+            if(!isVideoFile(imgs[idx])) document.getElementById('modalMediaContainer').innerHTML = `<img class="modal-content" src="${imgs[idx]}">`;
+        }
+        window.modalPrev = function() {
+            const urlParams = new URLSearchParams(window.location.search); let page = urlParams.get('page'), id = urlParams.get('id');
+            let imgs = blogData[page][id][currentModalCardIndex].images; let idx = activeIndices[currentModalCardIndex];
+            idx = (idx > 0) ? idx - 1 : imgs.length - 1; jumpToImage(currentModalCardIndex, idx, imgs[idx]);
+            if(!isVideoFile(imgs[idx])) document.getElementById('modalMediaContainer').innerHTML = `<img class="modal-content" src="${imgs[idx]}">`;
+        }
+
+        let mStartX = 0, mCurX = 0, mSwiping = false;
+        window.startModalSwipe = function(e) { if(e.target.classList.contains('modal-nav-btn')) return; mSwiping = true; mStartX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; mCurX = mStartX; }
+        window.moveModalSwipe = function(e) { if(!mSwiping) return; mCurX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; }
+        window.endModalSwipe = function() { if(!mSwiping) return; mSwiping = false; if(Math.abs(mStartX - mCurX) > 40) { if(mStartX - mCurX > 0) window.modalNext(); else window.modalPrev(); } }
 
         window.addEventListener('hashchange', route); fetchLiveCloudDatabase();
     </script>
