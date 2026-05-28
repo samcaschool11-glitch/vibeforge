@@ -258,7 +258,14 @@
         }
         
         .item-details { display: flex; flex-direction: column; justify-content: flex-start; }
-        .blog-title { font-size: 24px; margin-bottom: 12px; color: #fff; font-weight: 700; line-height: 1.3;}
+        .blog-title { font-size: 24px; margin-bottom: 8px; color: #fff; font-weight: 700; line-height: 1.3;}
+
+        /* ⭐ RATING FRAMEWORK INTERFACE */
+        .rating-wrapper {
+            display: flex; align-items: center; gap: 6px; margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #ffb703;
+        }
+        .rating-stars { letter-spacing: 1px; }
+        .rating-count { color: var(--text-desc); font-weight: 500; font-size: 13px; }
 
         .urgency-badge { font-size: 11px; font-weight: 700; margin-bottom: 18px; display: inline-flex; align-items: center; gap: 6px; letter-spacing: 0.8px; text-transform: uppercase; padding: 6px 12px; border-radius: 6px;}
         .badge-red { color: #ff4757; background: rgba(255, 71, 87, 0.08); border: 1px solid rgba(255, 71, 87, 0.15);}
@@ -289,7 +296,7 @@
         
         .blog-text { color: var(--text-desc); font-size: 15px; line-height: 1.6; margin-bottom: 22px; }
         
-        /* 🛒 HIGH CONVERSION REDESIGNED BUY NOW TRIGGER */
+        /* 🛒 HIGH CONVERSION LIVE "BUY NOW" BUTTON */
         .amazon-btn {
             display: block; background: linear-gradient(90deg, #ff9900, #ffb74d, #ff9900); background-size: 200% auto; color: #111; text-align: center; padding: 18px; border-radius: 14px; font-weight: 800; text-decoration: none; font-size: 18px; text-transform: uppercase; letter-spacing: 1px; animation: pulseGlow 2s infinite ease-in-out, shimmerBg 3s infinite linear; margin-bottom: 16px; box-shadow: 0 4px 15px rgba(255, 153, 0, 0.4);
         }
@@ -298,7 +305,7 @@
         .trust-tag { font-size: 11.5px; font-weight: 600; color: var(--text-desc); display: flex; align-items: center; gap: 5px;}
         .trust-tag span { color: #10b981; }
 
-        /* 📊 ADMIN METRICS PANELS (Fixed Content Overlapping & Border Bleeding) */
+        /* 📊 ADMIN PANELS PLUGINS (Strict Layout Anti-Bleed Blocks) */
         .admin-dashboard-view {
             display: none; width: 100%; max-width: 1100px; background: var(--card-bg); border: 2px solid var(--accent-color); border-radius: 20px; padding: 30px; margin-bottom: 40px; margin-left: auto; margin-right: auto; box-shadow: 0 20px 50px rgba(0, 188, 212, 0.25);
         }
@@ -336,7 +343,12 @@
         .search-item-row { padding: 12px 15px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; transition: background 0.2s;}
         .search-item-row:hover { background: rgba(0, 188, 212, 0.1); }
 
-        /* 📸 MOBILE TOUCH READY IMAGE MANAGEMENT FRAMEWORK */
+        /* 📋 DYNAMIC COPY LINK VAULT COMPONENT */
+        .copy-link-generator-bar {
+            background: rgba(0, 188, 212, 0.05); border: 1px dashed var(--accent-color); padding: 15px; border-radius: 10px; margin-bottom: 20px; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap;
+        }
+
+        /* 📸 SMART PHONE PHOTO ACCUMULATOR */
         .image-management-zone {
             display: flex; flex-wrap: wrap; gap: 12px; min-height: 120px; background: #090d14; border: 2px dashed rgba(255,255,255,0.1); border-radius: 12px; padding: 15px; margin-top: 10px;
         }
@@ -365,13 +377,6 @@
         .modal-prev { left: -60px; } .modal-next { right: -60px; }
         .bottom-divider { margin-top: 60px; padding-top: 30px; border-top: 1px dashed rgba(255, 255, 255, 0.08); }
         footer { margin-top: 80px; font-size: 13.5px; color: var(--text-desc); text-align: center; line-height: 1.6;}
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3); transform: scale(1); }
-            50% { box-shadow: 0 6px 28px rgba(255, 153, 0, 0.65); transform: scale(1.015); }
-            100% { box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3); transform: scale(1); }
-        }
-        @keyframes shimmerBg { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
 
         @media (max-width: 768px) {
             .modal-prev { left: 10px; background: rgba(17, 22, 29, 0.85); }
@@ -429,6 +434,12 @@
 
                 <div id="admin-add-section">
                     <h2 class="category-title" style="color:var(--accent-color); border-bottom-color:var(--accent-color); font-size:18px; margin-bottom:20px;">📦 Publish New Product Node</h2>
+                    
+                    <div id="addProductSuccessLinkBar" class="copy-link-generator-bar" style="display:none;">
+                        <span style="font-size:13px; color:#fff; font-weight:600;">🎉 Product live! Pinterest Link: <code id="generatedAddProductUrlText" style="color:var(--accent-color);">None</code></span>
+                        <button type="button" class="admin-tab-btn active-admin-tab" style="padding:6px 12px; font-size:11px;" onclick="copyLiveUrlLinkToClipboard('generatedAddProductUrlText')">📋 Copy Link</button>
+                    </div>
+
                     <form id="adminProductForm" onsubmit="handleAdminFormSubmit(event, 'add')">
                         <div class="admin-form-group">
                             <label class="admin-label">Product Category Scope</label>
@@ -442,33 +453,30 @@
                             <label class="admin-label">Sub-Category Selection Target</label>
                             <select id="formSubId" class="admin-select" required></select>
                         </div>
-                        <div class="admin-form-group">
-                            <label class="admin-label">Unique Product ID (pId / Link Hash ID)</label>
-                            <input type="text" id="formPid" class="admin-input" placeholder="e.g., wash_mat" required>
+                        <div class="admin-form-group" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px;">
+                            <div>
+                                <label class="admin-label">Unique Product ID (pId)</label>
+                                <input type="text" id="formPid" class="admin-input" placeholder="e.g., wash_mat" required>
+                            </div>
+                            <div>
+                                <label class="admin-label">⭐ Initial Rating Score</label>
+                                <input type="text" id="formRating" class="admin-input" placeholder="e.g., 4.9" value="4.8">
+                            </div>
+                            <div>
+                                <label class="admin-label">💬 Total Verified Reviews Count</label>
+                                <input type="number" id="formReviews" class="admin-input" placeholder="e.g., 128" value="96">
+                            </div>
                         </div>
                         <div class="admin-form-group">
                             <label class="admin-label">Product Title</label>
-                            <input type="text" id="formTitle" class="admin-input" placeholder="Enter high-converting title..." required>
+                            <input type="text" id="formTitle" class="admin-input" placeholder="Enter conversion layout title..." required>
                         </div>
                         
                         <div class="admin-form-group">
                             <label class="admin-label">📸 Select Product Photos</label>
                             <input type="file" id="dashboardPhotoInput" accept="image/*" multiple style="display:none;" onchange="handleAdminPhotoAccumulator(this, 'photoPreviewThumbnailsRow')">
-                            <button type="button" class="admin-input" style="cursor:pointer; background:#1b222d; text-align:center;" onclick="document.getElementById('dashboardPhotoInput').click()">✨ Click to Choose Images Array</button>
+                            <button type="button" class="admin-input" style="cursor:pointer; background:#1b222d; text-align:center;" onclick="document.getElementById('dashboardPhotoInput').click()">✨ Multi-Select Asset Files</button>
                             <div id="photoPreviewThumbnailsRow" class="image-management-zone"></div>
-                        </div>
-
-                        <div class="admin-form-group" style="border: 1px dashed rgba(0, 188, 212, 0.3); padding: 15px; border-radius: 10px; background: rgba(0,0,0,0.2);">
-                            <label class="admin-label" style="color:#ffa502;">🎥 Product Video File Setup (Optional)</label>
-                            <input type="text" id="formVideoSrc" class="admin-input" placeholder="e.g., custom_setup.mp4" style="margin-bottom:12px;">
-                            
-                            <label class="admin-label">🎯 Video Slide Position Number</label>
-                            <select id="formVideoPosition" class="admin-select">
-                                <option value="0">1st Position (Show Video First)</option>
-                                <option value="2">3rd Position</option>
-                                <option value="5">6th Position</option>
-                                <option value="last">Last Position</option>
-                            </select>
                         </div>
 
                         <div class="admin-form-group">
@@ -477,40 +485,58 @@
                         </div>
                         <div class="admin-form-group">
                             <label class="admin-label">Marketing Description Text</label>
-                            <textarea id="formText" class="admin-textarea" rows="4" placeholder="Enter copywriting description..." required></textarea>
+                            <textarea id="formText" class="admin-textarea" rows="4" placeholder="Enter high converting text here..." required></textarea>
                         </div>
                         <button type="submit" id="submitFormMainBtn" class="admin-submit-btn">🚀 Publish to Cloud Database</button>
                     </form>
                 </div>
 
                 <div id="admin-edit-section" style="display:none;">
-                    <h2 class="category-title" style="color:var(--urgency-orange); border-bottom-color:var(--urgency-orange); font-size:18px; margin-bottom:20px;">🛠️ Advanced Product Editor Matrix</h2>
+                    <h2 class="category-title" style="color:var(--urgency-orange); border-bottom-color:var(--urgency-orange); font-size:18px; margin-bottom:20px;">🛠️ Advanced Product Editor & Overwrite Matrix</h2>
                     
                     <div class="admin-form-group">
-                        <label class="admin-label" style="color:var(--urgency-orange);">🔍 Search Product to Edit/Delete (Type Name/Title or Unique pId):</label>
-                        <input type="text" id="searchEditPid" class="admin-input" placeholder="Type letters to search inside cloud index mapping registers..." oninput="triggerGlobalEditorSearch(this.value)">
+                        <label class="admin-label" style="color:var(--urgency-orange);">🔍 Search Product to Overwrite (Type Name/Title or Unique pId):</label>
+                        <input type="text" id="searchEditPid" class="admin-input" placeholder="Type text nodes to track entries..." oninput="triggerGlobalEditorSearch(this.value)">
                         <div id="editorSearchResultsDropdown" class="search-results-box"></div>
                     </div>
 
                     <div id="editorFormContainerContainer" style="display:none; margin-top:25px;">
+                        
+                        <div class="copy-link-generator-bar">
+                            <span style="font-size:13px; font-weight:600; color:#fff;">🎯 Correct Pinterest Link Pathway: <code id="liveEditorTargetCleanUrlPlaceholder" style="color:var(--accent-color);">Generating...</code></span>
+                            <button type="button" class="admin-tab-btn" style="background:var(--accent-color); color:#000; padding:6px 14px; font-size:11px;" onclick="copyLiveUrlLinkToClipboard('liveEditorTargetCleanUrlPlaceholder')">📋 Copy Pinterest Link</button>
+                        </div>
+
                         <form id="adminEditProductForm" onsubmit="handleAdminFormSubmit(event, 'edit')">
                             <input type="hidden" id="editCategory">
                             <input type="hidden" id="editSubId">
 
-                            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:15px; margin-bottom:15px;">
-                                <div class="admin-form-group">
+                            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px; margin-bottom:15px;">
+                                <div class="admin-form-group" style="grid-column: span 2;">
                                     <label class="admin-label">Product Title Name</label>
                                     <input type="text" id="editTitle" class="admin-input" required>
                                 </div>
                                 <div class="admin-form-group">
-                                    <label class="admin-label">Modify/Change Product Unique ID (pId)</label>
+                                    <label class="admin-label">Unique ID (pId)</label>
                                     <input type="text" id="editPid" class="admin-input" required>
                                 </div>
                             </div>
+                            
+                            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px; margin-bottom:15px;">
+                                <div class="admin-form-group">
+                                    <label class="admin-label">⭐ Modify Rating Value</label>
+                                    <input type="text" id="editRating" class="admin-input">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label class="admin-label">💬 Modify Reviews Count</label>
+                                    <input type="number" id="editReviews" class="admin-input">
+                                </div>
+                            </div>
+
                             <div class="admin-form-group">
-                                <label class="admin-label">📸 Image Repository Assets (Touch Drag to Reorder | Tap Cross to Remove)</label>
+                                <label class="admin-label">📸 Product Photo Repositories (Touch Drag to Reorder | Tap Cross to Remove)</label>
                                 <input type="file" id="editDashboardPhotoInput" accept="image/*" multiple style="display:none;" onchange="handleAdminPhotoAccumulator(this, 'editPhotoPreviewThumbnailsRow')">
-                                <button type="button" class="admin-input" style="cursor:pointer; background:#1b222d; text-align:center; margin-bottom:10px;" onclick="document.getElementById('editDashboardPhotoInput').click()">🔄 Overwrite/Append Photos</button>
+                                <button type="button" class="admin-input" style="cursor:pointer; background:#1b222d; text-align:center; margin-bottom:10px;" onclick="document.getElementById('editDashboardPhotoInput').click()">🔄 Append/Upload Photos</button>
                                 <div id="editPhotoPreviewThumbnailsRow" class="image-management-zone"></div>
                             </div>
                             <div class="admin-form-group">
@@ -523,7 +549,7 @@
                             </div>
                             
                             <div style="display:flex; gap:15px; flex-wrap:wrap; margin-top:20px;">
-                                <button type="submit" id="submitEditFormMainBtn" class="admin-submit-btn" style="background:var(--urgency-orange); flex:1; min-width:200px;">💾 Apply Overwrite Modifications</button>
+                                <button type="submit" id="submitEditFormMainBtn" class="admin-submit-btn" style="background:var(--urgency-orange); flex:1;">💾 Apply Overwrite Modifications</button>
                                 <button type="button" class="admin-submit-btn" style="background:#da3637; color:#fff; width:auto; padding:0 25px;" onclick="deleteActiveEditorProductNode()">🗑️ Delete Product</button>
                             </div>
                         </form>
@@ -534,44 +560,17 @@
                     <h2 class="category-title" style="color:var(--stat-purple); border-bottom-color:var(--stat-purple); font-size:18px; margin-bottom:20px;">📊 Real-Time Traffic & Action-Click Analytics</h2>
                     
                     <div class="analytics-summary-grid">
-                        <div class="metric-scorecard">
-                            <div class="metric-title">📈 Real User Traffic Visits</div>
-                            <div id="stat-total-visits" class="metric-value" style="color:var(--accent-color);">0</div>
-                        </div>
-                        <div class="metric-scorecard">
-                            <div class="metric-title">🛒 Amazon Buy Link Clicks</div>
-                            <div id="stat-total-clicks" class="metric-value" style="color:var(--stat-purple);">0</div>
-                        </div>
-                        <div class="metric-scorecard">
-                            <div class="metric-title">🎯 Outbound Conversion CTR</div>
-                            <div id="stat-ctr" class="metric-value" style="color:var(--shipping-green);">0.00%</div>
-                        </div>
-                        <div class="metric-scorecard">
-                            <div class="metric-title">❌ Non-Clicking Visitors</div>
-                            <div id="stat-no-clicks" class="metric-value" style="color:var(--urgency-red);">0</div>
-                        </div>
-                        <div class="metric-scorecard">
-                            <div class="metric-title">📉 Store Bounce Rate</div>
-                            <div id="stat-bounce-rate" class="metric-value" style="color:var(--stat-blue);">0.0%</div>
-                        </div>
+                        <div class="metric-scorecard"><div class="metric-title">📈 Real User Traffic Visits</div><div id="stat-total-visits" class="metric-value" style="color:var(--accent-color);">0</div></div>
+                        <div class="metric-scorecard"><div class="metric-title">🛒 Amazon Buy Link Clicks</div><div id="stat-total-clicks" class="metric-value" style="color:var(--stat-purple);">0</div></div>
+                        <div class="metric-scorecard"><div class="metric-title">🎯 Outbound Conversion CTR</div><div id="stat-ctr" class="metric-value" style="color:var(--shipping-green);">0.00%</div></div>
+                        <div class="metric-scorecard"><div class="metric-title">❌ Non-Clicking Visitors</div><div id="stat-no-clicks" class="metric-value" style="color:var(--urgency-red);">0</div></div>
+                        <div class="metric-scorecard"><div class="metric-title">📉 Store Bounce Rate</div><div id="stat-bounce-rate" class="metric-value" style="color:var(--stat-blue);">0.0%</div></div>
                     </div>
 
                     <div class="analytics-summary-grid">
-                        <div class="metric-scorecard" style="background: #0f141c;">
-                            <div class="metric-title">🗺️ Category Heat-Map (Bhed Location)</div>
-                            <div id="analyticsHeatMapBlock" style="font-size:13px; line-height:1.7; margin-top:8px; color:var(--accent-color);">Calculating map indices...</div>
-                        </div>
-                        <div class="metric-scorecard" style="background: #0f141c;">
-                            <div class="metric-title">🌍 Geo & Device Target Intel</div>
-                            <div id="analyticsDeviceGeoBlock" style="font-size:13px; line-height:1.7; margin-top:8px;">
-                                <div style="color:#fff;">Region Status: <b style="color:var(--shipping-green);">US Audience Verified</b></div>
-                                <div id="deviceSplitRatioBlock" style="margin-top:4px; opacity:0.85;">Detecting client headers...</div>
-                            </div>
-                        </div>
-                        <div class="metric-scorecard" style="background: #0f141c;">
-                            <div class="metric-title">⏱️ Peak Traffic Clock (US New York)</div>
-                            <div id="analyticsUSClockNode" class="metric-value" style="color:var(--urgency-orange); font-size:20px; margin-top:10px; font-family:'Orbitron';">00:00:00 AM</div>
-                        </div>
+                        <div class="metric-scorecard" style="background: #0f141c;"><div class="metric-title">🗺️ Category Heat-Map</div><div id="analyticsHeatMapBlock" style="font-size:13px; line-height:1.7; margin-top:8px; color:var(--accent-color);">Calculating map indices...</div></div>
+                        <div class="metric-scorecard" style="background: #0f141c;"><div class="metric-title">🌍 Geo & Device Target Intel</div><div id="analyticsDeviceGeoBlock" style="font-size:13px; line-height:1.7; margin-top:8px;"><div style="color:#fff;">Region Status: <b style="color:var(--shipping-green);">US Audience Verified</b></div><div id="deviceSplitRatioBlock" style="margin-top:4px; opacity:0.85;">Detecting client headers...</div></div></div>
+                        <div class="metric-scorecard" style="background: #0f141c;"><div class="metric-title">⏱️ Peak Traffic Clock (US EST)</div><div id="analyticsUSClockNode" class="metric-value" style="color:var(--urgency-orange); font-size:20px; margin-top:10px; font-family:'Orbitron';">00:00:00 AM</div></div>
                     </div>
 
                     <h3 class="admin-label" style="font-size:12px; margin-bottom:10px; color:#fff; margin-top:25px;">⚡ Live Visitor Tracking Streams</h3>
@@ -674,7 +673,7 @@
 
     <div id="fullScreenModal" class="image-modal">
         <span class="close-modal" onclick="closeFullPhoto()">&times;</span>
-        <div class="modal-viewport" onmousedown="startModalSwipe(event)" onmousemove="moveModalSwipe(event)" onmouseup="endModalSwipe()" onmouseleave="endModalSwipe()" ontouchstart="startModalSwipe(event)" ontouchmove="moveModalSwipe(event)" ontouchend="endModalSwipe()">
+        <div class="modal-viewport" onmousedown="startModalSwipe(event)" onmousemove="moveModalSwipe(event)" onmouseup="endModalSwipe()">
             <button class="modal-nav-btn modal-prev" onclick="modalPrev(event)">&#10094;</button>
             <div id="modalMediaContainer" style="width:100%; display:flex; justify-content:center; align-items:center;"></div>
             <button class="modal-nav-btn modal-next" onclick="modalNext(event)">&#10095;</button>
@@ -687,23 +686,17 @@
         const IMGBB_API_KEY = "1ba4b53e10eccb5c4f297b9289c45c98"; 
         const VAULT_HASH = "VibeforgeSam@6263"; 
         
-        let blogData = {}; 
-        let activeIndices = {};
-        let currentModalCardIndex = null; 
-        let accumulatedFilesArray = []; 
-        let draggedElementIndex = null;
-        let isAdminAuthenticated = false;
+        let blogData = {}; let activeIndices = {}; let currentModalCardIndex = null; 
+        let accumulatedFilesArray = []; let draggedElementIndex = null; let isAdminAuthenticated = false;
 
         let telemetryDatabase = { totalVisVisits: 0, totalClicks: 0, clickCounts: {}, visitorProfiles: {} };
-        let currentUserSessionToken = "";
-        let sessionStartTimeNode = Date.now();
+        let currentUserSessionToken = ""; let sessionStartTimeNode = Date.now();
 
         function initializeVisitorTrackingCore() {
             if(window.location.hash === "#admin" || sessionStorage.getItem('vf_admin_auth_token') === 'true') return;
             if(!localStorage.getItem('vf_session_node')) {
                 let randomSuffix = Math.floor(1000 + Math.random() * 9000);
-                let prefixes = ["Guest_", "Viber_", "Otaku_", "SetupFan_"];
-                localStorage.setItem('vf_session_node', prefixes[Math.floor(Math.random() * prefixes.length)] + randomSuffix);
+                localStorage.setItem('vf_session_node', "Guest_" + randomSuffix);
             }
             currentUserSessionToken = localStorage.getItem('vf_session_node');
             sessionStartTimeNode = Date.now();
@@ -730,28 +723,21 @@
 
         async function fetchLiveCloudDatabase() {
             try {
-                const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-                    method: 'GET', headers: { 'X-Master-Key': MASTER_KEY }
-                });
+                const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, { method: 'GET', headers: { 'X-Master-Key': MASTER_KEY } });
                 const data = await response.json();
                 if(data.record.productsCoreData) {
-                    blogData = data.record.productsCoreData;
-                    telemetryDatabase = data.record.telemetryDatabase || telemetryDatabase;
+                    blogData = data.record.productsCoreData; telemetryDatabase = data.record.telemetryDatabase || telemetryDatabase;
                 } else { blogData = data.record; }
                 
                 if(sessionStorage.getItem('vf_admin_auth_token') === 'true') { isAdminAuthenticated = true; }
-                initializeVisitorTrackingCore();
-                route(); 
+                initializeVisitorTrackingCore(); route(); 
             } catch (err) { console.error("Database connection failure:", err); }
         }
 
         async function pushSystemStateToCloudBin() {
             try {
                 let comprehensivePayload = { productsCoreData: blogData, telemetryDatabase: telemetryDatabase };
-                await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-                    method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Master-Key': MASTER_KEY },
-                    body: JSON.stringify(comprehensivePayload)
-                });
+                await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Master-Key': MASTER_KEY }, body: JSON.stringify(comprehensivePayload) });
             } catch(e) { console.error("Telemetry error:", e); }
         }
 
@@ -796,11 +782,6 @@
             if(sectionKey === 'stats') renderLiveTelemetryDashboardView();
         }
 
-        setInterval(() => {
-            const clockNode = document.getElementById('analyticsUSClockNode');
-            if(clockNode) clockNode.innerText = new Date().toLocaleTimeString("en-US", {timeZone: "America/New_York"});
-        }, 1000);
-
         function renderLiveTelemetryDashboardView() {
             document.getElementById('stat-total-visits').innerText = telemetryDatabase.totalVisVisits || 0;
             document.getElementById('stat-total-clicks').innerText = telemetryDatabase.totalClicks || 0;
@@ -808,8 +789,7 @@
             document.getElementById('stat-ctr').innerText = ctr.toFixed(2) + "%";
 
             let profiles = telemetryDatabase.visitorProfiles || {};
-            let bounceCount = 0, totalNoClicksCount = 0;
-            let totalProfilesArr = Object.keys(profiles);
+            let bounceCount = 0, totalNoClicksCount = 0; let totalProfilesArr = Object.keys(profiles);
             let mobileCounter = 0, desktopCounter = 0, heatMapCategoriesMap = {};
 
             totalProfilesArr.forEach(k => {
@@ -833,8 +813,7 @@
 
             const logsTable = document.getElementById('visitorLogsTableBody'); logsTable.innerHTML = "";
             totalProfilesArr.forEach(pKey => {
-                let pData = profiles[pKey];
-                let isUserOnline = (Date.now() - (pData.lastHeartbeat || 0)) < 25000;
+                let pData = profiles[pKey]; let isUserOnline = (Date.now() - (pData.lastHeartbeat || 0)) < 25000;
                 logsTable.innerHTML += `
                     <tr>
                         <td><b>${pKey}</b><br><span style="font-size:10px;opacity:0.5;">${pData.deviceType}</span></td>
@@ -848,7 +827,15 @@
             });
         }
 
-        /* 🔍 DYNAMIC SEARCH & SELECTION ROUTINES FOR EDITOR MODES (ByName or pId) */
+        /* 📋 GLOBAL COPY LINK ENGINE INJECTOR */
+        window.copyLiveUrlLinkToClipboard = function(targetTextElementId) {
+            const linkText = document.getElementById(targetTextElementId).innerText;
+            navigator.clipboard.writeText(linkText).then(() => {
+                alert("📋 Link Copied Success! Direct Target Match Pathway Layer Locked.");
+            }).catch(err => { alert("Failed to copy link."); });
+        }
+
+        /* 🔍 GLOBAL EDITOR INTERACTIVE QUERY FETCH */
         window.triggerGlobalEditorSearch = function(val) {
             const dropDown = document.getElementById('editorSearchResultsDropdown'); dropDown.innerHTML = '';
             if(!val.trim()) { dropDown.style.display = 'none'; return; }
@@ -857,7 +844,7 @@
                 Object.keys(blogData[cKey]).forEach(sKey => {
                     blogData[cKey][sKey].forEach(prod => {
                         if(prod.title.toLowerCase().includes(query) || prod.pId.toLowerCase().includes(query)) {
-                            html += `<div class="search-item-row" onclick="loadProductIntoFormWorkspace('${cKey}','${sKey}','${prod.pId}')"><span style="font-weight:600;">${prod.title.substring(0,40)}...</span><code style="font-size:11px;">${prod.pId}</code></div>`;
+                            html += `<div class="search-item-row" onclick="loadProductIntoFormWorkspace('${cKey}','${sKey}','${prod.pId}')"><span style="font-weight:600;">${prod.title.substring(0,40)}...</span><code>${prod.pId}</code></div>`;
                         }
                     });
                 });
@@ -869,13 +856,19 @@
             let matchedProduct = (blogData[cat] && blogData[cat][sub]) ? blogData[cat][sub].find(p => p.pId === pId) : null;
             if(!matchedProduct) return;
             
-            activeEditingId = matchedProduct.pId; // Core link lookup trace anchor tracking
+            activeEditingId = matchedProduct.pId;
             document.getElementById('editCategory').value = cat;
             document.getElementById('editSubId').value = sub;
             document.getElementById('editPid').value = matchedProduct.pId;
             document.getElementById('editTitle').value = matchedProduct.title;
             document.getElementById('editAmazon').value = matchedProduct.amazon;
             document.getElementById('editText').value = matchedProduct.text || "";
+            document.getElementById('editRating').value = matchedProduct.rating || "4.8";
+            document.getElementById('editReviews').value = matchedProduct.reviews || "95";
+
+            // 🎯 GENERATE ABSOLUTE URL STRING FOR EDITING VIEWS
+            let generatedCleanUrlPath = window.location.origin + window.location.pathname + "#" + matchedProduct.pId;
+            document.getElementById('liveEditorTargetCleanUrlPlaceholder').innerText = generatedCleanUrlPath;
             
             accumulatedFilesArray = [];
             matchedProduct.images.forEach(img => { if(!img.toLowerCase().endsWith('.mp4')) { accumulatedFilesArray.push({ fileObject: null, dataUrl: img }); } });
@@ -890,13 +883,9 @@
             if(!activeEditingId) return;
             let cat = document.getElementById('editCategory').value;
             let sub = document.getElementById('editSubId').value;
-            if(confirm("🚨 Are you sure you want to completely delete this product entry from the cloud?")) {
+            if(confirm("🚨 Delete this product completely from cloud vault?")) {
                 blogData[cat][sub] = blogData[cat][sub].filter(p => p.pId !== activeEditingId);
-                pushSystemStateToCloudBin().then(() => {
-                    alert("🗑️ Product deleted successfully!");
-                    document.getElementById('editorFormContainerContainer').style.display = "none";
-                    route();
-                });
+                pushSystemStateToCloudBin().then(() => { alert("🗑️ Deleted!"); location.reload(); });
             }
         }
 
@@ -906,8 +895,7 @@
             newFiles.forEach(file => {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    accumulatedFilesArray.push({ fileObject: file, dataUrl: e.target.result });
-                    processedCount++;
+                    accumulatedFilesArray.push({ fileObject: file, dataUrl: e.target.result }); processedCount++;
                     if(processedCount === newFiles.length) { renderAccumulatedThumbnailsGrid(previewRowElementId); }
                 }
                 reader.readAsDataURL(file);
@@ -918,18 +906,13 @@
         function renderAccumulatedThumbnailsGrid(elementId) {
             const previewRow = document.getElementById(elementId); previewRow.innerHTML = "";
             accumulatedFilesArray.forEach((item, index) => {
-                const container = document.createElement('div');
-                container.className = 'img-thumb-container';
-                container.style.backgroundImage = `url('${item.dataUrl}')`;
-                container.setAttribute('draggable', 'true');
-                container.setAttribute('data-index', index);
+                const container = document.createElement('div'); container.className = 'img-thumb-container';
+                container.style.backgroundImage = `url('${item.dataUrl}')`; container.setAttribute('draggable', 'true'); container.setAttribute('data-index', index);
 
-                const cross = document.createElement('button');
-                cross.className = 'remove-img-btn'; cross.innerHTML = '×'; cross.type = 'button';
+                const cross = document.createElement('button'); cross.className = 'remove-img-btn'; cross.innerHTML = '×'; cross.type = 'button';
                 cross.onclick = (e) => { e.stopPropagation(); accumulatedFilesArray.splice(index, 1); renderAccumulatedThumbnailsGrid(elementId); };
                 container.appendChild(cross);
 
-                // 📱 TOUCH ATTACHMENTS PLUGINS MAPPINGS FOR SWAPPING REARRANGE
                 container.addEventListener('dragstart', (e) => { draggedElementIndex = index; });
                 container.addEventListener('dragover', (e) => e.preventDefault());
                 container.addEventListener('drop', (e) => { swapPhotosArrayOrder(draggedElementIndex, index, elementId); });
@@ -939,15 +922,13 @@
                     const parsedBox = elementDropNode ? elementDropNode.closest('.img-thumb-container') : null;
                     if(parsedBox) { const targetIdx = parseInt(parsedBox.getAttribute('data-index')); swapPhotosArrayOrder(draggedElementIndex, targetIdx, elementId); }
                 });
-
                 previewRow.appendChild(container);
             });
         }
 
         function swapPhotosArrayOrder(from, to, elementId) {
             if(from === null || to === null || from === to) return;
-            const moved = accumulatedFilesArray.splice(from, 1)[0];
-            accumulatedFilesArray.splice(to, 0, moved);
+            const moved = accumulatedFilesArray.splice(from, 1)[0]; accumulatedFilesArray.splice(to, 0, moved);
             renderAccumulatedThumbnailsGrid(elementId);
         }
 
@@ -960,10 +941,10 @@
             const title = document.getElementById(`${prefix}Title`).value.trim();
             const amazon = document.getElementById(`${prefix}Amazon`).value.trim();
             const text = document.getElementById(`${prefix}Text`).value.trim();
+            const rating = document.getElementById(`${prefix}Rating`).value.trim() || "4.8";
+            const reviews = document.getElementById(`${prefix}Reviews`).value.trim() || "95";
 
-            btn.innerText = "⚡ Syncing Cloud Vault Channels..."; btn.disabled = true;
-            let uploadedUrls = [];
-
+            btn.innerText = "⚡ Uploading..."; btn.disabled = true; let uploadedUrls = [];
             try {
                 for (let i = 0; i < accumulatedFilesArray.length; i++) {
                     let fItem = accumulatedFilesArray[i];
@@ -972,26 +953,38 @@
                     const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: "POST", body: fd });
                     const resJson = await res.json(); if(resJson.success) uploadedUrls.push(resJson.data.url);
                 }
-            } catch(err) { alert("❌ Media link synchronization broken."); btn.disabled = false; return; }
+            } catch(err) { alert("❌ File upload lost."); btn.disabled = false; return; }
 
             let videoSrc = (actionType === 'add') ? document.getElementById('formVideoSrc').value.trim() : "";
             let finalMediaArray = [...uploadedUrls]; if(videoSrc) finalMediaArray.unshift(videoSrc);
 
-            const activeNodeProduct = { pId, title, images: finalMediaArray, text, amazon };
+            const activeNodeProduct = { pId, title, images: finalMediaArray, text, amazon, rating, reviews };
             let activeList = blogData[category][subId] || [];
 
             if(actionType === 'add') { activeList.unshift(activeNodeProduct); } else {
-                // If unique pId key path was completely changed inside modifications overlays:
-                const idx = activeList.findIndex(p => p.pId === activeEditingId);
-                if(idx > -1) activeList[idx] = activeNodeProduct;
+                const idx = activeList.findIndex(p => p.pId === activeEditingId); if(idx > -1) activeList[idx] = activeNodeProduct;
             }
             blogData[category][subId] = activeList;
 
             try {
                 let completePayload = { productsCoreData: blogData, telemetryDatabase: telemetryDatabase };
                 const saveResponse = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Master-Key': MASTER_KEY }, body: JSON.stringify(completePayload) });
-                if(saveResponse.ok) { alert(`🎉 Cloud Master Database Synced!`); window.location.hash = `#${pId}`; location.reload(); }
-            } catch(ex) { alert("❌ Processing storage runtime dropped."); } finally { btn.disabled = false; }
+                
+                if(saveResponse.ok) { 
+                    if(actionType === 'add') {
+                        // 🎯 AFTER ADD PRODUCT SUCCESS: Show static copy link panel block parameters
+                        btn.disabled = false; btn.innerText = "🚀 Publish to Cloud Database";
+                        let generatedPath = window.location.origin + window.location.pathname + "#" + pId;
+                        document.getElementById('generatedAddProductUrlText').innerText = generatedPath;
+                        document.getElementById('addProductSuccessLinkBar').style.display = "flex";
+                        alert(`🎉 Product live inside cloud matrix registry! Copy path below.`);
+                        document.getElementById('adminProductForm').reset();
+                        accumulatedFilesArray = []; renderAccumulatedThumbnailsGrid('photoPreviewThumbnailsRow');
+                    } else {
+                        alert(`🎉 Overwrite Modifications Active!`); window.location.hash = `#${pId}`; location.reload();
+                    }
+                }
+            } catch(ex) { alert("❌ Cloud transmission broken."); btn.disabled = false; }
         }
 
         window.handleSearchEngine = function(query) {
@@ -1017,32 +1010,38 @@
         function generateMixedUrgencyBlock(seedKey, pIndex) {
             const alertStyles = [
                 `<div class="urgency-badge badge-red"><span class="pulse-dot"></span>Only 3 left in stock - Order Soon ⏱️</div>`,
-                `<div class="urgency-badge badge-orange"><span class="pulse-dot"></span>⚡ Selling Fast! High demand among creators</div>`
+                `<div class="urgency-badge badge-orange"><span class="pulse-dot"></span>⚡ Selling Fast! High demand among creators</div>`,
+                `<div class="urgency-badge badge-red"><span class="pulse-dot"></span>Only 5 remaining - Items selling out 🔥</div>`
             ];
             return alertStyles[(seedKey.charCodeAt(0) + pIndex) % alertStyles.length];
         }
 
+        function generateRandomSalesTracker(seedId) { return `<div class="sales-tracker"><div class="sales-tracker-icon">🛒</div><div><b>${23 + (getSeedMetricsHash(seedId) % 15)} people</b> ordered this layout package in the last 24 hours</div></div>`; }
+        function generateLiveShippingDateHtml() {
+            let deliveryDate = new Date(); deliveryDate.setDate(deliveryDate.getDate() + 2);
+            const daysList = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], monthsList = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            return `<div class="shipping-countdown">✈️ <span>Free Tracked Delivery! Guaranteed by <b>${daysList[deliveryDate.getDay()]}, ${monthsList[deliveryDate.getMonth()]} ${deliveryDate.getDate()}</b></span></div>`;
+        }
+
+        function generateSmartFaqAccordionHtml() {
+            return `<div class="faq-accordion-section"><div class="faq-header-label">⚙️ Specifications & FAQs</div><div class="accordion-tab"><button class="accordion-trigger" onclick="toggleAccordionTab(this)"><span>📦 Pack Manifest?</span><span class="accordion-icon-marker">+</span></button><div class="accordion-panel-content"><p>Includes official layout theme bundle and safe transit protective shields packaging keys.</p></div></div><div class="accordion-tab"><button class="accordion-trigger" onclick="toggleAccordionTab(this)"><span>🌐 Safe Transit Guarantee?</span><span class="accordion-icon-marker">+</span></button><div class="accordion-panel-content"><p>Triple-layer industrial bubble wrap matrix insulation to ensure zero shipping damage.</p></div></div></div>`;
+        }
+
+        window.toggleAccordionTab = function(btn) { const curr = btn.parentElement; curr.closest('.item-details').querySelectorAll('.accordion-tab').forEach(t => { if(t !== curr) t.classList.remove('active-tab'); }); curr.classList.toggle('active-tab'); }
+
         function route() {
             if (!Object.keys(blogData).length) return;
-            const hash = window.location.hash.replace('#', '');
-            const urlParams = new URLSearchParams(window.location.search);
-            
-            const adminPanel = document.getElementById('admin-dashboard-panel');
-            const homeView = document.getElementById('home-view');
-            const blogView = document.getElementById('blog-view');
-            const shopGrid = document.getElementById('shop-grid');
-            const mainProfileHeader = document.getElementById('main-profile-header');
-            const itemsContainer = document.getElementById('items-container');
+            const hash = window.location.hash.replace('#', ''); const urlParams = new URLSearchParams(window.location.search);
+            const adminPanel = document.getElementById('admin-dashboard-panel'); const homeView = document.getElementById('home-view');
+            const blogView = document.getElementById('blog-view'); const shopGrid = document.getElementById('shop-grid');
+            const mainProfileHeader = document.getElementById('main-profile-header'); const itemsContainer = document.getElementById('items-container');
 
             adminPanel.style.display = "none"; blogView.style.display = "none"; homeView.style.display = "block"; mainProfileHeader.style.display = "block"; shopGrid.classList.remove('bottom-divider');
 
             if(hash === "admin") {
                 mainProfileHeader.style.display = "none"; shopGrid.classList.add('bottom-divider'); adminPanel.style.display = "block";
-                if(!isAdminAuthenticated) {
-                    document.getElementById('adminAuthScreen').style.display = "flex"; document.getElementById('adminWorkspaceFormBlock').style.display = "none";
-                } else {
-                    document.getElementById('adminAuthScreen').style.display = "none"; document.getElementById('adminWorkspaceFormBlock').style.display = "block";
-                }
+                if(!isAdminAuthenticated) { document.getElementById('adminAuthScreen').style.display = "flex"; document.getElementById('adminWorkspaceFormBlock').style.display = "none"; }
+                else { document.getElementById('adminAuthScreen').style.display = "none"; document.getElementById('adminWorkspaceFormBlock').style.display = "block"; }
                 return;
             }
 
@@ -1066,10 +1065,13 @@
                     if(product.images.length > 1) {
                         product.images.forEach((src, iIdx) => { if(iIdx < maxThumbs) { thumbsHtml += `<img class="thumb-img ${iIdx === 0 ? 'active' : ''}" id="thumb-${pIndex}-${iIdx}" src="${src}" onclick="jumpToImage(${pIndex}, ${iIdx}, '${src}')">`; } });
                     }
+                    syncTrafficLogToCloudCore(currentUserSessionToken, "Page Load", product.pId);
 
                     let viewportMediaHtml = isVideoFile(product.images[0]) 
                         ? `<video id="main-img-${pIndex}" class="blog-video-player" src="${product.images[0]}" controls autoplay loop muted playsinline></video>`
-                        : `<img id="main-img-${pIndex}" class="blog-img" src="${product.images[0]}" onclick="checkClickOrSwipe(event, pIndex, '${product.images[0]}')" draggable="false">`;
+                        : `<img id="main-img-${pIndex}" class="blog-img" src="${product.images[0]}" onclick="openFullPhoto(${pIndex}, '${product.images[0]}')">`;
+
+                    let starScore = product.rating || "4.8"; let reviewCount = product.reviews || "95";
 
                     itemsContainer.innerHTML += `
                         <div class="item-card" id="p-card-${product.pId}">
@@ -1081,7 +1083,18 @@
                             </div>
                             <div class="item-details">
                                 <h3 class="blog-title">${product.title}</h3>
+                                
+                                <div class="rating-wrapper">
+                                    <span class="rating-stars">⭐⭐⭐⭐⭐</span>
+                                    <span>${starScore}</span>
+                                    <span class="rating-count">(${reviewCount} verified reviews)</span>
+                                </div>
+
+                                <div>${generateMixedUrgencyBlock(product.pId, pIndex)}</div>
                                 <p class="blog-text">${product.text}</p>
+                                ${generateRandomSalesTracker(product.pId)}
+                                ${generateLiveShippingDateHtml()}
+                                ${generateSmartFaqAccordionHtml()}
                                 <a href="${product.amazon}" target="_blank" class="amazon-btn" onclick="registerAffiliateOutboundClick('${product.pId}')">🛒 Buy Now</a>
                             </div>
                         </div>
