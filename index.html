@@ -260,7 +260,7 @@
         .item-details { display: flex; flex-direction: column; justify-content: flex-start; }
         .blog-title { font-size: 24px; margin-bottom: 8px; color: #fff; font-weight: 700; line-height: 1.3;}
 
-        /* ⭐ RATING SYSTEM UI */
+        /* ⭐ RATING FRAMEWORK INTERFACE */
         .rating-wrapper {
             display: flex; align-items: center; gap: 6px; margin-bottom: 12px; font-size: 14px; font-weight: 600; color: #ffb703;
         }
@@ -296,41 +296,16 @@
         
         .blog-text { color: var(--text-desc); font-size: 15px; line-height: 1.6; margin-bottom: 22px; }
         
-        /* 🛒 HIGH CONVERSION LIVE "BUY NOW" BUTTON WITH GLOW ANIMATION */
+        /* 🛒 GLOW ACTION SHIMMER "BUY NOW" BUTTON */
         .amazon-btn {
-            display: block; 
-            background: linear-gradient(90deg, #ff9900, #ffb74d, #ff9900); 
-            background-size: 200% auto; 
-            color: #111; 
-            text-align: center; 
-            padding: 18px; 
-            border-radius: 14px; 
-            font-weight: 800; 
-            text-decoration: none; 
-            font-size: 19px; 
-            text-transform: uppercase; 
-            letter-spacing: 1.5px; 
-            margin-bottom: 16px; 
-            box-shadow: 0 6px 20px rgba(255, 153, 0, 0.45);
-            transition: all 0.3s ease;
-            animation: pulseGlow 2s infinite ease-in-out;
-        }
-        .amazon-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 25px rgba(255, 153, 0, 0.6);
-        }
-
-        @keyframes pulseGlow {
-            0% { transform: scale(1); box-shadow: 0 6px 20px rgba(255, 153, 0, 0.45); }
-            50% { transform: scale(1.015); box-shadow: 0 6px 30px rgba(255, 153, 0, 0.7); }
-            100% { transform: scale(1); box-shadow: 0 6px 20px rgba(255, 153, 0, 0.45); }
+            display: block; background: linear-gradient(90deg, #ff9900, #ffb74d, #ff9900); background-size: 200% auto; color: #111; text-align: center; padding: 18px; border-radius: 14px; font-weight: 800; text-decoration: none; font-size: 18px; text-transform: uppercase; letter-spacing: 1px; animation: pulseGlow 2s infinite ease-in-out, shimmerBg 3s infinite linear; margin-bottom: 16px; box-shadow: 0 4px 15px rgba(255, 153, 0, 0.4);
         }
 
         .trust-tokens-row { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; align-items: center; width: 100%; opacity: 0.8;}
         .trust-tag { font-size: 11.5px; font-weight: 600; color: var(--text-desc); display: flex; align-items: center; gap: 5px;}
         .trust-tag span { color: #10b981; }
 
-        /* 📊 ADMIN METRICS RESPONSIVE PANELS */
+        /* 📊 ADMIN CONTROL CENTER (Fixed Anti-Bleed & Fully Mobile Wrap) */
         .admin-dashboard-view {
             display: none; width: 100%; max-width: 1100px; background: var(--card-bg); border: 2px solid var(--accent-color); border-radius: 20px; padding: 30px; margin-bottom: 40px; margin-left: auto; margin-right: auto; box-shadow: 0 20px 50px rgba(0, 188, 212, 0.25);
         }
@@ -368,12 +343,12 @@
         .search-item-row { padding: 12px 15px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; transition: background 0.2s;}
         .search-item-row:hover { background: rgba(0, 188, 212, 0.1); }
 
-        /* 📋 DYNAMIC INSTANT LINK GENERATOR */
+        /* 📋 DYNAMIC PIN CLIPBOARD INSTANT BAR */
         .copy-link-generator-bar {
             background: rgba(0, 188, 212, 0.05); border: 1px dashed var(--accent-color); padding: 15px; border-radius: 10px; margin-bottom: 20px; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap;
         }
 
-        /* 📸 MOBILE TOUCH PHOTO WORKSPACE */
+        /* 📸 MOBILE SLIDE INTERACTION MANAGEMENT MATRIX */
         .image-management-zone {
             display: flex; flex-wrap: wrap; gap: 12px; min-height: 120px; background: #090d14; border: 2px dashed rgba(255,255,255,0.1); border-radius: 12px; padding: 15px; margin-top: 10px;
         }
@@ -510,7 +485,7 @@
                         </div>
                         <div class="admin-form-group">
                             <label class="admin-label">Marketing Description Text</label>
-                            <textarea id="formText" class="admin-textarea" rows="4" placeholder="Enter copywriting text..." required></textarea>
+                            <textarea id="formText" class="admin-textarea" rows="4" placeholder="Enter product copy description..." required></textarea>
                         </div>
                         <button type="submit" id="submitFormMainBtn" class="admin-submit-btn">🚀 Publish to Cloud Database</button>
                     </form>
@@ -521,7 +496,7 @@
                     
                     <div class="admin-form-group">
                         <label class="admin-label" style="color:var(--urgency-orange);">🔍 Search Product to Overwrite (Type Name/Title or Unique pId):</label>
-                        <input type="text" id="searchEditPid" class="admin-input" placeholder="Type letters to scan registry fields..." oninput="triggerGlobalEditorSearch(this.value)">
+                        <input type="text" id="searchEditPid" class="admin-input" placeholder="Type data parameters to scan..." oninput="triggerGlobalEditorSearch(this.value)">
                         <div id="editorSearchResultsDropdown" class="search-results-box"></div>
                     </div>
 
@@ -754,15 +729,25 @@
                     blogData = data.record.productsCoreData; telemetryDatabase = data.record.telemetryDatabase || telemetryDatabase;
                 } else { blogData = data.record; }
                 
-                // 🛠️ FAIL-SAFE CORRECTION MATRIX LAYER
+                // 🛠️ ⚡ ULTIMATE STAGE STICKY REPAIR CORE MATRIX: Complete case repair engine overrides 
                 if(blogData.collect) {
-                    // Force synchronize nested nodes to completely eliminate case typos collision crashes
+                    if(!blogData.collect.figures) { blogData.collect.figures = []; }
+                    
                     Object.keys(blogData.collect).forEach(key => {
+                        // Scan for any capital variations like FIGURES, Figures, FIG etc.
                         if(key.toLowerCase() === "figures" && key !== "figures") {
-                            blogData.collect.figures = [...(blogData.collect.figures || []), ...(blogData.collect[key] || [])];
+                            console.log("Collision node tracked: Merging array variables structure layers.");
+                            let trappedList = blogData.collect[key] || [];
+                            trappedList.forEach(item => {
+                                if(!blogData.collect.figures.some(p => p.pId === item.pId)) {
+                                    blogData.collect.figures.push(item);
+                                }
+                            });
                             delete blogData.collect[key];
                         }
                     });
+                    // Force commit repair patch dynamically back onto cloud endpoints registry
+                    await pushSystemStateToCloudBin();
                 }
                 
                 if(sessionStorage.getItem('vf_admin_auth_token') === 'true') { isAdminAuthenticated = true; }
@@ -817,11 +802,6 @@
             document.getElementById('admin-stats-section').style.display = sectionKey === 'stats' ? 'block' : 'none';
             if(sectionKey === 'stats') renderLiveTelemetryDashboardView();
         }
-
-        setInterval(() => {
-            const clockNode = document.getElementById('analyticsUSClockNode');
-            if(clockNode) clockNode.innerText = new Date().toLocaleTimeString("en-US", {timeZone: "America/New_York"});
-        }, 1000);
 
         function renderLiveTelemetryDashboardView() {
             document.getElementById('stat-total-visits').innerText = telemetryDatabase.totalVisVisits || 0;
@@ -1091,7 +1071,7 @@
             let page = urlParams.get('page'); let id = urlParams.get('id') ? urlParams.get('id').toLowerCase() : null; 
             let targetProduct = urlParams.get('product') || hash;
             
-            // 🛠️ FAIL-SAFE LAYER FOR DIRECT DEEP LINKS REDIRECTS
+            // 🛠️ FAIL-SAFE ROUTING TRACKER FOR EXPLICIT PINTEREST HASHTAG DIRECT LINKS
             if (targetProduct && (!page || !id)) {
                 Object.keys(blogData).forEach(pK => { 
                     Object.keys(blogData[pK]).forEach(idK => { 
@@ -1127,7 +1107,7 @@
 
                     let viewportMediaHtml = isVideoFile(product.images[0]) 
                         ? `<video id="main-img-${pIndex}" class="blog-video-player" src="${product.images[0]}" controls autoplay loop muted playsinline></video>`
-                        : `<img id="main-img-${pIndex}" class="blog-img" src="${product.images[0]}" onerror="this.src='https://via.placeholder.com/480/11161d/ffffff?text=Image+Not+Found+Inside+Storage'" onclick="checkClickOrSwipe(event, pIndex, '${product.images[0]}')" draggable="false">`;
+                        : `<img id="main-img-${pIndex}" class="blog-img" src="${product.images[0]}" onerror="this.src='https://via.placeholder.com/480/11161d/ffffff?text=Image+Not+Found'" onclick="checkClickOrSwipe(event, pIndex, '${product.images[0]}')" draggable="false">`;
 
                     let starScore = product.rating || "4.8"; let reviewCount = product.reviews || "95";
 
@@ -1220,7 +1200,7 @@
         window.moveModalSwipe = function(e) { if(!mSwiping) return; mCurX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; }
         window.endModalSwipe = function() { if(!mSwiping) return; mSwiping = false; if(Math.abs(mStartX - mCurX) > 40) { if(mStartX - mCurX > 0) window.modalNext(); else window.modalPrev(); } }
 
-        window.addEventListener('hashchange', route); fetchLiveCloudDatabase();
+        window.addEventListener('hashchange', route); window.addEventListener('popstate', route); fetchLiveCloudDatabase();
     </script>
 </body>
 </html>
