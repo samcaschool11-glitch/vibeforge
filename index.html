@@ -296,9 +296,34 @@
         
         .blog-text { color: var(--text-desc); font-size: 15px; line-height: 1.6; margin-bottom: 22px; }
         
-        /* 🛒 HIGH CONVERSION LIVE "BUY NOW" BUTTON */
+        /* 🛒 HIGH CONVERSION LIVE "BUY NOW" BUTTON WITH SHIMMER EFFECTS */
         .amazon-btn {
-            display: block; background: linear-gradient(90deg, #ff9900, #ffb74d, #ff9900); background-size: 200% auto; color: #111; text-align: center; padding: 18px; border-radius: 14px; font-weight: 800; text-decoration: none; font-size: 18px; text-transform: uppercase; letter-spacing: 1px; animation: pulseGlow 2s infinite ease-in-out, shimmerBg 3s infinite linear; margin-bottom: 16px; box-shadow: 0 4px 15px rgba(255, 153, 0, 0.4);
+            display: block; 
+            background: linear-gradient(90deg, #ff9900, #ffb74d, #ff9900); 
+            background-size: 200% auto; 
+            color: #111; 
+            text-align: center; 
+            padding: 18px; 
+            border-radius: 14px; 
+            font-weight: 800; 
+            text-decoration: none; 
+            font-size: 19px; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px; 
+            margin-bottom: 16px; 
+            box-shadow: 0 6px 20px rgba(255, 153, 0, 0.45);
+            transition: all 0.3s ease;
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+        .amazon-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(255, 153, 0, 0.6);
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); box-shadow: 0 6px 20px rgba(255, 153, 0, 0.45); }
+            50% { transform: scale(1.015); box-shadow: 0 6px 30px rgba(255, 153, 0, 0.7); }
+            100% { transform: scale(1); box-shadow: 0 6px 20px rgba(255, 153, 0, 0.45); }
         }
 
         .trust-tokens-row { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; align-items: center; width: 100%; opacity: 0.8;}
@@ -729,6 +754,12 @@
                     blogData = data.record.productsCoreData; telemetryDatabase = data.record.telemetryDatabase || telemetryDatabase;
                 } else { blogData = data.record; }
                 
+                // 🛠️ FAIL SAFE AUTO-FIX: Agar data galti se capital "FIGURES" node me chala gaya ho, toh use safe lowercase format me le aayein
+                if(blogData.collect && blogData.collect.FIGURES && !blogData.collect.figures) {
+                    blogData.collect.figures = blogData.collect.FIGURES;
+                    delete blogData.collect.FIGURES;
+                }
+                
                 if(sessionStorage.getItem('vf_admin_auth_token') === 'true') { isAdminAuthenticated = true; }
                 initializeVisitorTrackingCore(); route(); 
             } catch (err) { console.error("Database connection failure:", err); }
@@ -858,12 +889,12 @@
         }
 
         window.loadProductIntoFormWorkspace = function(cat, sub, pId) {
-            let matchedProduct = (blogData[cat] && blogData[cat][sub]) ? blogData[cat][sub].find(p => p.pId === pId) : null;
+            let matchedProduct = (blogData[cat] && blogData[cat][sub.toLowerCase()]) ? blogData[cat][sub.toLowerCase()].find(p => p.pId === pId) : null;
             if(!matchedProduct) return;
             
             activeEditingId = matchedProduct.pId;
             document.getElementById('editCategory').value = cat;
-            document.getElementById('editSubId').value = sub;
+            document.getElementById('editSubId').value = sub.toLowerCase();
             document.getElementById('editPid').value = matchedProduct.pId;
             document.getElementById('editTitle').value = matchedProduct.title;
             document.getElementById('editAmazon').value = matchedProduct.amazon;
@@ -885,7 +916,7 @@
         window.deleteActiveEditorProductNode = function() {
             if(!activeEditingId) return;
             let cat = document.getElementById('editCategory').value;
-            let sub = document.getElementById('editSubId').value;
+            let sub = document.getElementById('editSubId').value.toLowerCase();
             if(confirm("🚨 Delete this product completely?")) {
                 blogData[cat][sub] = blogData[cat][sub].filter(p => p.pId !== activeEditingId);
                 pushSystemStateToCloudBin().then(() => { alert("🗑️ Deleted!"); location.reload(); });
@@ -939,7 +970,7 @@
             e.preventDefault(); const prefix = actionType === 'add' ? 'form' : 'edit';
             const btn = document.getElementById(actionType === 'add' ? 'submitFormMainBtn' : 'submitEditFormMainBtn');
             const category = document.getElementById(`${prefix}Category`).value;
-            const subId = document.getElementById(`${prefix}SubId`).value;
+            const subId = document.getElementById(`${prefix}SubId`).value.toLowerCase(); // 🛠️ SAFE FORCE LOWERCASE
             const pId = document.getElementById(`${prefix}Pid`).value.trim().toLowerCase().replace(/\s+/g, '_');
             const title = document.getElementById(`${prefix}Title`).value.trim();
             const amazon = document.getElementById(`${prefix}Amazon`).value.trim();
@@ -958,8 +989,8 @@
                 }
             } catch(err) { alert("❌ File upload lost."); btn.disabled = false; return; }
 
-            let videoSrc = (actionType === 'add') ? document.getElementById('formVideoSrc').value.trim() : "";
-            let finalMediaArray = [...uploadedUrls]; if(videoSrc) finalMediaArray.unshift(videoSrc);
+            let videoSrc = (actionType === 'add') ? "" : ""; // Keeps arrays structured
+            let finalMediaArray = [...uploadedUrls];
 
             const activeNodeProduct = { pId, title, images: finalMediaArray, text, amazon, rating, reviews };
             let activeList = blogData[category][subId] || [];
@@ -1041,7 +1072,8 @@
 
         function route() {
             if (!Object.keys(blogData).length) return;
-            const hash = window.location.hash.replace('#', ''); const urlParams = new URLSearchParams(window.location.search);
+            const hash = window.location.hash.replace('#', '').trim().toLowerCase(); 
+            const urlParams = new URLSearchParams(window.location.search);
             const adminPanel = document.getElementById('admin-dashboard-panel'); const homeView = document.getElementById('home-view');
             const blogView = document.getElementById('blog-view'); const shopGrid = document.getElementById('shop-grid');
             const mainProfileHeader = document.getElementById('main-profile-header'); const itemsContainer = document.getElementById('items-container');
@@ -1055,9 +1087,18 @@
                 return;
             }
 
-            let page = urlParams.get('page'); let id = urlParams.get('id'); let targetProduct = urlParams.get('product') || hash;
-            if (hash && (!page || !id)) {
-                Object.keys(blogData).forEach(pK => { Object.keys(blogData[pK]).forEach(idK => { blogData[pK][idK].forEach(p => { if(p.pId === hash) { page = pK; id = idK; } }); }); });
+            let page = urlParams.get('page'); let id = urlParams.get('id') ? urlParams.get('id').toLowerCase() : null; 
+            let targetProduct = urlParams.get('product') || hash;
+            
+            // 🛠️ ROBUST SEARCH STRATEGY FOR PIN REDIRECTS
+            if (targetProduct && (!page || !id)) {
+                Object.keys(blogData).forEach(pK => { 
+                    Object.keys(blogData[pK]).forEach(idK => { 
+                        blogData[pK][idK].forEach(p => { 
+                            if(p.pId.toLowerCase() === targetProduct) { page = pK; id = idK.toLowerCase(); } 
+                        }); 
+                    }); 
+                });
             }
 
             if (page && id && blogData[page] && blogData[page][id]) {
@@ -1066,14 +1107,13 @@
                 
                 let productsList = [...blogData[page][id]];
                 if (targetProduct) {
-                    const fIdx = productsList.findIndex(p => p.pId === targetProduct);
+                    const fIdx = productsList.findIndex(p => p.pId.toLowerCase() === targetProduct);
                     if (fIdx > -1) { productsList.unshift(productsList.splice(fIdx, 1)[0]); }
                 }
 
                 productsList.forEach((product, pIndex) => {
                     activeIndices[pIndex] = 0; let thumbsHtml = ""; const maxThumbs = 5;
                     
-                    // 📸 RESTORE 6+ SWIPER IMAGES LOOP BOUNDARIES
                     if(product.images && product.images.length > 1) {
                         product.images.forEach((src, iIdx) => { 
                             if(iIdx < maxThumbs) { thumbsHtml += `<img class="thumb-img ${iIdx === 0 ? 'active' : ''}" id="thumb-${pIndex}-${iIdx}" src="${src}" onclick="jumpToImage(${pIndex}, ${iIdx}, '${src}')">`; } 
@@ -1113,7 +1153,7 @@
                                 ${generateRandomSalesTracker(product.pId)}
                                 ${generateLiveShippingDateHtml()}
                                 ${generateSmartFaqAccordionHtml()}
-                                <a href="${product.amazon}" target="_blank" class="amazon-btn" onclick="registerAffiliateOutboundClick('${product.pId}')">🛒 Buy Now</a>
+                                <a href="${product.amazon}" target="_blank" class="amazon-btn" onclick="registerAffiliateOutboundClick('${product.pId}')">🛒 BUY NOW</a>
                             </div>
                         </div>
                     `;
@@ -1144,7 +1184,7 @@
         window.endSwipe = function(cardIdx) {
             if (!isSwiping) return; isSwiping = false; const diffX = swipeStartX - swipeCurrentX;
             if (Math.abs(diffX) > 60) {
-                const urlParams = new URLSearchParams(window.location.search); let page = urlParams.get('page'), id = urlParams.get('id');
+                const urlParams = new URLSearchParams(window.location.search); let page = urlParams.get('page'), id = urlParams.get('id') ? urlParams.get('id').toLowerCase() : null;
                 let imgs = blogData[page][id][cardIdx].images; let cIdx = activeIndices[cardIdx];
                 if (diffX > 0) { cIdx = (cIdx < imgs.length - 1) ? cIdx + 1 : 0; } else { cIdx = (cIdx > 0) ? cIdx - 1 : imgs.length - 1; }
                 jumpToImage(cardIdx, cIdx, imgs[cIdx]);
@@ -1162,13 +1202,13 @@
         window.closeFullPhoto = function() { document.getElementById('fullScreenModal').style.display = "none"; }
 
         window.modalNext = function() {
-            const urlParams = new URLSearchParams(window.location.search); let page = urlParams.get('page'), id = urlParams.get('id');
+            const urlParams = new URLSearchParams(window.location.search); let page = urlParams.get('page'), id = urlParams.get('id') ? urlParams.get('id').toLowerCase() : null;
             let imgs = blogData[page][id][currentModalCardIndex].images; let idx = activeIndices[currentModalCardIndex];
             idx = (idx < imgs.length - 1) ? idx + 1 : 0; jumpToImage(currentModalCardIndex, idx, imgs[idx]);
             if(!isVideoFile(imgs[idx])) document.getElementById('modalMediaContainer').innerHTML = `<img class="modal-content" src="${imgs[idx]}">`;
         }
         window.modalPrev = function() {
-            const urlParams = new URLSearchParams(window.location.search); let page = urlParams.get('page'), id = urlParams.get('id');
+            const urlParams = new URLSearchParams(window.location.search); let page = urlParams.get('page'), id = urlParams.get('id') ? urlParams.get('id').toLowerCase() : null;
             let imgs = blogData[page][id][currentModalCardIndex].images; let idx = activeIndices[currentModalCardIndex];
             idx = (idx > 0) ? idx - 1 : imgs.length - 1; jumpToImage(currentModalCardIndex, idx, imgs[idx]);
             if(!isVideoFile(imgs[idx])) document.getElementById('modalMediaContainer').innerHTML = `<img class="modal-content" src="${imgs[idx]}">`;
